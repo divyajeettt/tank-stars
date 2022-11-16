@@ -36,9 +36,10 @@ public class TankStars extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(1, 0, 0, 1);
 		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(bgTexture, 0, 0);
-		batch.draw(vsTexture, 640 - 50, 360 - 100);
+		batch.draw(vsTexture, 640 - 50, 720 - 100);
 		batch.end();
 
 		tankRenderer.setProjectionMatrix(camera.combined);
