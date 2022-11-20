@@ -4,17 +4,15 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
@@ -76,12 +74,19 @@ class MainScreen implements Screen {
 	private int width,height;
 
 	TankStars game;
+	private Ground ground;
+	private ShapeRenderer renderer;
 	MainScreen (TankStars game) {
 	//	width = Gdx.graphics.getWidth();
 	//	height = Gdx.graphics.getHeight();
 		width = 1366;
 		height = 768;
 		this.game = game;
+		width = Gdx.graphics.getWidth();
+		height = Gdx.graphics.getHeight();
+
+		ground = new Ground(width);
+		renderer = new ShapeRenderer();
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
 
@@ -100,8 +105,17 @@ class MainScreen implements Screen {
 
 		Table table = new Table();
 		root.add(table).growX().align(Align.top).colspan(4);
+
+
+		Drawable menuDraw = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("menu.png"))));
 		menuButton = new Button(skin);
-		table.add(menuButton).align(Align.top | Align.left).padTop(10).expandX();
+		Value buttonHeight = Value.percentHeight(1f,menuButton);
+		Value buttonWidth = Value.percentWidth(1f, menuButton);
+		Button.ButtonStyle style = new Button.ButtonStyle();
+		style.up = menuDraw;
+		style.down = menuDraw;
+		menuButton.setStyle(style);
+		table.add(menuButton).align(Align.top | Align.left).padTop(10).expandX().width(buttonWidth).height(buttonHeight).padLeft(10);
 
 		HealthBar healthBar1 = new HealthBar(0, 100, 1, false, skin);
 		healthBar1.setCustomWidth((Value.percentWidth(7f,menuButton)).get());
@@ -110,7 +124,13 @@ class MainScreen implements Screen {
 		healthBar1.setValue(100);
 
 		Button vs = new Button(skin);
-		table.add(vs).align(Align.top).pad(10).width(Value.percentWidth(1f, menuButton));
+
+		Drawable vsDraw = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("vs.png"))));
+		Button.ButtonStyle vsStyle = new Button.ButtonStyle();
+		vsStyle.down = vsDraw;
+		vsStyle.up = vsDraw;
+		vs.setStyle(vsStyle);
+		table.add(vs).align(Align.top).pad(10).width(Value.percentWidth(1f, menuButton)).height(buttonHeight);
 
 		HealthBar healthBar2 = new HealthBar(0, 100, 1, false, skin);
 		healthBar2.setCustomWidth((Value.percentWidth(7f,menuButton)).get());
@@ -144,10 +164,17 @@ class MainScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		viewport.update(width, height);
-		batch.setProjectionMatrix(camera.combined);
+		batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
 		batch.begin();
 		batch.draw(background, 0, 0, width, height);
 		batch.end();
+
+		renderer.setColor(0f,1f,0f,1f);
+		renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
+		renderer.begin(ShapeRenderer.ShapeType.Filled);
+		ground.draw(renderer);
+		renderer.end();
+
 		stage.act();
 		stage.draw();
 	}
@@ -155,8 +182,11 @@ class MainScreen implements Screen {
 
 	@Override
 	public void resize (int width, int height) {
+		this.width = width;
+		this.height = height;
 		stage.getViewport().update(width, height, true);
-		
+		camera.setToOrtho(false,width,height);
+		camera.update();
 	}
 
 	@Override
@@ -182,5 +212,7 @@ class MainScreen implements Screen {
 	public void dispose () {
 		skin.dispose();
 		stage.dispose();
+		batch.dispose();
+		background.dispose();
 	}
 }

@@ -3,6 +3,8 @@ package com.dragonjeet.tankstars;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.Gdx;
+
 import com.dragonjeet.tankstars.TankStars;
 
 import java.awt.*;
@@ -13,6 +15,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Tank Stars");
+		config.setFullscreenMode(config.getDisplayMode());
 		new Lwjgl3Application(new TankStars(), config);
 	}
 }

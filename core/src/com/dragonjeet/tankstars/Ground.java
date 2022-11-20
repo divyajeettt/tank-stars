@@ -1,5 +1,7 @@
 package com.dragonjeet.tankstars;
 import java.util.ArrayList;
+import java.lang.Math;
+import java.util.Random;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 class Ground {
@@ -9,7 +11,24 @@ class Ground {
         this.width = width;
         heights = new ArrayList<Double>();
         for(int i = 0; i < width; i++) {
-            heights.add(20.0);
+            heights.add(0.0);
+        }
+        randomize();
+    }
+
+    void randomize() {
+        Random rng = new Random();
+        for (int i = 0; i < 4;i++) {
+            int mean = 400 - rng.nextInt(300);
+            double freq = 1f / (200 - rng.nextInt(100));
+            double amp = 100 - rng.nextInt(90);
+            double shift = 10*rng.nextDouble();
+            for (int j = 0;j<width;j++) {
+                heights.set(j, heights.get(j) + amp*Math.sin(j*freq + shift) + mean);
+            }
+        }
+        for (int j = 0;j<width;j++) {
+            heights.set(j, heights.get(j)/4);
         }
     }
 
