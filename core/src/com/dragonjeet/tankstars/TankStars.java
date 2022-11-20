@@ -2,6 +2,8 @@ package com.dragonjeet.tankstars;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
@@ -48,27 +50,38 @@ class HealthBar extends ProgressBar {
 
 }
 
+public class TankStars extends Game {
+	public void create() {
+		this.setScreen(new MainMenu(this));
+	}
+
+	public void render() {
+		super.render();
+	}
+}
 
 
 
-public class TankStars extends ApplicationAdapter {
+
+class MainScreen implements Screen {
 
 	private Stage stage;
 	private Button menuButton;
 	private Skin skin;
 	private Table root;
-	private SpriteBatch batch;
+	SpriteBatch batch;
 	private Texture background;
 	private OrthographicCamera camera;
 	private Viewport viewport;
 	private int width,height;
 
-	@Override
-	public void create () {
+	TankStars game;
+	MainScreen (TankStars game) {
 	//	width = Gdx.graphics.getWidth();
 	//	height = Gdx.graphics.getHeight();
 		width = 1366;
 		height = 768;
+		this.game = game;
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
 
@@ -125,7 +138,7 @@ public class TankStars extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
+	public void render (float d) {
 		//Log screen width and height
 		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -146,6 +159,25 @@ public class TankStars extends ApplicationAdapter {
 		
 	}
 
+	@Override
+	public void show() {
+
+	}
+
+
+	@Override
+	public void pause() {
+
+	}
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
+
+	}
 	@Override
 	public void dispose () {
 		skin.dispose();
