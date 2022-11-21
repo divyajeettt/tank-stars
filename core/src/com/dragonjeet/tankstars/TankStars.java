@@ -60,8 +60,8 @@ public class TankStars extends Game {
 	public void create() {
 		batch = new SpriteBatch();
 		ground = new Ground(Gdx.graphics.getWidth());
-		tank1 = new Tank(100,100,50,50,ground);
-		tank2 = new Tank(200,200,50,50,ground);
+		tank1 = new Tank(100,100,59,100,ground);
+		tank2 = new Tank(1000,200,59,100,ground,true);
 		this.setScreen(new MainMenu(this));
 	}
 
@@ -157,7 +157,7 @@ class MainScreen implements Screen {
 
 		root.row();
 
-		Button fuelBar = new Button(skin);
+		Button fuelBar = new TextButton("Fuel",skin);
 		root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f,pauseButton)).expandY();
 		
 		Button selector = new Button(skin);
@@ -173,12 +173,25 @@ class MainScreen implements Screen {
 
 		root.row();
 
-		Button leftButton = new Button(skin);
-		root.add(leftButton).align(Align.right).width(Value.percentWidth(1.2f, pauseButton)).height(Value.percentHeight(1f,pauseButton)).expandY();
-
-		Button rightButton = new Button(skin);
-		root.add(rightButton).align(Align.left).padLeft(5).width(Value.percentWidth(1.2f, pauseButton)).height(Value.percentHeight(1f,pauseButton)).expandY();
-
+		Touchpad.TouchpadStyle moveStyle = new Touchpad.TouchpadStyle();
+		moveStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("transparent.png"))));
+		moveStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("aim.png"))));
+		final Touchpad moveButton = new Touchpad(0,moveStyle);
+		moveButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (moveButton.getKnobPercentX()> 0) {
+					game.tank1.xVelocity = 1;
+				}
+				else if (moveButton.getKnobPercentX()< 0) {
+					game.tank1.xVelocity = -1;
+				}
+				else {
+					game.tank1.xVelocity = 0;
+				}
+			}
+		});
+		root.add(moveButton).align(Align.left).expandY();
 		root.add().expandX().width(Value.percentWidth(1f,pauseButton)).expandY();
 
 		Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle();
@@ -199,7 +212,9 @@ class MainScreen implements Screen {
 		game.batch.begin();
 		game.batch.draw(background, 0, 0, width, height);
 		game.tank1.draw(game.batch);
+		game.tank1.move();
 		game.tank2.draw(game.batch);
+		game.tank2.move();
 		game.batch.end();
 
 		renderer.setColor(0f,1f,0f,1f);
