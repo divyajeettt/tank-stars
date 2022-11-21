@@ -155,7 +155,7 @@ class MainScreen implements Screen {
 
 		root.row();
 
-		Button fuelBar = new Button(skin);
+		Button fuelBar = new TextButton("Fuel",skin);
 		root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, menuButton)).height(Value.percentHeight(0.5f,menuButton)).expandY();
 		
 		Button selector = new Button(skin);

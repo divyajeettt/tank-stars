@@ -213,6 +213,14 @@ class PauseMenu extends Menu {
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("saveDown.png"))))
         );
 
+        save.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new LoadMenu(game));
+                dispose();
+            }
+        });
+
         ImageButton returnHome = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("returnHomeUp.png")))),
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("returnHomeDown.png"))))
@@ -252,7 +260,44 @@ class SavedMenu extends Menu {
         table.add(new TextButton("Empty slot",skin)).growX().pad(10);
         table.row();
 
-        Button goBack = new TextButton("Go back",skin);
+        Button goBack = new Button(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
+        );
+
+        goBack.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new MainMenu(game));
+                dispose();
+            }
+        });
+
+        table.add(goBack).pad(50);
+        setUi(table);
+    }
+}
+
+class LoadMenu extends Menu {
+
+    LoadMenu(final TankStars game) {
+        super(game);
+        Table table = new Table();
+        table.add(new Label("Save your game",skin)).align(Align.center);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+
+        Button goBack = new Button(
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
+        );
 
         goBack.addListener(new ChangeListener() {
             @Override
