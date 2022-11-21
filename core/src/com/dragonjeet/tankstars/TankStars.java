@@ -53,12 +53,21 @@ class HealthBar extends ProgressBar {
 public class TankStars extends Game {
 
 	SpriteBatch batch;
+	private Ground ground;
+
+	Tank tank1,tank2;
 
 	public void create() {
 		batch = new SpriteBatch();
+		ground = new Ground(Gdx.graphics.getWidth());
+		tank1 = new Tank(100,100,50,50,ground);
+		tank2 = new Tank(200,200,50,50,ground);
 		this.setScreen(new MainMenu(this));
 	}
 
+	Ground getGround() {
+		return ground;
+	}
 	public void render() {
 		super.render();
 	}
@@ -79,18 +88,11 @@ class MainScreen implements Screen {
 	private int width,height;
 
 	final TankStars game;
-	private Ground ground;
 	private ShapeRenderer renderer;
 	MainScreen (final TankStars game) {
-	//	width = Gdx.graphics.getWidth();
-	//	height = Gdx.graphics.getHeight();
-		width = 1366;
-		height = 768;
-		this.game = game;
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();
-
-		ground = new Ground(width);
+		this.game = game;
 		renderer = new ShapeRenderer();
 		background = new Texture("background.png");
 
@@ -196,12 +198,14 @@ class MainScreen implements Screen {
 		game.batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
 		game.batch.begin();
 		game.batch.draw(background, 0, 0, width, height);
+		game.tank1.draw(game.batch);
+		game.tank2.draw(game.batch);
 		game.batch.end();
 
 		renderer.setColor(0f,1f,0f,1f);
 		renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
 		renderer.begin(ShapeRenderer.ShapeType.Filled);
-		ground.draw(renderer);
+		game.getGround().draw(renderer);
 		renderer.end();
 
 		stage.act();

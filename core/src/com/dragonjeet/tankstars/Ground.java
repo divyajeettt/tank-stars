@@ -36,5 +36,10 @@ class Ground {
         for(int i = 0; i < width; i++) {
             shapeRenderer.rect(i, 0, 1, heights.get(i).floatValue());
         }
-    }        
+    }
+
+    double getHeight(int x) {
+        return heights.get(x);
+    }
+
 }
