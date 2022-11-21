@@ -112,7 +112,6 @@ class SelectionMenu extends Menu {
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-
         table.add().grow();
         Table childTable = new Table();
         table.add(childTable).grow();
@@ -120,17 +119,20 @@ class SelectionMenu extends Menu {
         Label choose = new Label("Choose Tank",skin);
         childTable.add(choose).colspan(3).expand().align(Align.center);
 
-        ImageButton tank1 = new ImageButton(skin);
-        ImageButton tank2 = new ImageButton(skin);
-        ImageButton tank3 = new ImageButton(skin);
+        TextureRegionDrawable tankDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("helios-small.png")));
+        Button tank1 = new Button(tankDrawable,tankDrawable);
+        Button tank2 = new Button(tankDrawable,tankDrawable);
+        Button tank3 = new Button(tankDrawable,tankDrawable);
+
         childTable.row();
         childTable.add(tank1).expand().align(Align.right);
         childTable.add(tank2).expand();
         childTable.add(tank3).expand().align(Align.left);
         childTable.row();
 
-        TextureRegionDrawable newGameDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("start.png")));
-        Button newGame = new Button(newGameDrawable,newGameDrawable);
+        TextureRegionDrawable newGameUp = new TextureRegionDrawable(new TextureRegion(new Texture("startUp.png")));
+        TextureRegionDrawable newGameDown = new TextureRegionDrawable(new TextureRegion(new Texture("startDown.png")));
+        Button newGame = new Button(newGameUp,newGameDown);
 
         newGame.addListener(new ChangeListener() {
             @Override
@@ -152,7 +154,7 @@ class PauseMenu extends Menu {
         table.setFillParent(true);
         stage.addActor(table);
 
-        TextureRegionDrawable resumeDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("resume.png")));
+        TextureRegionDrawable resumeDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("resumeUp.png")));
         Button resume = new Button(resumeDrawable,resumeDrawable);
 
         resume.addListener(new ChangeListener() {
@@ -163,10 +165,51 @@ class PauseMenu extends Menu {
             }
         });
 
-        TextureRegionDrawable saveDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("save.png")));
+        TextureRegionDrawable saveDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("saveUp.png")));
         Button save = new Button(saveDrawable,saveDrawable);
 
-        TextureRegionDrawable exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("exit.png")));
+        TextureRegionDrawable exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("exitDown.png")));
+        Button exit = new Button(exitDrawable,exitDrawable);
+        exit.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new MainMenu(game));
+                dispose();
+            }
+        });
+
+        table.row();
+        table.add(resume).pad(20);
+        table.row();
+        table.add(save).pad(20);
+        table.row();
+        table.add(exit).pad(20);
+        setUi(table);
+    }
+}
+
+class LoadMenu extends Menu {
+    public LoadMenu(final TankStars game) {
+        super(game);
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        TextureRegionDrawable resumeDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("resumeUp.png")));
+        Button resume = new Button(resumeDrawable,resumeDrawable);
+
+        resume.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new MainScreen(game));
+                dispose();
+            }
+        });
+
+        TextureRegionDrawable saveDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("saveUp.png")));
+        Button save = new Button(saveDrawable,saveDrawable);
+
+        TextureRegionDrawable exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("exitUp.png")));
         Button exit = new Button(exitDrawable,exitDrawable);
         exit.addListener(new ChangeListener() {
             @Override
