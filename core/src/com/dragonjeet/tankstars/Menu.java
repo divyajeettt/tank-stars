@@ -115,6 +115,15 @@ class MainMenu extends Menu {
             Gdx.graphics.getWidth()/2f - loadGame.getWidth()/2,
             Gdx.graphics.getHeight()/2f - 2*loadGame.getHeight()
         );
+
+        loadGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new SavedMenu(game));
+                dispose();
+            }
+        });
+
         stage.addActor(loadGame);
 
         ImageButton exitGame = new ImageButton(
@@ -220,7 +229,13 @@ class PauseMenu extends Menu {
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("saveDown.png"))))
         );
 
-        // Load saved game menu
+        save.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new LoadMenu(game));
+                dispose();
+            }
+        });
 
         ImageButton returnHome = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("returnHomeUp.png")))),
@@ -241,6 +256,74 @@ class PauseMenu extends Menu {
         table.add(save).pad(20);
         table.row();
         table.add(returnHome).pad(20);
+        setUi(table);
+    }
+}
+
+class SavedMenu extends Menu {
+
+    SavedMenu(final TankStars game) {
+        super(game);
+        Table table = new Table();
+        table.add(new Label("List of saved games",skin)).align(Align.center);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+
+        Button goBack = new Button(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
+        );
+
+        goBack.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new MainMenu(game));
+                dispose();
+            }
+        });
+
+        table.add(goBack).pad(50);
+        setUi(table);
+    }
+}
+
+class LoadMenu extends Menu {
+
+    LoadMenu(final TankStars game) {
+        super(game);
+        Table table = new Table();
+        table.add(new Label("Save your game",skin)).align(Align.center);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+
+        Button goBack = new Button(
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
+        );
+
+        goBack.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new MainMenu(game));
+                dispose();
+            }
+        });
+
+        table.add(goBack).pad(50);
         setUi(table);
     }
 }
