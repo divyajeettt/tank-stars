@@ -117,6 +117,15 @@ class MainMenu extends Menu {
                 Gdx.graphics.getWidth()/2f - loadGame.getWidth()/2,
                 Gdx.graphics.getHeight()/2f - 2*loadGame.getHeight()
         );
+
+        loadGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new SavedMenu(game));
+                dispose();
+            }
+        });
+
         stage.addActor(loadGame);
 
         ImageButton exitGame = new ImageButton(
@@ -223,6 +232,37 @@ class PauseMenu extends Menu {
         table.add(save).pad(20);
         table.row();
         table.add(returnHome).pad(20);
+        setUi(table);
+    }
+}
+
+class SavedMenu extends Menu {
+
+    SavedMenu(final TankStars game) {
+        super(game);
+        Table table = new Table();
+        table.add(new Label("List of saved games",skin)).align(Align.center);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
+        table.row();
+
+        Button goBack = new TextButton("Go back",skin);
+
+        goBack.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new MainMenu(game));
+                dispose();
+            }
+        });
+
+        table.add(goBack).pad(50);
         setUi(table);
     }
 }
