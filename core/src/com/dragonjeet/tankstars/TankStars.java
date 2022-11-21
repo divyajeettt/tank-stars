@@ -70,7 +70,7 @@ public class TankStars extends Game {
 class MainScreen implements Screen {
 
 	private Stage stage;
-	private Button menuButton;
+	private Button pauseButton;
 	private Skin skin;
 	private Table root;
 	private Texture background;
@@ -110,28 +110,28 @@ class MainScreen implements Screen {
 		Table table = new Table();
 		root.add(table).growX().align(Align.top).colspan(4);
 
-
-		Drawable menuDraw = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("menu.png"))));
-		menuButton = new Button(skin);
-		Value buttonHeight = Value.percentHeight(1f,menuButton);
-		Value buttonWidth = Value.percentWidth(1f, menuButton);
+		pauseButton = new Button(skin);
+		Value buttonHeight = Value.percentHeight(1f,pauseButton);
+		Value buttonWidth = Value.percentWidth(1f, pauseButton);
 		Button.ButtonStyle style = new Button.ButtonStyle();
-		style.up = menuDraw;
-		style.down = menuDraw;
-		menuButton.setStyle(style);
-		menuButton.addListener(new ChangeListener() {
+		style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("pauseUp.png"))));
+		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("pauseDown.png"))));
+		pauseButton.setStyle(style);
+
+		pauseButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				game.setScreen(new PauseMenu(game));
 				dispose();
 			}
-		});	
-		table.add(menuButton).align(Align.top | Align.left).padTop(10).expandX().width(buttonWidth).height(buttonHeight).padLeft(10);
+		});
+
+		table.add(pauseButton).align(Align.top | Align.left).padTop(10).expandX().width(buttonWidth).height(buttonHeight).padLeft(10);
 
 		HealthBar healthBar1 = new HealthBar(0, 100, 1, false, skin);
-		healthBar1.setCustomWidth((Value.percentWidth(7f,menuButton)).get());
-		healthBar1.setCustomHeight((Value.percentHeight(1f,menuButton)).get());
-		table.add(healthBar1).align(Align.top).padTop(10).width(Value.percentWidth(7f, menuButton)).height(Value.percentHeight(1f, menuButton));
+		healthBar1.setCustomWidth((Value.percentWidth(7f,pauseButton)).get());
+		healthBar1.setCustomHeight((Value.percentHeight(1f,pauseButton)).get());
+		table.add(healthBar1).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
 		healthBar1.setValue(100);
 
 		Button vs = new Button(skin);
@@ -141,46 +141,43 @@ class MainScreen implements Screen {
 		vsStyle.down = vsDraw;
 		vsStyle.up = vsDraw;
 		vs.setStyle(vsStyle);
-		table.add(vs).align(Align.top).pad(10).width(Value.percentWidth(1f, menuButton)).height(buttonHeight);
+		table.add(vs).align(Align.top).pad(10).width(Value.percentWidth(1f, pauseButton)).height(buttonHeight);
 
 		HealthBar healthBar2 = new HealthBar(0, 100, 1, false, skin);
-		healthBar2.setCustomWidth((Value.percentWidth(7f,menuButton)).get());
-		healthBar2.setCustomHeight((Value.percentHeight(2f,menuButton)).get());
-		table.add(healthBar2).align(Align.top).padTop(10).width(Value.percentWidth(7f, menuButton)).height(Value.percentHeight(1f, menuButton));
+		healthBar2.setCustomWidth((Value.percentWidth(7f,pauseButton)).get());
+		healthBar2.setCustomHeight((Value.percentHeight(2f,pauseButton)).get());
+		table.add(healthBar2).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
 		healthBar2.setValue(100);
 
 		Button invisButton = new Button(skin);
 		invisButton.setColor(0.5f, 0.5f, 0.5f, 0f);
-		table.add(invisButton).align(Align.top | Align.right).padTop(10).width(Value.percentWidth(1f, menuButton)).expandX();
+		table.add(invisButton).align(Align.top | Align.right).padTop(10).width(Value.percentWidth(1f, pauseButton)).expandX();
 
 		root.row();
 
 		Button fuelBar = new Button(skin);
-		root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, menuButton)).height(Value.percentHeight(0.5f,menuButton)).expandY();
+		root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f,pauseButton)).expandY();
 		
 		Button selector = new Button(skin);
-		root.add(selector).width(Value.percentWidth(2f, menuButton)).height(Value.percentHeight(1.5f,menuButton)).padTop(80).expandY();
-
-//		Drawable fireDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fire.png"))));
-//		Button fireButton = new Button(fireDrawable,fireDrawable);
+		root.add(selector).width(Value.percentWidth(2f, pauseButton)).height(Value.percentHeight(1.5f,pauseButton)).padTop(80).expandY();
 
 		ImageButton fireButton = new ImageButton(
 			new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fireUp.png")))),
 			new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fireDown.png"))))
 		);
 
-		root.add(fireButton).align(Align.left).padLeft(5).padTop(80).width(Value.percentWidth(2f, menuButton)).height(Value.percentHeight(1.5f,menuButton)).expandY();
+		root.add(fireButton).align(Align.left).padLeft(5).padTop(80).width(Value.percentWidth(2f, pauseButton)).height(Value.percentHeight(1.5f,pauseButton)).expandY();
 		root.add().expandX().width(Value.percentWidth(1f,fuelBar)).expandY();
 
 		root.row();
 
 		Button leftButton = new Button(skin);
-		root.add(leftButton).align(Align.right).width(Value.percentWidth(1.2f, menuButton)).height(Value.percentHeight(1f,menuButton)).expandY();
+		root.add(leftButton).align(Align.right).width(Value.percentWidth(1.2f, pauseButton)).height(Value.percentHeight(1f,pauseButton)).expandY();
 
 		Button rightButton = new Button(skin);
-		root.add(rightButton).align(Align.left).padLeft(5).width(Value.percentWidth(1.2f, menuButton)).height(Value.percentHeight(1f,menuButton)).expandY();
+		root.add(rightButton).align(Align.left).padLeft(5).width(Value.percentWidth(1.2f, pauseButton)).height(Value.percentHeight(1f,pauseButton)).expandY();
 
-		root.add().expandX().width(Value.percentWidth(1f,menuButton)).expandY();
+		root.add().expandX().width(Value.percentWidth(1f,pauseButton)).expandY();
 
 		Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle();
 		touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("aim.png"))));
