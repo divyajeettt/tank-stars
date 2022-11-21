@@ -3,10 +3,13 @@ package com.dragonjeet.tankstars;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -23,7 +26,12 @@ class MainMenu implements Screen {
         stage.addActor(table);
 
         Skin skin = new Skin(Gdx.files.internal("orangepeelui/uiskin.json"));
-        TextButton newGame = new TextButton("New Game", skin);
+
+        Texture texture = new Texture(Gdx.files.internal("start.png"));
+        TextureRegion region = new TextureRegion(texture);
+        TextureRegionDrawable tex = new TextureRegionDrawable(region);
+
+        ImageButton newGame = new ImageButton(tex);
 
         newGame.addListener(new ChangeListener() {
             @Override
@@ -34,16 +42,23 @@ class MainMenu implements Screen {
         });
 
         table.add(newGame).expand().align(Align.center);
-
         table.row();
 
-        TextButton resumeGame = new TextButton("Resume Game",skin);
-        table.add(resumeGame).expand().align(Align.center);
+        texture = new Texture(Gdx.files.internal("load.png"));
+        region = new TextureRegion(texture);
+        tex = new TextureRegionDrawable(region);
+        ImageButton loadGame = new ImageButton(tex);
 
+        table.add(loadGame).expand().align(Align.center);
         table.row();
 
-        TextButton exitGame = new TextButton("Exit game", skin);
+        texture = new Texture(Gdx.files.internal("exit.png"));
+        region = new TextureRegion(gtexture);
+        tex = new TextureRegionDrawable(region);
+        ImageButton exitGame = new ImageButton(tex);
+
         table.add(exitGame).expand().align(Align.center);
+        table.row();
     }
 
     @Override
