@@ -1,13 +1,15 @@
 package com.dragonjeet.tankstars;
 
-import com.badlogic.gdx.ApplicationAdapter;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -49,7 +51,11 @@ class HealthBar extends ProgressBar {
 }
 
 public class TankStars extends Game {
+
+	SpriteBatch batch;
+
 	public void create() {
+		batch = new SpriteBatch();
 		this.setScreen(new MainMenu(this));
 	}
 
@@ -67,16 +73,15 @@ class MainScreen implements Screen {
 	private Button menuButton;
 	private Skin skin;
 	private Table root;
-	SpriteBatch batch;
 	private Texture background;
 	private OrthographicCamera camera;
 	private Viewport viewport;
 	private int width,height;
 
-	TankStars game;
+	final TankStars game;
 	private Ground ground;
 	private ShapeRenderer renderer;
-	MainScreen (TankStars game) {
+	MainScreen (final TankStars game) {
 	//	width = Gdx.graphics.getWidth();
 	//	height = Gdx.graphics.getHeight();
 		width = 1366;
@@ -87,7 +92,6 @@ class MainScreen implements Screen {
 
 		ground = new Ground(width);
 		renderer = new ShapeRenderer();
-		batch = new SpriteBatch();
 		background = new Texture("background.png");
 
 		camera = new OrthographicCamera(width, height);
@@ -115,6 +119,13 @@ class MainScreen implements Screen {
 		style.up = menuDraw;
 		style.down = menuDraw;
 		menuButton.setStyle(style);
+		menuButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.setScreen(new PauseMenu(game));
+				dispose();
+			}
+		});	
 		table.add(menuButton).align(Align.top | Align.left).padTop(10).expandX().width(buttonWidth).height(buttonHeight).padLeft(10);
 
 		HealthBar healthBar1 = new HealthBar(0, 100, 1, false, skin);
@@ -150,11 +161,27 @@ class MainScreen implements Screen {
 		Button selector = new Button(skin);
 		root.add(selector).width(Value.percentWidth(2f, menuButton)).height(Value.percentHeight(1.5f,menuButton)).padTop(80).expandY();
 
-		Button fireButton = new Button(skin);
+		Drawable fireDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fire.png"))));
+		Button fireButton = new Button(fireDrawable,fireDrawable);
+
 		root.add(fireButton).align(Align.left).padLeft(5).padTop(80).width(Value.percentWidth(2f, menuButton)).height(Value.percentHeight(1.5f,menuButton)).expandY();
 		root.add().expandX().width(Value.percentWidth(1f,fuelBar)).expandY();
 
 		root.row();
+
+		Button leftButton = new Button(skin);
+		root.add(leftButton).align(Align.right).width(Value.percentWidth(1.2f, menuButton)).height(Value.percentHeight(1f,menuButton)).expandY();
+
+		Button rightButton = new Button(skin);
+		root.add(rightButton).align(Align.left).padLeft(5).width(Value.percentWidth(1.2f, menuButton)).height(Value.percentHeight(1f,menuButton)).expandY();
+
+		root.add().expandX().width(Value.percentWidth(1f,menuButton)).expandY();
+
+		Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle();
+		touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("aim.png"))));
+		touchpadStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("transparent.png"))));
+		Touchpad touchpad = new Touchpad(0, touchpadStyle);
+		root.add(touchpad).expandX().colspan(4);
 	}
 
 	@Override
@@ -164,10 +191,10 @@ class MainScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		viewport.update(width, height);
-		batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
-		batch.begin();
-		batch.draw(background, 0, 0, width, height);
-		batch.end();
+		game.batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
+		game.batch.begin();
+		game.batch.draw(background, 0, 0, width, height);
+		game.batch.end();
 
 		renderer.setColor(0f,1f,0f,1f);
 		renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
@@ -212,7 +239,6 @@ class MainScreen implements Screen {
 	public void dispose () {
 		skin.dispose();
 		stage.dispose();
-		batch.dispose();
 		background.dispose();
 	}
 }
