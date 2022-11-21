@@ -16,21 +16,29 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 class MainMenu implements Screen {
     final TankStars game;
     private Stage stage;
-    private Table table;
     public MainMenu(final TankStars game) {
         this.game = game;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("orangepeelui/uiskin.json"));
+        // Adding image to fill the background
+        Texture backgroundTexture = new Texture(Gdx.files.internal("homescreen.jpg"));
+        TextureRegion backgroundTextureRegion = new TextureRegion(backgroundTexture);
+        TextureRegionDrawable backgroundTextureRegionDrawable = new TextureRegionDrawable(backgroundTextureRegion);
+        Image background = new Image(backgroundTextureRegionDrawable);
+        background.setFillParent(true);
+        background.setZIndex(0);
+        stage.addActor(background);
 
         ImageButton newGame = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startUp.png")))),
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startDown.png"))))
         );
+        newGame.setPosition(
+            Gdx.graphics.getWidth()/2f - newGame.getWidth()/2,
+            Gdx.graphics.getHeight()/2f
+        );
+        stage.addActor(newGame);
 
         newGame.addListener(new ChangeListener() {
             @Override
@@ -40,24 +48,32 @@ class MainMenu implements Screen {
             }
         });
 
-        table.add(newGame).expand().align(Align.center);
-        table.row();
-
         ImageButton loadGame = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadUp.png")))),
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadDown.png"))))
         );
-
-        table.add(loadGame).expand().align(Align.center);
-        table.row();
+        loadGame.setPosition(
+                Gdx.graphics.getWidth()/2f - loadGame.getWidth()/2,
+                Gdx.graphics.getHeight()/2f - 2*loadGame.getHeight()
+        );
+        stage.addActor(loadGame);
 
         ImageButton exitGame = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitUp.png")))),
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
         );
+        exitGame.setPosition(
+                Gdx.graphics.getWidth()/2f - exitGame.getWidth()/2,
+                Gdx.graphics.getHeight()/2f - 4*exitGame.getHeight()
+        );
+        stage.addActor(exitGame);
 
-        table.add(exitGame).expand().align(Align.center);
-        table.row();
+        exitGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
     }
 
     @Override
