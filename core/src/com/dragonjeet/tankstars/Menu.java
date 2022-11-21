@@ -53,7 +53,7 @@ class MainMenu implements Screen {
         table.row();
 
         texture = new Texture(Gdx.files.internal("exit.png"));
-        region = new TextureRegion(gtexture);
+        region = new TextureRegion(texture);
         tex = new TextureRegionDrawable(region);
         ImageButton exitGame = new ImageButton(tex);
 
