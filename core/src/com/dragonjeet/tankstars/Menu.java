@@ -21,9 +21,7 @@ public class Menu implements Screen {
     public Menu(final TankStars game) {
         skin = new Skin(Gdx.files.internal("orangepeelui/uiskin.json"));
         this.game = game;
-
         background = new Texture("background.png");
-
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
@@ -110,22 +108,22 @@ class MainMenu extends Menu {
         });
 
         ImageButton loadGame = new ImageButton(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadUp.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadDown.png"))))
         );
         loadGame.setPosition(
-                Gdx.graphics.getWidth()/2f - loadGame.getWidth()/2,
-                Gdx.graphics.getHeight()/2f - 2*loadGame.getHeight()
+            Gdx.graphics.getWidth()/2f - loadGame.getWidth()/2,
+            Gdx.graphics.getHeight()/2f - 2*loadGame.getHeight()
         );
         stage.addActor(loadGame);
 
         ImageButton exitGame = new ImageButton(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitUp.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
         );
         exitGame.setPosition(
-                Gdx.graphics.getWidth()/2f - exitGame.getWidth()/2,
-                Gdx.graphics.getHeight()/2f - 4*exitGame.getHeight()
+            Gdx.graphics.getWidth()/2f - exitGame.getWidth()/2,
+            Gdx.graphics.getHeight()/2f - 4*exitGame.getHeight()
         );
         stage.addActor(exitGame);
 
@@ -141,6 +139,9 @@ class MainMenu extends Menu {
 class SelectionMenu extends Menu {
     public SelectionMenu(final TankStars game) {
         super(game);
+
+        background = new Texture(Gdx.files.internal("selectionMenu.png"));
+
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -148,13 +149,16 @@ class SelectionMenu extends Menu {
         Table childTable = new Table();
         table.add(childTable).grow();
 
-        Label choose = new Label("Choose Tank",skin);
+        Label choose = new Label("Choose Tank", skin);
         childTable.add(choose).colspan(3).expand().align(Align.center);
+        // Do Something to remove the label and fix the positioning of the tank buttons
 
-        TextureRegionDrawable tankDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("helios-small.png")));
-        Button tank1 = new Button(tankDrawable,tankDrawable);
-        Button tank2 = new Button(tankDrawable,tankDrawable);
-        Button tank3 = new Button(tankDrawable,tankDrawable);
+        TextureRegionDrawable tankImage1 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-1.png")));
+        TextureRegionDrawable tankImage2 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-2.png")));
+        TextureRegionDrawable tankImage3 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-3.png")));
+        Button tank1 = new Button(tankImage1, tankImage1);
+        Button tank2 = new Button(tankImage2, tankImage2);
+        Button tank3 = new Button(tankImage3, tankImage3);
 
         childTable.row();
         childTable.add(tank1).expand().align(Align.right);
@@ -162,12 +166,12 @@ class SelectionMenu extends Menu {
         childTable.add(tank3).expand().align(Align.left);
         childTable.row();
 
-        ImageButton newGame = new ImageButton(
+        ImageButton playButton = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playUp.png")))),
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playDown.png"))))
         );
 
-        newGame.addListener(new ChangeListener() {
+        playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new MainScreen(game));
@@ -175,8 +179,17 @@ class SelectionMenu extends Menu {
             }
         });
 
-        childTable.add(newGame).expand().align(Align.center).colspan(3);
+        childTable.add(playButton).expand().align(Align.center).colspan(3);
         setUi(table);
+    }
+
+    @Override
+    public void render(float d) {
+        game.batch.begin();
+        game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        game.batch.end();
+        stage.act(d);
+        stage.draw();
     }
 }
 
@@ -194,6 +207,9 @@ class PauseMenu extends Menu {
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                // MAKE A CHANGE HERE: don't create a new mainscreen, but resume the previous one
+                // This can possibly be done by overloading the constructor wherein you can pass the current "Ground"
+                // as a parameter
                 game.setScreen(new MainScreen(game));
                 dispose();
             }
@@ -203,6 +219,8 @@ class PauseMenu extends Menu {
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("saveUp.png")))),
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("saveDown.png"))))
         );
+
+        // Load saved game menu
 
         ImageButton returnHome = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("returnHomeUp.png")))),
