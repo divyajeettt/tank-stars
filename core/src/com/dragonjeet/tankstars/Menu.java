@@ -27,11 +27,10 @@ class MainMenu implements Screen {
 
         Skin skin = new Skin(Gdx.files.internal("orangepeelui/uiskin.json"));
 
-        Texture texture = new Texture(Gdx.files.internal("start.png"));
-        TextureRegion region = new TextureRegion(texture);
-        TextureRegionDrawable tex = new TextureRegionDrawable(region);
-
-        ImageButton newGame = new ImageButton(tex);
+        ImageButton newGame = new ImageButton(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startDown.png"))))
+        );
 
         newGame.addListener(new ChangeListener() {
             @Override
@@ -44,18 +43,18 @@ class MainMenu implements Screen {
         table.add(newGame).expand().align(Align.center);
         table.row();
 
-        texture = new Texture(Gdx.files.internal("load.png"));
-        region = new TextureRegion(texture);
-        tex = new TextureRegionDrawable(region);
-        ImageButton loadGame = new ImageButton(tex);
+        ImageButton loadGame = new ImageButton(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadDown.png"))))
+        );
 
         table.add(loadGame).expand().align(Align.center);
         table.row();
 
-        texture = new Texture(Gdx.files.internal("exit.png"));
-        region = new TextureRegion(texture);
-        tex = new TextureRegionDrawable(region);
-        ImageButton exitGame = new ImageButton(tex);
+        ImageButton exitGame = new ImageButton(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
+        );
 
         table.add(exitGame).expand().align(Align.center);
         table.row();
