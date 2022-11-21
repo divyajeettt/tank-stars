@@ -31,7 +31,6 @@ public class Menu implements Screen {
         stage.addActor(ui);
     }
 
-
     @Override
     public void render(float d) {
         game.batch.begin();
@@ -71,7 +70,6 @@ public class Menu implements Screen {
     }
 
 }
-
 
 
 class MainMenu extends Menu {
@@ -265,16 +263,18 @@ class SavedMenu extends Menu {
     SavedMenu(final TankStars game) {
         super(game);
         Table table = new Table();
-        table.add(new Label("List of saved games",skin)).align(Align.center);
+        table.add(new Image(new Texture(Gdx.files.internal("loadGame.png")))).align(Align.center);
         table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
+
+        // Hard Coding 4 buttons for now
+        // This list will need to show the filled slots later
+        for (int i=0; i < 4; i++) {
+            table.add(new ImageButton(
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("emptySlotUp.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("emptySlotDown.png"))))
+            )).growX().pad(10);
+            table.row();
+        }
 
         Button goBack = new Button(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
@@ -299,22 +299,26 @@ class LoadMenu extends Menu {
     LoadMenu(final TankStars game) {
         super(game);
         Table table = new Table();
-        table.add(new Label("Save your game",skin)).align(Align.center);
+        table.add(new Image(new Texture(Gdx.files.internal("saveGame.png")))).align(Align.center);
         table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
-        table.add(new TextButton("Empty slot",skin)).growX().pad(10);
-        table.row();
+
+        // Hard Coding 4 buttons for now
+        // This will need to be changed into a manual list of 4 buttons with the dates & times of save // "name" of saved game
+        for (int i=0; i < 4; i++) {
+            table.add(new ImageButton(
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("emptySlotUp.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("emptySlotDown.png"))))
+            )).growX().pad(10);
+            table.row();
+        }
 
         Button goBack = new Button(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
         );
 
+        // this goBack button takes the control back to the HOME SCREEN
+        // it should take back to the game screen
         goBack.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
