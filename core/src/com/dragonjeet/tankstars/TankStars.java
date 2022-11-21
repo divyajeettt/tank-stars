@@ -161,8 +161,13 @@ class MainScreen implements Screen {
 		Button selector = new Button(skin);
 		root.add(selector).width(Value.percentWidth(2f, menuButton)).height(Value.percentHeight(1.5f,menuButton)).padTop(80).expandY();
 
-		Drawable fireDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fire.png"))));
-		Button fireButton = new Button(fireDrawable,fireDrawable);
+//		Drawable fireDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fire.png"))));
+//		Button fireButton = new Button(fireDrawable,fireDrawable);
+
+		ImageButton fireButton = new ImageButton(
+			new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fireUp.png")))),
+			new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fireDown.png"))))
+		);
 
 		root.add(fireButton).align(Align.left).padLeft(5).padTop(80).width(Value.percentWidth(2f, menuButton)).height(Value.percentHeight(1.5f,menuButton)).expandY();
 		root.add().expandX().width(Value.percentWidth(1f,fuelBar)).expandY();

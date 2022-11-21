@@ -26,60 +26,6 @@ public class Menu implements Screen {
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-
-        // Adding image to fill the background
-        Texture backgroundTexture = new Texture(Gdx.files.internal("homescreen.jpg"));
-        TextureRegion backgroundTextureRegion = new TextureRegion(backgroundTexture);
-        TextureRegionDrawable backgroundTextureRegionDrawable = new TextureRegionDrawable(backgroundTextureRegion);
-        Image background = new Image(backgroundTextureRegionDrawable);
-        background.setFillParent(true);
-        background.setZIndex(0);
-        stage.addActor(background);
-
-        ImageButton newGame = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startDown.png"))))
-        );
-        newGame.setPosition(
-            Gdx.graphics.getWidth()/2f - newGame.getWidth()/2,
-            Gdx.graphics.getHeight()/2f
-        );
-        stage.addActor(newGame);
-
-        newGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new SelectionMenu(game));
-                dispose();
-            }
-        });
-
-        ImageButton loadGame = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadDown.png"))))
-        );
-        loadGame.setPosition(
-                Gdx.graphics.getWidth()/2f - loadGame.getWidth()/2,
-                Gdx.graphics.getHeight()/2f - 2*loadGame.getHeight()
-        );
-        stage.addActor(loadGame);
-
-        ImageButton exitGame = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
-        );
-        exitGame.setPosition(
-                Gdx.graphics.getWidth()/2f - exitGame.getWidth()/2,
-                Gdx.graphics.getHeight()/2f - 4*exitGame.getHeight()
-        );
-        stage.addActor(exitGame);
-
-        exitGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
-            }
-        });
     }
 
     void setUi(Table ui) {
@@ -135,7 +81,25 @@ class MainMenu extends Menu {
     public MainMenu(final TankStars game) {
         super(game);
         Table table = new Table();
-        TextButton newGame = new TextButton("New Game", skin);
+
+        // Adding image to fill the background
+        Texture backgroundTexture = new Texture(Gdx.files.internal("homescreen.png"));
+        TextureRegion backgroundTextureRegion = new TextureRegion(backgroundTexture);
+        TextureRegionDrawable backgroundTextureRegionDrawable = new TextureRegionDrawable(backgroundTextureRegion);
+        Image background = new Image(backgroundTextureRegionDrawable);
+        background.setFillParent(true);
+        background.setZIndex(0);
+        stage.addActor(background);
+
+        ImageButton newGame = new ImageButton(
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startUp.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startDown.png"))))
+        );
+        newGame.setPosition(
+                Gdx.graphics.getWidth()/2f - newGame.getWidth()/2,
+                Gdx.graphics.getHeight()/2f
+        );
+        stage.addActor(newGame);
 
         newGame.addListener(new ChangeListener() {
             @Override
@@ -145,18 +109,32 @@ class MainMenu extends Menu {
             }
         });
 
-        table.add(newGame).expand().align(Align.center);
+        ImageButton loadGame = new ImageButton(
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadUp.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadDown.png"))))
+        );
+        loadGame.setPosition(
+                Gdx.graphics.getWidth()/2f - loadGame.getWidth()/2,
+                Gdx.graphics.getHeight()/2f - 2*loadGame.getHeight()
+        );
+        stage.addActor(loadGame);
 
-        table.row();
+        ImageButton exitGame = new ImageButton(
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitUp.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
+        );
+        exitGame.setPosition(
+                Gdx.graphics.getWidth()/2f - exitGame.getWidth()/2,
+                Gdx.graphics.getHeight()/2f - 4*exitGame.getHeight()
+        );
+        stage.addActor(exitGame);
 
-        TextButton resumeGame = new TextButton("Resume Game",skin);
-        table.add(resumeGame).expand().align(Align.center);
-
-        table.row();
-
-        TextButton exitGame = new TextButton("Exit game", skin);
-        table.add(exitGame).expand().align(Align.center);
-        setUi(table);
+        exitGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
     }
 }
 
@@ -183,8 +161,10 @@ class SelectionMenu extends Menu {
         childTable.add(tank3).expand().align(Align.left);
         childTable.row();
 
-        TextureRegionDrawable newGameDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("start.png")));
-        Button newGame = new Button(newGameDrawable,newGameDrawable);
+        ImageButton newGame = new ImageButton(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playDown.png"))))
+        );
 
         newGame.addListener(new ChangeListener() {
             @Override
@@ -206,9 +186,10 @@ class PauseMenu extends Menu {
         table.setFillParent(true);
         stage.addActor(table);
 
-        TextureRegionDrawable resumeDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("resume.png")));
-        Button resume = new Button(resumeDrawable,resumeDrawable);
-
+        ImageButton resume = new ImageButton(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("resumeUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("resumeDown.png"))))
+        );
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -217,12 +198,17 @@ class PauseMenu extends Menu {
             }
         });
 
-        TextureRegionDrawable saveDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("save.png")));
-        Button save = new Button(saveDrawable,saveDrawable);
+        ImageButton save = new ImageButton(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("saveUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("saveDown.png"))))
+        );
 
-        TextureRegionDrawable exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("exit.png")));
-        Button exit = new Button(exitDrawable,exitDrawable);
-        exit.addListener(new ChangeListener() {
+        ImageButton returnHome = new ImageButton(
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("returnHomeUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("returnHomeDown.png"))))
+        );
+
+        returnHome.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new MainMenu(game));
@@ -235,7 +221,7 @@ class PauseMenu extends Menu {
         table.row();
         table.add(save).pad(20);
         table.row();
-        table.add(exit).pad(20);
+        table.add(returnHome).pad(20);
         setUi(table);
     }
 }
