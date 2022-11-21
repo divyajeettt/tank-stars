@@ -144,7 +144,6 @@ class SelectionMenu extends Menu {
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-
         table.add().grow();
         Table childTable = new Table();
         table.add(childTable).grow();
@@ -152,9 +151,11 @@ class SelectionMenu extends Menu {
         Label choose = new Label("Choose Tank",skin);
         childTable.add(choose).colspan(3).expand().align(Align.center);
 
-        ImageButton tank1 = new ImageButton(skin);
-        ImageButton tank2 = new ImageButton(skin);
-        ImageButton tank3 = new ImageButton(skin);
+        TextureRegionDrawable tankDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("helios-small.png")));
+        Button tank1 = new Button(tankDrawable,tankDrawable);
+        Button tank2 = new Button(tankDrawable,tankDrawable);
+        Button tank3 = new Button(tankDrawable,tankDrawable);
+
         childTable.row();
         childTable.add(tank1).expand().align(Align.right);
         childTable.add(tank2).expand();
