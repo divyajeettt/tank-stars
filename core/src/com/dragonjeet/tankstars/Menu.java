@@ -41,39 +41,28 @@ public class Menu implements Screen {
     }
 
     @Override
-    public void show() {
-
-    }
+    public void show() {}
 
     @Override
-    public void resize (int width,int height) {
-    }
+    public void resize (int width,int height) {}
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-
-    }
+    public void hide() {}
 
     @Override
     public void dispose() {
         stage.dispose();
         background.dispose();
     }
-
 }
 
 
 class MainMenu extends Menu {
-
     public MainMenu(final TankStars game) {
         super(game);
         Table table = new Table();
@@ -88,12 +77,12 @@ class MainMenu extends Menu {
         stage.addActor(background);
 
         ImageButton newGame = new ImageButton(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startUp.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startUp.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startDown.png"))))
         );
         newGame.setPosition(
-                Gdx.graphics.getWidth()/2f - newGame.getWidth()/2,
-                Gdx.graphics.getHeight()/2f
+            Gdx.graphics.getWidth()/2f - newGame.getWidth()/2,
+            Gdx.graphics.getHeight()/2f
         );
         stage.addActor(newGame);
 
@@ -117,7 +106,7 @@ class MainMenu extends Menu {
         loadGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new SavedMenu(game));
+                game.setScreen(new LoadMenu(game));
                 dispose();
             }
         });
@@ -147,31 +136,17 @@ class SelectionMenu extends Menu {
     public SelectionMenu(final TankStars game) {
         super(game);
 
-        background = new Texture(Gdx.files.internal("selectionMenu.png"));
+        background = new Texture(Gdx.files.internal("selectionMenu-1.png"));
 
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-        table.add().grow();
-        Table childTable = new Table();
-        table.add(childTable).grow();
 
-        Label choose = new Label("Choose Tank", skin);
-        childTable.add(choose).colspan(3).expand().align(Align.center);
+//        table.add().grow();
+//        Table childTable = new Table();
+//        table.add(childTable).grow();
+
         // Do Something to remove the label and fix the positioning of the tank buttons
-
-        TextureRegionDrawable tankImage1 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-1.png")));
-        TextureRegionDrawable tankImage2 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-2.png")));
-        TextureRegionDrawable tankImage3 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-3.png")));
-        Button tank1 = new Button(tankImage1, tankImage1);
-        Button tank2 = new Button(tankImage2, tankImage2);
-        Button tank3 = new Button(tankImage3, tankImage3);
-
-        childTable.row();
-        childTable.add(tank1).expand().align(Align.right);
-        childTable.add(tank2).expand();
-        childTable.add(tank3).expand().align(Align.left);
-        childTable.row();
 
         ImageButton playButton = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playUp.png")))),
@@ -186,17 +161,50 @@ class SelectionMenu extends Menu {
             }
         });
 
-        childTable.add(playButton).expand().align(Align.center).colspan(3);
-        setUi(table);
-    }
+        TextureRegionDrawable tankImage1 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-1.png")));
+        Button tank1 = new Button(tankImage1, tankImage1);
+        tank1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                background = new Texture(Gdx.files.internal("selectionMenu-1.png"));
+            }
+        });
 
-    @Override
-    public void render(float d) {
-        game.batch.begin();
-        game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.batch.end();
-        stage.act(d);
-        stage.draw();
+        TextureRegionDrawable tankImage2 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-2.png")));
+        Button tank2 = new Button(tankImage2, tankImage2);
+        tank2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                background = new Texture(Gdx.files.internal("selectionMenu-2.png"));
+            }
+        });
+
+        TextureRegionDrawable tankImage3 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-3.png")));
+        Button tank3 = new Button(tankImage3, tankImage3);
+        tank3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                background = new Texture(Gdx.files.internal("selectionMenu-3.png"));
+            }
+        });
+
+        Button invisibleButton = new Button(skin);
+        invisibleButton.setColor(0.5f, 0.5f, 0.5f, 0f);
+        for (int i=0; i < 10; i++) {
+            table.row();
+            table.add(invisibleButton);
+        }
+
+        table.columnDefaults(0).width(Gdx.graphics.getWidth()/3f);
+
+        table.add(tank1).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
+        table.add(tank2).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
+        table.add(tank3).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
+
+        table.row();
+        table.add(playButton).expand().align(Align.center).colspan(3);
+
+        setUi(table);
     }
 }
 
@@ -230,7 +238,7 @@ class PauseMenu extends Menu {
         save.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new LoadMenu(game));
+                game.setScreen(new SaveMenu(game));
                 dispose();
             }
         });
@@ -258,9 +266,9 @@ class PauseMenu extends Menu {
     }
 }
 
-class SavedMenu extends Menu {
+class LoadMenu extends Menu {
 
-    SavedMenu(final TankStars game) {
+    LoadMenu(final TankStars game) {
         super(game);
         Table table = new Table();
         table.add(new Image(new Texture(Gdx.files.internal("loadGame.png")))).align(Align.center);
@@ -294,9 +302,8 @@ class SavedMenu extends Menu {
     }
 }
 
-class LoadMenu extends Menu {
-
-    LoadMenu(final TankStars game) {
+class SaveMenu extends Menu {
+    SaveMenu(final TankStars game) {
         super(game);
         Table table = new Table();
         table.add(new Image(new Texture(Gdx.files.internal("saveGame.png")))).align(Align.center);
