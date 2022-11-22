@@ -3,6 +3,7 @@ package com.dragonjeet.tankstars;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
 
 public class Menu implements Screen {
     final TankStars game;
@@ -134,10 +136,16 @@ class MainMenu extends Menu {
 
 
 class SelectionMenu extends Menu {
+    private TextureRegion selectedTankImage;
+
     public SelectionMenu(final TankStars game) {
         super(game);
 
-        background = new Texture(Gdx.files.internal("selectionMenu-1.png"));
+        background = new Texture(Gdx.files.internal("selectionMenu.png"));
+
+        selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tank-1.png")));
+        game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
+        game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
 
         Table table = new Table();
         table.setFillParent(true);
@@ -169,9 +177,9 @@ class SelectionMenu extends Menu {
         tank1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                background = new Texture(Gdx.files.internal("selectionMenu-1.png"));
-                game.getTank1().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), false);
-                game.getTank2().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), true);
+                selectedTankImage = new TextureRegion(new Texture("tank-1.png"));
+                game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
+                game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
             }
         });
 
@@ -180,9 +188,9 @@ class SelectionMenu extends Menu {
         tank2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                background = new Texture(Gdx.files.internal("selectionMenu-2.png"));
-                game.getTank1().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), false);
-                game.getTank2().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), true);
+                selectedTankImage = new TextureRegion(new Texture("tank-2.png"));
+                game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
+                game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
             }
         });
 
@@ -191,9 +199,9 @@ class SelectionMenu extends Menu {
         tank3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                background = new Texture(Gdx.files.internal("selectionMenu-3.png"));
-                game.getTank1().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), false);
-                game.getTank2().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), true);
+                selectedTankImage = new TextureRegion(new Texture("tank-3.png"));
+                game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
+                game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
             }
         });
 
@@ -214,6 +222,23 @@ class SelectionMenu extends Menu {
         table.add(playButton).expand().align(Align.center).colspan(3);
 
         setUi(table);
+    }
+
+    public void drawSelectedTank(SpriteBatch batch, TextureRegion tankImage) {
+        batch.draw(
+            tankImage, 150, 180, 0, 0,
+            tankImage.getRegionWidth(), tankImage.getRegionHeight(), 2, 2, 0
+        );
+    }
+
+    @Override
+    public void render(float d) {
+        game.batch.begin();
+        game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        drawSelectedTank(game.batch, selectedTankImage);
+        game.batch.end();
+        stage.act(d);
+        stage.draw();
     }
 }
 

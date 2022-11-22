@@ -1,8 +1,10 @@
 package com.dragonjeet.tankstars;
+
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Random;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 
 class Ground {
     private ArrayList<Double> heights;

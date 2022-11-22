@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.lang.Math;
 
+
 class Tank {
     private int x, y, height, width;
     private int xVelocity, yVelocity;
@@ -21,29 +22,11 @@ class Tank {
         this.width = width;
         this.ground = ground;
         hitbox = new Rectangle(x, y, width, height);
-        image = new TextureRegion(new Texture("tank-1.png"));
-    }
-
-    Tank(int x, int y,int height, int width, Ground ground, boolean flip) {
-        this.x = x;
-        this.y = y;
-        this.xVelocity = 0;
-        this.yVelocity = 0;
-        this.height = height;
-        this.width = width;
-        this.ground = ground;
-        hitbox = new Rectangle(x, y, width, height);
-        image = new TextureRegion(new Texture("tank-1.png"));
-        if (flip) {
-            image.flip(true, false);
-        }
     }
 
     public void setImage(TextureRegion image, boolean flip) {
         this.image = image;
-        if (flip) {
-            this.image.flip(true, false);
-        }
+        this.image.flip(flip, false);
     }
 
     public void draw(SpriteBatch batch) {

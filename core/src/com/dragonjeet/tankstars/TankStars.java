@@ -1,6 +1,5 @@
 package com.dragonjeet.tankstars;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
@@ -57,7 +56,7 @@ public class TankStars extends Game {
 		batch = new SpriteBatch();
 		ground = new Ground(Gdx.graphics.getWidth());
 		tank1 = new Tank(100, 100, 59, 100, ground);
-		tank2 = new Tank(1000, 200, 59, 100, ground, true);
+		tank2 = new Tank(1000, 2000, 59, 100, ground);
 		this.setScreen(new MainMenu(this));
 	}
 
