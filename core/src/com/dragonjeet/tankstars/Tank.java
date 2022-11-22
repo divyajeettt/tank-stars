@@ -8,7 +8,7 @@ import java.lang.Math;
 
 class Tank {
     private int x, y, height, width;
-    int xVelocity, yVelocity;
+    private int xVelocity, yVelocity;
     private Rectangle hitbox;
     private TextureRegion image;
     private Ground ground;
@@ -45,28 +45,38 @@ class Tank {
         }
     }
 
-    void draw(SpriteBatch batch) {
-        batch.draw(image, x, getY(), width/2,height/2,width,height,1,1,getAngle());
+    public void draw(SpriteBatch batch) {
+        batch.draw(image, x, getY(), width/2f, height/2f, width, height, 1, 1, getAngle());
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
-    int getY() {
-        return (int) ground.getHeight(x+width/2);
+
+    public int getY() {
+        return ((int) ground.getHeight(x+width/2));
     }
 
-    void move() {
-        x+=xVelocity;
+    public void move() {
+        x += xVelocity;
     }
 
-    float getAngle() {
-        return (float) Math.atan((ground.getHeight(x+width) - ground.getHeight(x))/width) * 180 / (float) Math.PI;
+    public int getXVelocity() {
+        return xVelocity;
     }
-    int getHeight() {
+
+    public void setXVelocity(int xVelocity) {
+        this.xVelocity = xVelocity;
+    }
+
+    public float getAngle() {
+        return ((float) Math.atan((ground.getHeight(x+width) - ground.getHeight(x))/width) * 180 / (float) Math.PI);
+    }
+    public int getHeight() {
         return height;
     }
-    int getWidth() {
+
+    public int getWidth() {
         return width;
     }    
 }

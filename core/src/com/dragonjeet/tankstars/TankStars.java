@@ -183,13 +183,13 @@ class MainScreen implements Screen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (moveButton.getKnobPercentX()> 0) {
-					game.getTank1().xVelocity = 1;
+					game.getTank1().setXVelocity(1);
 				}
 				else if (moveButton.getKnobPercentX()< 0) {
-					game.getTank1().xVelocity = -1;
+					game.getTank1().setXVelocity(-1);
 				}
 				else {
-					game.getTank1().xVelocity = 0;
+					game.getTank1().setXVelocity(0);
 				}
 			}
 		});
