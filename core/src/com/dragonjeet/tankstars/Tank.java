@@ -1,4 +1,5 @@
 package com.dragonjeet.tankstars;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -67,6 +68,14 @@ class Tank {
 
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
+    }
+
+    public int getYVelocity() {
+        return yVelocity;
+    }
+
+    public void setYVelocity(int yVelocity) {
+        this.yVelocity = yVelocity;
     }
 
     public float getAngle() {
