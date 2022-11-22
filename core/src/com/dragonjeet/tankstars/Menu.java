@@ -170,8 +170,8 @@ class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 background = new Texture(Gdx.files.internal("selectionMenu-1.png"));
-                game.tank1.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), false);
-                game.tank2.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), true);
+                game.getTank1().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), false);
+                game.getTank2().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), true);
             }
         });
 
@@ -181,8 +181,8 @@ class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 background = new Texture(Gdx.files.internal("selectionMenu-2.png"));
-                game.tank1.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), false);
-                game.tank2.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), true);
+                game.getTank1().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), false);
+                game.getTank2().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), true);
             }
         });
 
@@ -192,8 +192,8 @@ class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 background = new Texture(Gdx.files.internal("selectionMenu-3.png"));
-                game.tank1.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), false);
-                game.tank2.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), true);
+                game.getTank1().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), false);
+                game.getTank2().setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), true);
             }
         });
 

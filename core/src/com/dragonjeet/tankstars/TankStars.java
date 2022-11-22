@@ -50,7 +50,7 @@ class HealthBar extends ProgressBar {
 
 public class TankStars extends Game {
 	public SpriteBatch batch;
-	public Tank tank1, tank2;
+	private Tank tank1, tank2;
 	private Ground ground;
 
 	public void create() {
@@ -59,6 +59,14 @@ public class TankStars extends Game {
 		tank1 = new Tank(100, 100, 59, 100, ground);
 		tank2 = new Tank(1000, 200, 59, 100, ground, true);
 		this.setScreen(new MainMenu(this));
+	}
+
+	public Tank getTank1() {
+		return tank1;
+	}
+
+	public Tank getTank2() {
+		return tank2;
 	}
 
 	public Ground getGround() {
@@ -175,13 +183,13 @@ class MainScreen implements Screen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (moveButton.getKnobPercentX()> 0) {
-					game.tank1.xVelocity = 1;
+					game.getTank1().xVelocity = 1;
 				}
 				else if (moveButton.getKnobPercentX()< 0) {
-					game.tank1.xVelocity = -1;
+					game.getTank1().xVelocity = -1;
 				}
 				else {
-					game.tank1.xVelocity = 0;
+					game.getTank1().xVelocity = 0;
 				}
 			}
 		});
@@ -205,10 +213,10 @@ class MainScreen implements Screen {
 		game.batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
 		game.batch.begin();
 		game.batch.draw(background, 0, 0, width, height);
-		game.tank1.draw(game.batch);
-		game.tank1.move();
-		game.tank2.draw(game.batch);
-		game.tank2.move();
+		game.getTank1().draw(game.batch);
+		game.getTank1().move();
+		game.getTank2().draw(game.batch);
+		game.getTank2().move();
 		game.batch.end();
 
 		renderer.setColor(0f,1f,0f,1f);
