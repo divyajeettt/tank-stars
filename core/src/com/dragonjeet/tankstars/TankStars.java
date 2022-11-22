@@ -21,13 +21,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 
-
 class HealthBar extends ProgressBar {
-
 	private	float height, width;
+
 	public HealthBar(float min, float max, float stepSize, boolean vertical, Skin skin) {
 		super(min, max, stepSize, vertical, skin);
-
 	}
 
 	void setCustomWidth(float width) {
@@ -47,22 +45,29 @@ class HealthBar extends ProgressBar {
 	public float getPrefHeight() {
 		return height;
 	}
-
 }
 
+
 public class TankStars extends Game {
-
 	SpriteBatch batch;
+	private MainScreen mainScreen;
 	private Ground ground;
-
-	Tank tank1,tank2;
+	Tank tank1, tank2;
 
 	public void create() {
 		batch = new SpriteBatch();
 		ground = new Ground(Gdx.graphics.getWidth());
-		tank1 = new Tank(100,100,59,100,ground);
-		tank2 = new Tank(1000,200,59,100,ground,true);
+		tank1 = new Tank(100, 100, 59, 100, ground);
+		tank2 = new Tank(1000, 200, 59, 100, ground, true);
 		this.setScreen(new MainMenu(this));
+	}
+
+	public void setMainScreen(MainScreen mainScreen) {
+		this.mainScreen = mainScreen;
+	}
+
+	public MainScreen getMainScreen() {
+		return mainScreen;
 	}
 
 	Ground getGround() {
@@ -74,10 +79,7 @@ public class TankStars extends Game {
 }
 
 
-
-
 class MainScreen implements Screen {
-
 	private Stage stage;
 	private Button pauseButton;
 	private Skin skin;
@@ -85,11 +87,11 @@ class MainScreen implements Screen {
 	private Texture background;
 	private OrthographicCamera camera;
 	private Viewport viewport;
-	private int width,height;
-
+	private int width, height;
 	final TankStars game;
 	private ShapeRenderer renderer;
-	MainScreen (final TankStars game) {
+
+	MainScreen(final TankStars game) {
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();
 		this.game = game;
@@ -159,7 +161,7 @@ class MainScreen implements Screen {
 
 		Button fuelBar = new TextButton("Fuel",skin);
 		root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f,pauseButton)).expandY();
-		
+
 		Button selector = new Button(skin);
 		root.add(selector).width(Value.percentWidth(2f, pauseButton)).height(Value.percentHeight(1.5f,pauseButton)).padTop(80).expandY();
 
@@ -202,7 +204,7 @@ class MainScreen implements Screen {
 	}
 
 	@Override
-	public void render (float d) {
+	public void render(float d) {
 		//Log screen width and height
 		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -226,10 +228,9 @@ class MainScreen implements Screen {
 		stage.act();
 		stage.draw();
 	}
-	
 
 	@Override
-	public void resize (int width, int height) {
+	public void resize(int width, int height) {
 		this.width = width;
 		this.height = height;
 		stage.getViewport().update(width, height, true);
@@ -238,26 +239,19 @@ class MainScreen implements Screen {
 	}
 
 	@Override
-	public void show() {
-
-	}
-
+	public void show() {}
 
 	@Override
-	public void pause() {
-
-	}
-	@Override
-	public void resume() {
-
-	}
+	public void pause() {}
 
 	@Override
-	public void hide() {
+	public void resume() {}
 
-	}
 	@Override
-	public void dispose () {
+	public void hide() {}
+
+	@Override
+	public void dispose() {
 		skin.dispose();
 		stage.dispose();
 		background.dispose();

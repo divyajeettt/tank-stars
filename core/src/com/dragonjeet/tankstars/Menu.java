@@ -132,6 +132,7 @@ class MainMenu extends Menu {
     }
 }
 
+
 class SelectionMenu extends Menu {
     public SelectionMenu(final TankStars game) {
         super(game);
@@ -142,11 +143,12 @@ class SelectionMenu extends Menu {
         table.setFillParent(true);
         stage.addActor(table);
 
-//        table.add().grow();
-//        Table childTable = new Table();
-//        table.add(childTable).grow();
+        table.add().grow();
+        Table childTable = new Table();
+        table.add(childTable).grow();
 
-        // Do Something to remove the label and fix the positioning of the tank buttons
+        // Do something to fix the positioning of the tank buttons
+        // I have added them to a table like before
 
         ImageButton playButton = new ImageButton(
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playUp.png")))),
@@ -156,7 +158,9 @@ class SelectionMenu extends Menu {
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainScreen(game));
+                MainScreen mainScreen = new MainScreen(game);
+                game.setMainScreen(mainScreen);
+                game.setScreen(mainScreen);
                 dispose();
             }
         });
@@ -208,6 +212,7 @@ class SelectionMenu extends Menu {
     }
 }
 
+
 class PauseMenu extends Menu {
     public PauseMenu(final TankStars game) {
         super(game);
@@ -222,9 +227,6 @@ class PauseMenu extends Menu {
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // MAKE A CHANGE HERE: don't create a new mainscreen, but resume the previous one
-                // This can possibly be done by overloading the constructor wherein you can pass the current "Ground"
-                // as a parameter
                 game.setScreen(new MainScreen(game));
                 dispose();
             }
@@ -266,6 +268,7 @@ class PauseMenu extends Menu {
     }
 }
 
+
 class LoadMenu extends Menu {
 
     LoadMenu(final TankStars game) {
@@ -302,6 +305,7 @@ class LoadMenu extends Menu {
     }
 }
 
+
 class SaveMenu extends Menu {
     SaveMenu(final TankStars game) {
         super(game);
@@ -324,12 +328,10 @@ class SaveMenu extends Menu {
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
         );
 
-        // this goBack button takes the control back to the HOME SCREEN
-        // it should take back to the game screen
         goBack.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new PauseMenu(game));
                 dispose();
             }
         });
