@@ -12,17 +12,18 @@ class Tank {
     private Rectangle hitbox;
     private TextureRegion image;
     private Ground ground;
-    Tank(int x,int y,int height, int width, Ground ground) {
+
+    Tank(int x, int y,int height, int width, Ground ground) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.ground = ground;
         hitbox = new Rectangle(x, y, width, height);
-        image = new TextureRegion( new Texture("tank-1.png"));
+        image = new TextureRegion(new Texture("tank-1.png"));
     }
 
-    Tank(int x,int y,int height, int width, Ground ground, boolean flip) {
+    Tank(int x, int y,int height, int width, Ground ground, boolean flip) {
         this.x = x;
         this.y = y;
         this.xVelocity = 0;
@@ -31,8 +32,17 @@ class Tank {
         this.width = width;
         this.ground = ground;
         hitbox = new Rectangle(x, y, width, height);
-        image = new TextureRegion( new Texture("tank-1.png"));
-        image.flip(flip, false);
+        image = new TextureRegion(new Texture("tank-1.png"));
+        if (flip) {
+            image.flip(true, false);
+        }
+    }
+
+    public void setImage(TextureRegion image, boolean flip) {
+        this.image = image;
+        if (flip) {
+            this.image.flip(true, false);
+        }
     }
 
     void draw(SpriteBatch batch) {

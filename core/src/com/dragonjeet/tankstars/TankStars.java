@@ -28,11 +28,11 @@ class HealthBar extends ProgressBar {
 		super(min, max, stepSize, vertical, skin);
 	}
 
-	void setCustomWidth(float width) {
+	public void setCustomWidth(float width) {
 		this.width = width;
 	}
 
-	void setCustomHeight(float height) {
+	public void setCustomHeight(float height) {
 		this.height = height;
 	}
 
@@ -49,10 +49,9 @@ class HealthBar extends ProgressBar {
 
 
 public class TankStars extends Game {
-	SpriteBatch batch;
-	private MainScreen mainScreen;
+	public SpriteBatch batch;
+	public Tank tank1, tank2;
 	private Ground ground;
-	Tank tank1, tank2;
 
 	public void create() {
 		batch = new SpriteBatch();
@@ -62,17 +61,10 @@ public class TankStars extends Game {
 		this.setScreen(new MainMenu(this));
 	}
 
-	public void setMainScreen(MainScreen mainScreen) {
-		this.mainScreen = mainScreen;
-	}
-
-	public MainScreen getMainScreen() {
-		return mainScreen;
-	}
-
-	Ground getGround() {
+	public Ground getGround() {
 		return ground;
 	}
+
 	public void render() {
 		super.render();
 	}
@@ -88,8 +80,8 @@ class MainScreen implements Screen {
 	private OrthographicCamera camera;
 	private Viewport viewport;
 	private int width, height;
-	final TankStars game;
 	private ShapeRenderer renderer;
+	public final TankStars game;
 
 	MainScreen(final TankStars game) {
 		width = Gdx.graphics.getWidth();
@@ -133,8 +125,8 @@ class MainScreen implements Screen {
 		table.add(pauseButton).align(Align.top | Align.left).padTop(10).expandX().width(buttonWidth).height(buttonHeight).padLeft(10);
 
 		HealthBar healthBar1 = new HealthBar(0, 100, 1, false, skin);
-		healthBar1.setCustomWidth((Value.percentWidth(7f,pauseButton)).get());
-		healthBar1.setCustomHeight((Value.percentHeight(1f,pauseButton)).get());
+		healthBar1.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
+		healthBar1.setCustomHeight((Value.percentHeight(1f, pauseButton)).get());
 		table.add(healthBar1).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
 		healthBar1.setValue(100);
 

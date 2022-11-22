@@ -159,7 +159,6 @@ class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 MainScreen mainScreen = new MainScreen(game);
-                game.setMainScreen(mainScreen);
                 game.setScreen(mainScreen);
                 dispose();
             }
@@ -171,6 +170,8 @@ class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 background = new Texture(Gdx.files.internal("selectionMenu-1.png"));
+                game.tank1.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), false);
+                game.tank2.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-1.png"))), true);
             }
         });
 
@@ -180,6 +181,8 @@ class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 background = new Texture(Gdx.files.internal("selectionMenu-2.png"));
+                game.tank1.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), false);
+                game.tank2.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-2.png"))), true);
             }
         });
 
@@ -189,6 +192,8 @@ class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 background = new Texture(Gdx.files.internal("selectionMenu-3.png"));
+                game.tank1.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), false);
+                game.tank2.setImage(new TextureRegion(new Texture(Gdx.files.internal("tank-3.png"))), true);
             }
         });
 
