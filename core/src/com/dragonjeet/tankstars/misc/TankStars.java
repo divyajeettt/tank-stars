@@ -1,9 +1,10 @@
-package com.dragonjeet.tankstars;
+package com.dragonjeet.tankstars.misc;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.menu.MainMenu;
+import com.dragonjeet.tankstars.tank.Tank;
 
 
 public class TankStars extends Game {

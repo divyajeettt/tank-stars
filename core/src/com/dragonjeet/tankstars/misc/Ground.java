@@ -1,4 +1,4 @@
-package com.dragonjeet.tankstars;
+package com.dragonjeet.tankstars.misc;
 
 import java.util.ArrayList;
 import java.lang.Math;

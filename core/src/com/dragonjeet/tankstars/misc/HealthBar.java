@@ -1,4 +1,4 @@
-package com.dragonjeet.tankstars;
+package com.dragonjeet.tankstars.misc;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
