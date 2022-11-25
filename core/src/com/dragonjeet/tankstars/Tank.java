@@ -1,21 +1,20 @@
 package com.dragonjeet.tankstars;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.lang.Math;
 
 
-class Tank {
-    private int x, y, height, width;
+public class Tank {
+    private int x, y;
     private int xVelocity, yVelocity;
-    private Rectangle hitbox;
+    private final int height, width;
+    private final Rectangle hitbox;
+    private final Ground ground;
     private TextureRegion image;
-    private Ground ground;
 
-    Tank(int x, int y,int height, int width, Ground ground) {
+    public Tank(int x, int y,int height, int width, Ground ground) {
         this.x = x;
         this.y = y;
         this.height = height;
@@ -64,6 +63,7 @@ class Tank {
     public float getAngle() {
         return ((float) Math.atan((ground.getHeight(x+width) - ground.getHeight(x))/width) * 180 / (float) Math.PI);
     }
+
     public int getHeight() {
         return height;
     }
