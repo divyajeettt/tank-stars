@@ -1,7 +1,9 @@
-package com.dragonjeet.tankstars.misc;
+package com.dragonjeet.tankstars.tank;
 
 import com.dragonjeet.tankstars.attack.AttackType;
 import com.dragonjeet.tankstars.attack.Bullet;
+import com.dragonjeet.tankstars.exception.InvalidFuelException;
+import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,16 +15,19 @@ import java.lang.Math;
 public class Tank {
     private int x, y;
     private final boolean flipped;
-    private int xVelocity, yVelocity;
     private final int height, width;
     private final Rectangle hitbox;
     private final Ground ground;
-    private TextureRegion image;
     private int attackAngle;                     // angle of muzzle
     private int attackPower;                     // power of attack
-    private int fuel;                            // will reset to full every turn
+    private int fuel;                            // will reset to 'maxFuel' full every turn
     private int health;
-    private AttackType defaultAttack;
+    protected int maxHealth;
+    protected int xVelocity, yVelocity;
+    protected AttackType defaultAttack;
+    protected TextureRegion image;
+    protected int maxAttackPower;
+    protected int maxFuel;
 
     public Tank(int x, int y,int height, int width, Ground ground, boolean flipped) {
         this.x = x;
@@ -38,7 +43,7 @@ public class Tank {
     public void setImage(TextureRegion image) {
         // for the time being, the only diff between tanks is their image
         // this will be extended to inheritance into 3 children, each of which should have
-        // different images, moving speeds, healths, and attackDamages
+        // different images, moving speeds, healths, fuelTanks, and attackDamages
         this.image = image;
         this.image.flip(this.flipped, false);
     }
@@ -64,33 +69,50 @@ public class Tank {
         x += xVelocity;
     }
 
-    public int getXVelocity() {
-        return xVelocity;
-    }
-
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
     }
 
-    public int getYVelocity() {
-        return yVelocity;
+    public int getHealth() {
+        return health;
     }
 
-    public void setYVelocity(int yVelocity) {
-        this.yVelocity = yVelocity;
+    public void setHealth(int health) throws InvalidHealthException {
+        if (health < this.maxHealth) {
+            this.health = health;
+        } else if (health > maxHealth) {
+            this.health = maxHealth;
+        } else {
+            throw new InvalidHealthException("Health cannot be set to a negative value");
+        }
+    }
+
+    public int getDamage() {
+        // return damage of default attack
+        return (int) (1);
+    }
+
+    public void setDamage(int damage) {
+        // set damage of the next attack
     }
 
     public float getAngle() {
         return ((float) Math.atan((ground.getHeight(x+width) - ground.getHeight(x))/width) * 180 / (float) Math.PI);
     }
 
-    public int getHeight() {
-        return height;
+    public int getFuel() {
+        return fuel;
     }
 
-    public int getWidth() {
-        return width;
-    }    
+    public void setFuel(int fuel) throws InvalidFuelException {
+        if (fuel < this.maxFuel) {
+            this.fuel = fuel;
+        } else if (fuel > maxFuel) {
+            this.fuel = maxFuel;
+        } else {
+            throw new InvalidFuelException("Fuel cannot be set to a negative value");
+        }
+    }
 
     public Rectangle getHitbox() {
         return hitbox;
@@ -113,7 +135,7 @@ public class Tank {
     }
 
     public void resetFuel(int fuel) {
-        this.fuel = 100;
+        this.fuel = this.maxFuel;
     }
 
     public void consumeFuel(int fuel) {
