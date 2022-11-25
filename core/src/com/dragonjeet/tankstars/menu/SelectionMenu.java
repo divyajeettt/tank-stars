@@ -15,8 +15,11 @@ import com.badlogic.gdx.utils.Align;
 import com.dragonjeet.tankstars.misc.MainScreen;
 import com.dragonjeet.tankstars.misc.TankStars;
 
+import java.util.concurrent.TransferQueue;
+
 public class SelectionMenu extends Menu {
     private TextureRegion selectedTankImage;
+    private TextureRegion selectedTankName;
 
     public SelectionMenu(final TankStars game) {
         super(game);
@@ -26,6 +29,7 @@ public class SelectionMenu extends Menu {
         selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tank-1.png")));
         game.getTank1().setImage(new TextureRegion(selectedTankImage));
         game.getTank2().setImage(new TextureRegion(selectedTankImage));
+        selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Tiger.png")));
 
         Table table = new Table();
         table.setFillParent(true);
@@ -58,6 +62,7 @@ public class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tank-1.png"));
+                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Tiger.png")));
                 game.getTank1().setImage(new TextureRegion(selectedTankImage));
                 game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
@@ -69,6 +74,7 @@ public class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tank-2.png"));
+                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Abrams.png")));
                 game.getTank1().setImage(new TextureRegion(selectedTankImage));
                 game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
@@ -80,6 +86,7 @@ public class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tank-3.png"));
+                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Buratino.png")));
                 game.getTank1().setImage(new TextureRegion(selectedTankImage));
                 game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
@@ -94,7 +101,7 @@ public class SelectionMenu extends Menu {
 
         table.columnDefaults(0).width(Gdx.graphics.getWidth() / 3f);
 
-        table.add(tank1).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
+        table.add(tank1).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton)).align(Align.right);
         table.add(tank2).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
         table.add(tank3).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
 

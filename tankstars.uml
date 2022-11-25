@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Divyajeet Singh/Documents/College Documents/Courses/Advanced Programming/tank-stars/core/src/com/dragonjeet/tankstars</OriginalElement>
+  <nodes>
+    <node x="740.5601994444603" y="723.8408626920927">com.dragonjeet.tankstars.exception.TankOutOfScreenException</node>
+    <node x="1070.9699682547162" y="288.0418982477845">com.dragonjeet.tankstars.menu.SelectionMenu</node>
+    <node x="1341.765923454716" y="740.567691772709">com.dragonjeet.tankstars.menu.LoadMenu</node>
+    <node x="1090.0957903768722" y="1363.33640655576">com.dragonjeet.tankstars.powerup.ShieldPowerUp</node>
+    <node x="1518.7659234547161" y="517.271533447248">com.dragonjeet.tankstars.menu.MainMenu</node>
+    <node x="32.95715646192539" y="1331.1764649042325">com.dragonjeet.tankstars.tank.Tank1</node>
+    <node x="194.85465303064643" y="1444.729944559656">com.dragonjeet.tankstars.attack.SpecialAttack</node>
+    <node x="373.2685218947223" y="555.422343548261">com.dragonjeet.tankstars.tank.Tank</node>
+    <node x="471.5444735537328" y="150.04189824778453">com.dragonjeet.tankstars.misc.TankStars</node>
+    <node x="1593.4360565325596" y="1054.626719682531">com.dragonjeet.tankstars.powerup.PowerUp</node>
+    <node x="2026.388032054756" y="596.618301538915">com.dragonjeet.tankstars.misc.MainScreen</node>
+    <node x="2096.776322688247" y="1363.33640655576">com.dragonjeet.tankstars.powerup.ExtraDamagePowerUp</node>
+    <node x="1973.388032054756" y="902.7258352879708">com.dragonjeet.tankstars.misc.HealthBar</node>
+    <node x="559.3900102725783" y="1433.1436760832398">com.dragonjeet.tankstars.attack.Bullet</node>
+    <node x="729.5601994444603" y="995.687364893115">com.dragonjeet.tankstars.exception.EmptySlotSelectedException</node>
+    <node x="751.0601994444603" y="905.071864159441">com.dragonjeet.tankstars.exception.InvalidFuelException</node>
+    <node x="1768.081008871982" y="723.0086779119728">com.dragonjeet.tankstars.menu.PauseMenu</node>
+    <node x="395.31827770861037" y="1262.1764649042325">com.dragonjeet.tankstars.attack.AttackType</node>
+    <node x="32.95715646192539" y="1193.1764649042325">com.dragonjeet.tankstars.tank.Tank3</node>
+    <node x="32.95715646192539" y="1262.1764649042325">com.dragonjeet.tankstars.tank.Tank2</node>
+    <node x="1845.1061896104034" y="1363.33640655576">com.dragonjeet.tankstars.powerup.ExtraVelocityPowerUp</node>
+    <node x="1105.8001983495087" y="984.9595775476228">com.dragonjeet.tankstars.powerup.AirDrop</node>
+    <node x="1088.8518769941982" y="649.567691772709">com.dragonjeet.tankstars.menu.Menu</node>
+    <node x="78.15532188475652" y="625.5398191447294">com.dragonjeet.tankstars.misc.Ground</node>
+    <node x="751.0601994444603" y="814.4563634257669">com.dragonjeet.tankstars.exception.InvalidHealthException</node>
+    <node x="1415.846958660996" y="345.3877659075529">com.dragonjeet.tankstars.menu.SaveMenu</node>
+    <node x="1341.765923454716" y="1363.33640655576">com.dragonjeet.tankstars.powerup.ExtraHealthPowerUp</node>
+    <node x="1593.4360565325596" y="1363.33640655576">com.dragonjeet.tankstars.powerup.ExtraFuelPowerUp</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.dragonjeet.tankstars.misc.MainScreen" target="com.dragonjeet.tankstars.misc.HealthBar" relationship="CREATE">
+      <point x="29.999801288310664" y="-105.5" />
+      <point x="2143.3878333430666" y="736.4746905306619" />
+      <point x="2113.388032054756" y="736.4746905306619" />
+      <point x="2113.388032054756" y="975.2258352879708" />
+      <point x="140.0" y="0.0" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank" target="com.dragonjeet.tankstars.exception.InvalidHealthException" relationship="CREATE">
+      <point x="121.57239714527827" y="-19.069105788266484" />
+      <point x="859.0601994444603" y="842.8532377599945" />
+      <point x="0.0" y="-27.0" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.MainMenu" target="com.dragonjeet.tankstars.menu.Menu" relationship="GENERALIZATION">
+      <point x="-84.78041537387799" y="12.629918489314718" />
+      <point x="1517.9855080808381" y="556.9500224512003" />
+      <point x="1196.064164322942" y="556.9500224512003" />
+      <point x="1196.064164322942" y="700.1981996049484" />
+      <point x="1163.851909602942" y="700.1981996049484" />
+      <point x="3.2608743822493125E-5" y="117.99950138652608" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.attack.Bullet" target="com.dragonjeet.tankstars.attack.AttackType" relationship="REALIZATION">
+      <point x="-104.81571850139676" y="11.58626847641608" />
+      <point x="501.9445903875078" y="1518.729944559656" />
+      <point x="0.12631267889742048" y="31.122151484415554" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.powerup.ExtraHealthPowerUp" target="com.dragonjeet.tankstars.powerup.PowerUp" relationship="REALIZATION">
+      <point x="-100.99961647771852" y="-2.5936981808172277E-4" />
+      <point x="1412.90339742127" y="1449.836147185942" />
+      <point x="1412.90339742127" y="1323.6764649042325" />
+      <point x="1655.2374626178294" y="1323.6764649042325" />
+      <point x="-39.19859391473028" y="31.46396753062777" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.SaveMenu" target="com.dragonjeet.tankstars.menu.Menu" relationship="GENERALIZATION">
+      <point x="1.0167856999032665E-4" y="27.000123599696792" />
+      <point x="1499.347060339566" y="478.8043910900232" />
+      <point x="1163.8518769941982" y="478.8043910900232" />
+      <point x="1163.8518769941982" y="748.4741438891093" />
+      <point x="1163.851909602942" y="748.4741438891093" />
+      <point x="3.2608743822493125E-5" y="117.99950138652608" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank" target="com.dragonjeet.tankstars.attack.AttackType" relationship="TO_ONE">
+      <point x="-2.50415152416673" y="294.14085258469834" />
+      <point x="498.7643703705556" y="1192.1694277608922" />
+      <point x="498.16992824934414" y="1192.1694277608922" />
+      <point x="-3.6483494592662282" y="-58.76710482769181" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.attack.SpecialAttack" target="com.dragonjeet.tankstars.attack.AttackType" relationship="REALIZATION">
+      <point x="99.27243331968214" y="-0.2807081877995188" />
+      <point x="481.45935796223216" y="1518.4492363718564" />
+      <point x="-20.358919746378206" y="57.36130578631901" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.Menu" target="com.dragonjeet.tankstars.misc.TankStars" relationship="TO_ONE">
+      <point x="-74.99996739125618" y="4.29550138652607" />
+      <point x="1034.3857934177702" y="771.8631931592352" />
+      <point x="1034.3857934177702" y="324.51760000000024" />
+      <point x="65.49952644626717" y="54.97570175221571" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.powerup.ExtraVelocityPowerUp" target="com.dragonjeet.tankstars.powerup.PowerUp" relationship="REALIZATION">
+      <point x="-2.9946483215344415" y="-87.34569173750378" />
+      <point x="1943.111541288869" y="1323.6764649042325" />
+      <point x="1733.0244336620717" y="1323.6764649042325" />
+      <point x="38.58837712951208" y="46.5631818854647" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.powerup.ExtraDamagePowerUp" target="com.dragonjeet.tankstars.powerup.PowerUp" relationship="REALIZATION">
+      <point x="-22.36457237900197" y="-86.06918924420324" />
+      <point x="2175.4117503092452" y="1285.31366564861" />
+      <point x="1773.7120849204389" y="1285.31366564861" />
+      <point x="79.27602838787925" y="36.66735927912987" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.LoadMenu" target="com.dragonjeet.tankstars.menu.Menu" relationship="GENERALIZATION">
+      <point x="-83.85883192537608" y="0.2580028795537146" />
+      <point x="1163.851909602942" y="767.8256946522628" />
+      <point x="3.2608743822493125E-5" y="117.99950138652608" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank" target="com.dragonjeet.tankstars.exception.InvalidFuelException" relationship="CREATE">
+      <point x="114.35148337887824" y="70.00314722165297" />
+      <point x="684.9143606695914" y="931.925490769914" />
+      <point x="684.9143606695914" y="932.071864159441" />
+      <point x="852.0601994444603" y="932.071864159441" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank2" target="com.dragonjeet.tankstars.tank.Tank" relationship="GENERALIZATION">
+      <point x="-127.18448533232575" y="7.066202466003006" />
+      <point x="9.288879981925504" y="1296.2426673702355" />
+      <point x="9.288879981925504" y="1063.280223799035" />
+      <point x="-115.69178203424417" y="201.35788025077397" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank" target="com.dragonjeet.tankstars.misc.Ground" relationship="TO_ONE">
+      <point x="-119.69144485152253" y="-4.092536673712857" />
+      <point x="174.39621294079984" y="857.8298068745481" />
+      <point x="-0.25910894395667583" y="89.73911807221504" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank3" target="com.dragonjeet.tankstars.tank.Tank" relationship="GENERALIZATION">
+      <point x="131.50035493269502" y="4.1929700225296074E-4" />
+      <point x="335.7457786886687" y="1220.1768842012348" />
+      <point x="335.7457786886687" y="1141.6725536294362" />
+      <point x="-131.4448930947234" y="279.75021008117517" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank1" target="com.dragonjeet.tankstars.tank.Tank" relationship="GENERALIZATION">
+      <point x="86.96477680051285" y="-26.05166814647623" />
+      <point x="159.65442788049938" y="1332.1247967577563" />
+      <point x="159.65442788049938" y="1369.9205089625566" />
+      <point x="-10.496230653439397" y="1369.9205089625566" />
+      <point x="-10.496230653439397" y="1040.4428179596757" />
+      <point x="-127.9424485302427" y="178.52047441141474" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank" target="com.dragonjeet.tankstars.exception.TankOutOfScreenException" relationship="CREATE">
+      <point x="113.1837891452783" y="-102.95518578826602" />
+      <point x="-121.25395113829427" y="8.12629506790222" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.misc.TankStars" target="com.dragonjeet.tankstars.tank.Tank" relationship="CREATE">
+      <point x="10.836048340989578" y="119.5" />
+      <point x="547.8805218947224" y="444.90644255301027" />
+      <point x="547.6450843647988" y="444.90644255301027" />
+      <point x="46.376562470076465" y="-302.1689566900252" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.misc.TankStars" target="com.dragonjeet.tankstars.misc.Ground" relationship="TO_ONE">
+      <point x="-68.09896370145088" y="32.89196161146651" />
+      <point x="322.2119218897394" y="302.433859859251" />
+      <point x="322.2119218897394" y="718.2103157759989" />
+      <point x="95.43496378563907" y="6.17049663126943" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.powerup.AirDrop" target="com.dragonjeet.tankstars.powerup.PowerUp" relationship="TO_ONE">
+      <point x="100.03192152402266" y="-12.174824614761974" />
+      <point x="1379.3998873067471" y="1092.2847529328608" />
+      <point x="1379.3998873067471" y="1092.6014088928534" />
+      <point x="-96.28999479597223" y="-1.5253107896776328" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.SelectionMenu" target="com.dragonjeet.tankstars.menu.Menu" relationship="GENERALIZATION">
+      <point x="-102.96279733713959" y="46.60399201525547" />
+      <point x="1131.5071709175766" y="763.563973423604" />
+      <point x="1163.851909602942" y="763.563973423604" />
+      <point x="3.2608743822493125E-5" y="117.99950138652608" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.PauseMenu" target="com.dragonjeet.tankstars.menu.Menu" relationship="GENERALIZATION">
+      <point x="0.9171018189563256" y="25.843979274691492" />
+      <point x="1854.9981106909383" y="816.3962025306627" />
+      <point x="1163.851909602942" y="816.3962025306627" />
+      <point x="3.2608743822493125E-5" y="117.99950138652608" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.misc.MainScreen" target="com.dragonjeet.tankstars.menu.PauseMenu" relationship="CREATE">
+      <point x="-86.4438277958352" y="41.94105414374508" />
+      <point x="1939.823714786938" y="744.0593556826601" />
+      <point x="85.74270591495588" y="7.590368266691485" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.PauseMenu" target="com.dragonjeet.tankstars.menu.MainMenu" relationship="CREATE">
+      <point x="-84.99045257887042" y="12.133197042264896" />
+      <point x="1644.0211086335926" y="762.1418749542377" />
+      <point x="41.255185178876445" y="28.3165154897099" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.PauseMenu" target="com.dragonjeet.tankstars.misc.MainScreen" relationship="CREATE">
+      <point x="86.02117964293848" y="12.304288778687123" />
+      <point x="2048.01324182692" y="762.3129666906599" />
+      <point x="2048.01324182692" y="762.3129666906599" />
+      <point x="-91.81253691583515" y="60.19466515174486" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.powerup.ExtraFuelPowerUp" target="com.dragonjeet.tankstars.powerup.PowerUp" relationship="REALIZATION">
+      <point x="2.268248800201036" y="-79.6545919497396" />
+      <point x="1696.7043053327607" y="1178.7735043850216" />
+      <point x="1696.18890925724" y="1178.7735043850216" />
+      <point x="1.7528527246804515" y="35.40838496463675" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank1" target="com.dragonjeet.tankstars.attack.AttackType" relationship="TO_ONE">
+      <point x="130.81467490575446" y="9.788731575414431" />
+      <point x="295.27183136767985" y="1360.132479747837" />
+      <point x="-107.16197665261058" y="36.45601484360441" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank2" target="com.dragonjeet.tankstars.attack.AttackType" relationship="TO_ONE">
+      <point x="131.68687190287307" y="3.0404334650427245" />
+      <point x="345.6377170852679" y="1292.2168983692752" />
+      <point x="345.6377170852679" y="1292.9040931366353" />
+      <point x="-109.07154293229206" y="-30.77237176759718" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.tank.Tank3" target="com.dragonjeet.tankstars.attack.AttackType" relationship="TO_ONE">
+      <point x="132.71495694607395" y="2.525105096403422" />
+      <point x="297.17211340799935" y="1230.7839483430348" />
+      <point x="419.97305589759924" y="1230.7839483430348" />
+      <point x="-81.84522181101113" y="-62.65550899639652" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.MainMenu" target="com.dragonjeet.tankstars.menu.LoadMenu" relationship="CREATE">
+      <point x="0.7106939046366278" y="24.880541652909983" />
+      <point x="1603.4766173593528" y="604.1990082355177" />
+      <point x="1602.7659234547161" y="604.1990082355177" />
+      <point x="1602.7659234547161" y="779.2500028178291" />
+      <point x="1529.0551637315796" y="779.2500028178291" />
+      <point x="1529.0551637315796" y="779.4381005635863" />
+      <point x="80.75112107722407" y="11.870408790877264" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.LoadMenu" target="com.dragonjeet.tankstars.menu.MainMenu" relationship="CREATE">
+      <point x="84.44130200236555" y="-10.065731491158203" />
+      <point x="1559.5851424682598" y="757.5019602815509" />
+      <point x="-43.180780986456284" y="27.42015339575528" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.misc.TankStars" target="com.dragonjeet.tankstars.tank.Tank" relationship="TO_ONE">
+      <point x="-35.95625052653821" y="117.3274192818169" />
+      <point x="501.0882230271946" y="502.6190991745044" />
+      <point x="501.0882230271946" y="556.9500224512003" />
+      <point x="-1.0392923267277183" y="-304.97232109706067" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.SelectionMenu" target="com.dragonjeet.tankstars.misc.MainScreen" relationship="CREATE">
+      <point x="163.310876472397" y="-18.74064083942619" />
+      <point x="2056.267894242941" y="319.8012574083583" />
+      <point x="-57.12013781181486" y="-103.37840467225192" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.powerup.ShieldPowerUp" target="com.dragonjeet.tankstars.powerup.PowerUp" relationship="REALIZATION">
+      <point x="1.0300249148287435" y="-80.40081888153509" />
+      <point x="1192.125815291701" y="1285.31366564861" />
+      <point x="1619.1597373314294" y="1285.31366564861" />
+      <point x="-75.27631920113026" y="21.156046020227905" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.MainMenu" target="com.dragonjeet.tankstars.menu.SelectionMenu" relationship="CREATE">
+      <point x="14.999814681910493" y="27.0" />
+      <point x="1617.7657381366266" y="539.2526404357005" />
+      <point x="1275.4279096029377" y="539.2526404357005" />
+      <point x="40.95794134822154" y="55.440301082878136" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.misc.MainScreen" target="com.dragonjeet.tankstars.misc.TankStars" relationship="TO_ONE">
+      <point x="-1.9871168933605077E-4" y="105.49951228388619" />
+      <point x="2113.3878333430666" y="306.68212073866425" />
+      <point x="2113.388032054756" y="306.68212073866425" />
+      <point x="2113.388032054756" y="211.36931327999775" />
+      <point x="55.1155520462645" y="-58.17258496778675" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.misc.TankStars" target="com.dragonjeet.tankstars.misc.Ground" relationship="CREATE">
+      <point x="-60.658372612933704" y="-10.06231040778465" />
+      <point x="174.65532188475652" y="259.47958783999985" />
+      <point x="0.0" y="86.5" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.PauseMenu" target="com.dragonjeet.tankstars.menu.SaveMenu" relationship="CREATE">
+      <point x="15.000255911010413" y="-27.0" />
+      <point x="1869.0812647829925" y="382.04955118986254" />
+      <point x="83.43886935474279" y="9.661785282309665" />
+    </edge>
+    <edge source="com.dragonjeet.tankstars.menu.SaveMenu" target="com.dragonjeet.tankstars.menu.PauseMenu" relationship="CREATE">
+      <point x="18.101679364343" y="28.366469416710856" />
+      <point x="1517.448638025339" y="444.58630490939447" />
+      <point x="1853.315080572538" y="444.58630490939447" />
+      <point x="-0.7659282994441128" y="-15.750232053310128" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.3051757812500019" showDependencies="true" x="1491.3884799999894" y="926.0815999999952" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
