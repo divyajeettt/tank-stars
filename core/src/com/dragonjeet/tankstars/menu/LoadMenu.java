@@ -16,6 +16,9 @@ import com.dragonjeet.tankstars.misc.TankStars;
 public class LoadMenu extends Menu {
     public LoadMenu(final TankStars game) {
         super(game);
+
+        background = new Texture(Gdx.files.internal("loadBackground.png"));
+
         Table table = new Table();
         table.add(new Image(new Texture(Gdx.files.internal("loadGame.png")))).align(Align.center);
         table.row();

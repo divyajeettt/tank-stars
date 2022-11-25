@@ -15,8 +15,6 @@ import com.badlogic.gdx.utils.Align;
 import com.dragonjeet.tankstars.misc.MainScreen;
 import com.dragonjeet.tankstars.misc.TankStars;
 
-import java.util.concurrent.TransferQueue;
-
 public class SelectionMenu extends Menu {
     private TextureRegion selectedTankImage;
     private TextureRegion selectedTankName;
@@ -27,9 +25,9 @@ public class SelectionMenu extends Menu {
         background = new Texture(Gdx.files.internal("selectionMenu.png"));
 
         selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tank-1.png")));
+        selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Tiger.png")));
         game.getTank1().setImage(new TextureRegion(selectedTankImage));
         game.getTank2().setImage(new TextureRegion(selectedTankImage));
-        selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Tiger.png")));
 
         Table table = new Table();
         table.setFillParent(true);
@@ -105,10 +103,15 @@ public class SelectionMenu extends Menu {
         setUi(table);
     }
 
-    public void drawSelectedTank(SpriteBatch batch, TextureRegion tankImage) {
+    public void drawSelectedTank(SpriteBatch batch, TextureRegion tankImage, TextureRegion tankName) {
         batch.draw(
             tankImage, 150, 180, 0, 0,
             tankImage.getRegionWidth(), tankImage.getRegionHeight(), 2, 2, 0
+        );
+
+        batch.draw(
+            tankName, 250, 700, 0, 0,
+            tankName.getRegionWidth(), tankName.getRegionHeight(), 1.4f, 1.4f, 0
         );
     }
 
@@ -116,7 +119,7 @@ public class SelectionMenu extends Menu {
     public void render(float d) {
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        drawSelectedTank(game.batch, selectedTankImage);
+        drawSelectedTank(game.batch, selectedTankImage, selectedTankName);
         game.batch.end();
         stage.act(d);
         stage.draw();

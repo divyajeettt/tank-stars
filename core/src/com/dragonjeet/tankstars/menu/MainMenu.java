@@ -14,7 +14,7 @@ import com.dragonjeet.tankstars.misc.TankStars;
 public class MainMenu extends Menu {
     public MainMenu(final TankStars game) {
         super(game);
-        Table table = new Table();
+//        Table table = new Table();
 
         // Adding image to fill the background
         Texture backgroundTexture = new Texture(Gdx.files.internal("homescreen.png"));
@@ -31,7 +31,7 @@ public class MainMenu extends Menu {
         );
         newGame.setPosition(
             Gdx.graphics.getWidth() / 2f - newGame.getWidth() / 2,
-            Gdx.graphics.getHeight() / 2f
+            Gdx.graphics.getHeight() / 2f + newGame.getHeight() / 2
         );
         stage.addActor(newGame);
 
@@ -49,7 +49,7 @@ public class MainMenu extends Menu {
         );
         loadGame.setPosition(
             Gdx.graphics.getWidth() / 2f - loadGame.getWidth() / 2,
-            Gdx.graphics.getHeight() / 2f - 2 * loadGame.getHeight()
+            Gdx.graphics.getHeight() / 2f - 1.1f*loadGame.getHeight()
         );
 
         loadGame.addListener(new ChangeListener() {
@@ -67,8 +67,8 @@ public class MainMenu extends Menu {
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
         );
         exitGame.setPosition(
-                Gdx.graphics.getWidth() / 2f - exitGame.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2f - 4 * exitGame.getHeight()
+            Gdx.graphics.getWidth() / 2f - exitGame.getWidth() / 2,
+            Gdx.graphics.getHeight() / 2f - 2.71f * exitGame.getHeight()
         );
         stage.addActor(exitGame);
 
