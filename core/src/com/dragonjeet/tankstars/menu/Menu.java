@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.dragonjeet.tankstars.TankStars;
+import com.dragonjeet.tankstars.misc.TankStars;
 
 public class Menu implements Screen {
     protected final TankStars game;

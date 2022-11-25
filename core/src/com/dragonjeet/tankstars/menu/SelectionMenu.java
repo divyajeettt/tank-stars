@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.dragonjeet.tankstars.MainScreen;
-import com.dragonjeet.tankstars.TankStars;
+import com.dragonjeet.tankstars.misc.MainScreen;
+import com.dragonjeet.tankstars.misc.TankStars;
 
 public class SelectionMenu extends Menu {
     private TextureRegion selectedTankImage;
@@ -24,8 +24,8 @@ public class SelectionMenu extends Menu {
         background = new Texture(Gdx.files.internal("selectionMenu.png"));
 
         selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tank-1.png")));
-        game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
-        game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
+        game.getTank1().setImage(new TextureRegion(selectedTankImage));
+        game.getTank2().setImage(new TextureRegion(selectedTankImage));
 
         Table table = new Table();
         table.setFillParent(true);
@@ -58,8 +58,8 @@ public class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tank-1.png"));
-                game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
-                game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
+                game.getTank1().setImage(new TextureRegion(selectedTankImage));
+                game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
         });
 
@@ -69,8 +69,8 @@ public class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tank-2.png"));
-                game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
-                game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
+                game.getTank1().setImage(new TextureRegion(selectedTankImage));
+                game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
         });
 
@@ -80,8 +80,8 @@ public class SelectionMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tank-3.png"));
-                game.getTank1().setImage(new TextureRegion(selectedTankImage), false);
-                game.getTank2().setImage(new TextureRegion(selectedTankImage), true);
+                game.getTank1().setImage(new TextureRegion(selectedTankImage));
+                game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
         });
 

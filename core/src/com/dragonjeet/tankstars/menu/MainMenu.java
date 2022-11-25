@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.dragonjeet.tankstars.TankStars;
+import com.dragonjeet.tankstars.misc.TankStars;
 
 public class MainMenu extends Menu {
     public MainMenu(final TankStars game) {
