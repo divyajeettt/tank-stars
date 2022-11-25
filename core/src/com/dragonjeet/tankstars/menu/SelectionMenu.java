@@ -36,8 +36,9 @@ public class SelectionMenu extends Menu {
         stage.addActor(table);
 
         table.add().grow();
+        table.add().grow();
         Table childTable = new Table();
-        table.add(childTable).grow();
+        table.add(childTable).expandY();
 
         // Do something to fix the positioning of the tank buttons
         // I have added them to a table like before
@@ -92,21 +93,14 @@ public class SelectionMenu extends Menu {
             }
         });
 
-        Button invisibleButton = new Button(skin);
-        invisibleButton.setColor(0.5f, 0.5f, 0.5f, 0f);
-        for (int i = 0; i < 10; i++) {
-            table.row();
-            table.add(invisibleButton);
-        }
-
         table.columnDefaults(0).width(Gdx.graphics.getWidth() / 3f);
 
-        table.add(tank1).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton)).align(Align.right);
-        table.add(tank2).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
-        table.add(tank3).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton));
+        childTable.add(tank1).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton)).expandY().align(Align.bottom).padRight(20);
+        childTable.add(tank2).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton)).expandY().align(Align.bottom);
+        childTable.add(tank3).width(Value.percentWidth(1f, playButton)).height(Value.percentHeight(1f, playButton)).expandY().align(Align.bottom).padLeft(20);
 
-        table.row();
-        table.add(playButton).expand().align(Align.center).colspan(3);
+        childTable.row();
+        childTable.add(playButton).expand().align(Align.bottom).colspan(3).padTop(160);
 
         setUi(table);
     }
