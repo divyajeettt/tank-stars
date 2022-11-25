@@ -44,6 +44,10 @@ public class Ground {
         }
     }
 
+    public int getWidth() {
+        return width;
+    }
+
     public double getHeight(int x) {
         return heights.get(x);
     }

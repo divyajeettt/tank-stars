@@ -14,8 +14,8 @@ public class TankStars extends Game {
 	public void create() {
 		batch = new SpriteBatch();
 		ground = new Ground(Gdx.graphics.getWidth());
-		tank1 = new Tank(100, 100, 59, 100, ground);
-		tank2 = new Tank(1000, 2000, 59, 100, ground);
+		tank1 = new Tank(100, 100, 59, 100, ground, false);
+		tank2 = new Tank(1000, 2000, 59, 100, ground, true);
 		this.setScreen(new MainMenu(this));
 	}
 

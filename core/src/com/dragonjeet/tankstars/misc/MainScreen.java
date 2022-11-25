@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.PauseMenu;
 
 public class MainScreen implements Screen {
@@ -27,6 +28,7 @@ public class MainScreen implements Screen {
     private final Viewport viewport;
     private final ShapeRenderer renderer;
     public final TankStars game;
+    public int numAirDrops;
 
     public MainScreen(final TankStars game) {
         width = Gdx.graphics.getWidth();
@@ -113,8 +115,8 @@ public class MainScreen implements Screen {
         root.row();
 
         Touchpad.TouchpadStyle moveStyle = new Touchpad.TouchpadStyle();
-        moveStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("transparent.png"))));
         moveStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("aim.png"))));
+        moveStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("transparent.png"))));
         final Touchpad moveButton = new Touchpad(0, moveStyle);
         moveButton.addListener(new ChangeListener() {
             @Override
@@ -131,10 +133,24 @@ public class MainScreen implements Screen {
         root.add(moveButton).align(Align.left).expandY();
         root.add().expandX().width(Value.percentWidth(1f, pauseButton)).expandY();
 
+        // this touchpad will be converted to aim-angle-change touchpad
         Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle();
         touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("aim.png"))));
         touchpadStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("transparent.png"))));
-        Touchpad touchpad = new Touchpad(0, touchpadStyle);
+        final Touchpad touchpad = new Touchpad(0, touchpadStyle);
+        touchpad.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (touchpad.getKnobPercentX() > 0) {
+                    game.getTank2().setXVelocity(1);
+                } else if (touchpad.getKnobPercentX() < 0) {
+                    game.getTank2().setXVelocity(-1);
+                } else {
+                    game.getTank2().setXVelocity(0);
+                }
+            }
+        });
+
         root.add(touchpad).expandX().colspan(4);
     }
 
@@ -148,10 +164,23 @@ public class MainScreen implements Screen {
         game.batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
         game.batch.begin();
         game.batch.draw(background, 0, 0, width, height);
-        game.getTank1().draw(game.batch);
-        game.getTank1().move();
-        game.getTank2().draw(game.batch);
-        game.getTank2().move();
+
+        try {
+            game.getTank1().draw(game.batch);
+            game.getTank1().move();
+        }
+        catch (TankOutOfScreenException ex) {
+            game.getTank1().setXVelocity(0);
+        }
+
+        try {
+            game.getTank2().draw(game.batch);
+            game.getTank2().move();
+        }
+        catch (TankOutOfScreenException ex) {
+            game.getTank2().setXVelocity(0);
+        }
+
         game.batch.end();
 
         renderer.setColor(0f, 1f, 0f, 1f);
