@@ -12,8 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.dragonjeet.tankstars.misc.BattleScreen;
 import com.dragonjeet.tankstars.misc.TankStars;
+import com.dragonjeet.tankstars.misc.BattleScreen;
+import com.dragonjeet.tankstars.tank.Tank1;
+import com.dragonjeet.tankstars.tank.Tank2;
+import com.dragonjeet.tankstars.tank.Tank3;
 
 public class SelectionMenu extends Menu {
     private TextureRegion selectedTankImage;
@@ -26,8 +29,8 @@ public class SelectionMenu extends Menu {
         selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/full.png")));
         selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/name.png")));
 
-        game.setTank1( new com.dragonjeet.tankstars.tank.Tank1(100,game.getGround(),false));
-        game.setTank2( new com.dragonjeet.tankstars.tank.Tank1(600,game.getGround(),true));
+        game.setTank1(new Tank1(100, game.getGround(), false));
+        game.setTank2(new Tank1(600, game.getGround(), true));
 
         Table table = new Table();
         table.setFillParent(true);
@@ -62,8 +65,8 @@ public class SelectionMenu extends Menu {
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tanks/tank-1/full.png"));
                 selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/name.png")));
-                game.setTank1( new com.dragonjeet.tankstars.tank.Tank1(100,game.getGround(),false));
-                game.setTank2( new com.dragonjeet.tankstars.tank.Tank1(100,game.getGround(),true));
+                game.setTank1(new Tank1(100, game.getGround(), false));
+                game.setTank2(new Tank1(100, game.getGround(), true));
             }
         });
 
@@ -74,8 +77,8 @@ public class SelectionMenu extends Menu {
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tanks/tank-2/full.png"));
                 selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-2/name.png")));
-                game.setTank1( new com.dragonjeet.tankstars.tank.Tank2(100,0,50,30,game.getGround(),false));
-                game.setTank2( new com.dragonjeet.tankstars.tank.Tank2(100,0,50,30,game.getGround(),true));
+                game.setTank1(new Tank2(100, game.getGround(), false));
+                game.setTank2(new Tank2(100, game.getGround(), true));
             }
         });
 
@@ -86,8 +89,8 @@ public class SelectionMenu extends Menu {
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tanks/tank-3/full.png"));
                 selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-3/name.png")));
-                game.setTank1( new com.dragonjeet.tankstars.tank.Tank3(100,0,50,30,game.getGround(),false));
-                game.setTank2( new com.dragonjeet.tankstars.tank.Tank3(100,0,50,30,game.getGround(),true));
+                game.setTank1(new Tank3(100, game.getGround(), false));
+                game.setTank2(new Tank3(100, game.getGround(), true));
             }
         });
 

@@ -73,7 +73,8 @@ public class BattleScreen implements Screen {
 
         HealthBar healthBar1 = new HealthBar(0, 100, 1, false, skin);
         healthBar1.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
-        healthBar1.setCustomHeight((Value.percentHeight(1f, pauseButton)).get());
+//        healthBar1.setCustomHeight((Value.percentHeight(1f, pauseButton)).get());
+        healthBar1.setCustomHeight(50);
         table.add(healthBar1).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
         healthBar1.setValue(100);
 

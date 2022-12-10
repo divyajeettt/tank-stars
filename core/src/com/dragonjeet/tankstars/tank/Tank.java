@@ -17,7 +17,7 @@ public class Tank {
     protected final boolean flipped;
     protected int height, width;
     protected final Ground ground;
-    protected float attackAngle;                     // angle of muzzle
+    protected float attackAngle;                   // angle of muzzle
     protected int attackPower;                     // power of attack
     protected int fuel;                            // will reset to 'maxFuel' full every turn
     protected int health;
@@ -63,16 +63,17 @@ public class Tank {
         this.turret.flip(this.flipped, false);
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(image, x, getY(), getWidth()/2f, getHeight()/2f, getWidth(), getHeight(), 1, 1, getAngle());
+    public void draw(SpriteBatch batch) throws TankOutOfScreenException {
+        batch.draw(body, x, getY(), getWidth()/2f, getHeight()/2f, getWidth(), getHeight(), 1, 1, getAngle());
+        batch.draw(turret, x+getWidth()/2f, getY()+getHeight(), 0, 0, turret.getRegionWidth(), turret.getRegionHeight(), 1, 1, getAngle()+attackAngle);
     }
 
     public int getX() {
         return x;
     }
 
-    public int getY() {
-        return ((int) ground.getHeight(x+width/2));
+    public int getY() throws TankOutOfScreenException {
+        return ((int) ground.getHeight(x + width / 2));
     }
 
     public void move() throws TankOutOfScreenException {
@@ -111,7 +112,7 @@ public class Tank {
         // set damage of the next attack
     }
 
-    public float getAngle() {
+    public float getAngle() throws TankOutOfScreenException {
         return ((float) Math.atan((ground.getHeight(x+getWidth()) - ground.getHeight(x))/getWidth()) * 180 / (float) Math.PI);
     }
 
