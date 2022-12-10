@@ -17,7 +17,7 @@ public class MainMenu extends Menu {
 //        Table table = new Table();
 
         // Adding image to fill the background
-        Texture backgroundTexture = new Texture(Gdx.files.internal("homescreen.png"));
+        Texture backgroundTexture = new Texture(Gdx.files.internal("backgrounds/home.png"));
         TextureRegion backgroundTextureRegion = new TextureRegion(backgroundTexture);
         TextureRegionDrawable backgroundTextureRegionDrawable = new TextureRegionDrawable(backgroundTextureRegion);
         Image background = new Image(backgroundTextureRegionDrawable);
@@ -26,8 +26,8 @@ public class MainMenu extends Menu {
         stage.addActor(background);
 
         ImageButton newGame = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("startDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/start.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/start.png"))))
         );
         newGame.setPosition(
             Gdx.graphics.getWidth() / 2f - newGame.getWidth() / 2,
@@ -44,8 +44,8 @@ public class MainMenu extends Menu {
         });
 
         ImageButton loadGame = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/load.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/load.png"))))
         );
         loadGame.setPosition(
             Gdx.graphics.getWidth() / 2f - loadGame.getWidth() / 2,
@@ -63,8 +63,8 @@ public class MainMenu extends Menu {
         stage.addActor(loadGame);
 
         ImageButton exitGame = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("exitDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/exit.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/exit.png"))))
         );
         exitGame.setPosition(
             Gdx.graphics.getWidth() / 2f - exitGame.getWidth() / 2,

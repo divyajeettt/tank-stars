@@ -17,25 +17,25 @@ public class LoadMenu extends Menu {
     public LoadMenu(final TankStars game) {
         super(game);
 
-        background = new Texture(Gdx.files.internal("loadBackground.png"));
+        background = new Texture(Gdx.files.internal("backgrounds/load.png"));
 
         Table table = new Table();
-        table.add(new Image(new Texture(Gdx.files.internal("loadGame.png")))).align(Align.center);
+        table.add(new Image(new Texture(Gdx.files.internal("buttons/up/load.png")))).align(Align.center);
         table.row();
 
         // Hard Coding 4 buttons for now
         // This list will need to show the filled slots later
         for (int i = 0; i < 4; i++) {
             table.add(new ImageButton(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("emptySlotUp.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("emptySlotDown.png"))))
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/emptySlot.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/emptySlot.png"))))
             )).growX().pad(10);
             table.row();
         }
 
         Button goBack = new Button(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("goBackDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/goBack.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/goBack.png"))))
         );
 
         goBack.addListener(new ChangeListener() {

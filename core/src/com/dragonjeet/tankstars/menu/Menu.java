@@ -17,7 +17,7 @@ public class Menu implements Screen {
     public Menu(final TankStars game) {
         skin = new Skin(Gdx.files.internal("orangepeelui/uiskin.json"));
         this.game = game;
-        background = new Texture("background.png");
+        background = new Texture("backgrounds/main.png");
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }

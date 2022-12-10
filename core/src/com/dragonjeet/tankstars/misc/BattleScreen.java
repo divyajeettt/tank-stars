@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.PauseMenu;
 
-public class MainScreen implements Screen {
+public class BattleScreen implements Screen {
     private int width, height;
     private final Stage stage;
     private final Skin skin;
@@ -30,12 +30,12 @@ public class MainScreen implements Screen {
     public final TankStars game;
     public int numAirDrops;
 
-    public MainScreen(final TankStars game) {
+    public BattleScreen(final TankStars game) {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         this.game = game;
         renderer = new ShapeRenderer();
-        background = new Texture("background.png");
+        background = new Texture("backgrounds/main.png");
 
         camera = new OrthographicCamera(width, height);
         camera.setToOrtho(false, width, height);
@@ -57,8 +57,8 @@ public class MainScreen implements Screen {
         Value buttonHeight = Value.percentHeight(1f, pauseButton);
         Value buttonWidth = Value.percentWidth(1f, pauseButton);
         Button.ButtonStyle style = new Button.ButtonStyle();
-        style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("pauseUp.png"))));
-        style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("pauseDown.png"))));
+        style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/pause.png"))));
+        style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/pause.png"))));
         pauseButton.setStyle(style);
 
         pauseButton.addListener(new ChangeListener() {
@@ -79,7 +79,7 @@ public class MainScreen implements Screen {
 
         Button vs = new Button(skin);
 
-        Drawable vsDraw = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("vs.png"))));
+        Drawable vsDraw = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/vs.png"))));
         Button.ButtonStyle vsStyle = new Button.ButtonStyle();
         vsStyle.down = vsDraw;
         vsStyle.up = vsDraw;
@@ -102,14 +102,14 @@ public class MainScreen implements Screen {
         root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f, pauseButton)).expandY();
 
         Button selector = new Button(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("selectorUp.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("selectorDown.png"))))
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/selector.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/selector.png"))))
         );
         root.add(selector).width(Value.percentWidth(2f, pauseButton)).height(Value.percentHeight(1.5f, pauseButton)).padTop(80).expandY().align(Align.right);
 
         ImageButton fireButton = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fireUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("fireDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/fire.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/fire.png"))))
         );
 
         root.add(fireButton).padLeft(5).padTop(80).width(Value.percentWidth(2f, pauseButton)).height(Value.percentHeight(1.5f, pauseButton)).expandY().padLeft(5).align(Align.left);
@@ -118,8 +118,8 @@ public class MainScreen implements Screen {
         root.row();
 
         Touchpad.TouchpadStyle moveStyle = new Touchpad.TouchpadStyle();
-        moveStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("aim.png"))));
-        moveStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("transparent.png"))));
+        moveStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/aim.png"))));
+        moveStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/transparent.png"))));
         final Touchpad moveButton = new Touchpad(0, moveStyle);
         moveButton.addListener(new ChangeListener() {
             @Override
@@ -138,8 +138,8 @@ public class MainScreen implements Screen {
 
         // this touchpad will be converted to aim-angle-change touchpad
         Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle();
-        touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("aim.png"))));
-        touchpadStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("transparent.png"))));
+        touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/aim.png"))));
+        touchpadStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/transparent.png"))));
         final Touchpad touchpad = new Touchpad(0, touchpadStyle);
         touchpad.addListener(new ChangeListener() {
             @Override
@@ -186,7 +186,7 @@ public class MainScreen implements Screen {
 
         game.batch.end();
 
-        renderer.setColor(0f, 1f, 0f, 1f);
+        renderer.setColor(0.8f, 0f, 0f, 1f);
         renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         game.getGround().draw(renderer);

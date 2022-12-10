@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.dragonjeet.tankstars.misc.MainScreen;
+import com.dragonjeet.tankstars.misc.BattleScreen;
 import com.dragonjeet.tankstars.misc.TankStars;
 
 public class SelectionMenu extends Menu {
@@ -22,10 +22,10 @@ public class SelectionMenu extends Menu {
     public SelectionMenu(final TankStars game) {
         super(game);
 
-        background = new Texture(Gdx.files.internal("selectionMenu.png"));
+        background = new Texture(Gdx.files.internal("backgrounds/selectionMenu.png"));
 
-        selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tank-1.png")));
-        selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Tiger.png")));
+        selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/full.png")));
+        selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/name.png")));
         game.getTank1().setImage(new TextureRegion(selectedTankImage));
         game.getTank2().setImage(new TextureRegion(selectedTankImage));
 
@@ -42,50 +42,50 @@ public class SelectionMenu extends Menu {
         // I have added them to a table like before
 
         ImageButton playButton = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playUp.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playDown.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/play.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/play.png"))))
         );
 
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MainScreen mainScreen = new MainScreen(game);
-                game.setScreen(mainScreen);
+                BattleScreen battleScreen = new BattleScreen(game);
+                game.setScreen(battleScreen);
                 dispose();
             }
         });
 
-        TextureRegionDrawable tankImage1 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-1.png")));
+        TextureRegionDrawable tankImage1 = new TextureRegionDrawable(new TextureRegion(new Texture("tanks/tank-1/full.png")));
         Button tank1 = new Button(tankImage1, tankImage1);
         tank1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedTankImage = new TextureRegion(new Texture("tank-1.png"));
-                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Tiger.png")));
+                selectedTankImage = new TextureRegion(new Texture("tanks/tank-1/full.png"));
+                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/name.png")));
                 game.getTank1().setImage(new TextureRegion(selectedTankImage));
                 game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
         });
 
-        TextureRegionDrawable tankImage2 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-2.png")));
+        TextureRegionDrawable tankImage2 = new TextureRegionDrawable(new TextureRegion(new Texture("tanks/tank-2/full.png")));
         Button tank2 = new Button(tankImage2, tankImage2);
         tank2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedTankImage = new TextureRegion(new Texture("tank-2.png"));
-                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Abrams.png")));
+                selectedTankImage = new TextureRegion(new Texture("tanks/tank-2/full.png"));
+                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-2/name.png")));
                 game.getTank1().setImage(new TextureRegion(selectedTankImage));
                 game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
         });
 
-        TextureRegionDrawable tankImage3 = new TextureRegionDrawable(new TextureRegion(new Texture("tank-3.png")));
+        TextureRegionDrawable tankImage3 = new TextureRegionDrawable(new TextureRegion(new Texture("tanks/tank-3/full.png")));
         Button tank3 = new Button(tankImage3, tankImage3);
         tank3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedTankImage = new TextureRegion(new Texture("tank-3.png"));
-                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("Buratino.png")));
+                selectedTankImage = new TextureRegion(new Texture("tanks/tank-3/full.png"));
+                selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-3/name.png")));
                 game.getTank1().setImage(new TextureRegion(selectedTankImage));
                 game.getTank2().setImage(new TextureRegion(selectedTankImage));
             }
