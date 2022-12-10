@@ -17,7 +17,7 @@ public class SaveMenu extends Menu {
     public SaveMenu(final TankStars game) {
         super(game);
         Table table = new Table();
-        table.add(new Image(new Texture(Gdx.files.internal("backgrounds/save.png")))).align(Align.center);
+        table.add(new Image(new Texture(Gdx.files.internal("text/save.png")))).align(Align.center);
         table.row();
 
         // Hard Coding 4 buttons for now

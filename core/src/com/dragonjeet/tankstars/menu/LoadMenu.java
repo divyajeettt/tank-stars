@@ -20,7 +20,7 @@ public class LoadMenu extends Menu {
         background = new Texture(Gdx.files.internal("backgrounds/load.png"));
 
         Table table = new Table();
-        table.add(new Image(new Texture(Gdx.files.internal("buttons/up/load.png")))).align(Align.center);
+        table.add(new Image(new Texture(Gdx.files.internal("buttons/text/load.png")))).align(Align.center);
         table.row();
 
         // Hard Coding 4 buttons for now
