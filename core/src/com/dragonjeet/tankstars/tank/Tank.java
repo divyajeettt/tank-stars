@@ -11,7 +11,7 @@ import com.dragonjeet.tankstars.misc.Ground;
 
 import java.lang.Math;
 
-public class Tank {
+public abstract class Tank {
     protected int x;
     protected final boolean flipped;
     protected final Ground ground;
@@ -19,9 +19,12 @@ public class Tank {
     protected AttackType defaultAttack;
     protected TextureRegion image, body, turret;
     protected int maxAttackPower, maxFuel, xVelocity, yVelocity, maxHealth, health, fuel, attackPower;
-    protected static int scalingFactor = 4; //Bigger scalingFactor -> smaller tank
+    protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
-    public Tank(int x , Ground ground, boolean flipped) {
+    public abstract void draw(SpriteBatch batch) throws TankOutOfScreenException;
+
+
+    public Tank(int x, Ground ground, boolean flipped) {
         this.x = x;
         this.ground = ground;
         this.flipped = flipped;
@@ -62,11 +65,6 @@ public class Tank {
     public void setTurret(TextureRegion turret) {
         this.turret = turret;
         this.turret.flip(this.flipped, false);
-    }
-
-    public void draw(SpriteBatch batch) throws TankOutOfScreenException {
-        batch.draw(turret, x+getWidth()/2f, getY()+getHeight()-getTurretHeight(), 0, 0, getTurretWidth(), getTurretHeight(), 1, 1, getAngle()+attackAngle);
-        batch.draw(body, x, getY(), getWidth()/2f, getHeight()/2f, getWidth(), getHeight(), 1, 1, getAngle());
     }
 
     public void setX(int x) {
@@ -110,7 +108,7 @@ public class Tank {
 
     public int getDamage() {
         // return damage of default attack
-        return (int) (1);
+        return 1;
     }
 
     public void setDamage(int damage) {
@@ -118,7 +116,10 @@ public class Tank {
     }
 
     public float getAngle() throws TankOutOfScreenException {
-        return ((float) Math.atan((ground.getHeight(x+getWidth()) - ground.getHeight(x))/getWidth()) * 180 / (float) Math.PI);
+        return (
+            (float) Math.atan((ground.getHeight(x+getWidth()) - ground.getHeight(x))/getWidth()) * 180 /
+            (float) Math.PI) + 180f*(flipped ? 1 : 0)
+        ;
     }
 
     public int getFuel() {
