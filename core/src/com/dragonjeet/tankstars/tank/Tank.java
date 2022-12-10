@@ -12,35 +12,40 @@ import com.dragonjeet.tankstars.misc.Ground;
 import java.lang.Math;
 
 public abstract class Tank {
-    protected int x;
     protected final boolean flipped;
-    protected final Ground ground;
+    protected int x;
     protected float attackAngle;                   // angle of muzzle
+    protected Ground ground;
     protected AttackType defaultAttack;
     protected TextureRegion image, body, turret;
-    protected int maxAttackPower, maxFuel, xVelocity, yVelocity, maxHealth, health, fuel, attackPower;
+    protected int xVelocity, yVelocity, health, fuel, attackPower;
+    protected final int maxHealth;
+    protected final int maxAttackPower;
+    protected final int maxFuel;
     protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
     public abstract void draw(SpriteBatch batch) throws TankOutOfScreenException;
 
-    public Tank(int x, Ground ground, boolean flipped) {
+    public Tank(int x, Ground ground, boolean flipped, int maxHealth, int maxAttackPower, int maxFuel) {
         // for the time being, the only diff between tanks is their image
         // this will be extended to inheritance into 3 children, each of which should have
         // different images, moving speeds, healths, fuelTanks, and attackDamages
         this.x = x;
         this.ground = ground;
         this.flipped = flipped;
-        this.health = 100;
+        // go into Tank1,2,3 and change according to the tanks' stats in the game
+        this.maxHealth = maxHealth;
+        this.maxAttackPower = maxAttackPower;
+        this.maxFuel = maxFuel;
+        this.health = this.maxHealth;
     }
 
     public int getHeight() {
-        if (body == null) return image.getRegionHeight();
-        return body.getRegionHeight()/scalingFactor;
+        return ((body == null) ? image.getRegionHeight() : body.getRegionHeight()/scalingFactor);
     }
 
     public int getWidth() {
-        if (body == null) return image.getRegionWidth();
-        return body.getRegionWidth() / scalingFactor;
+        return ((body == null) ? image.getRegionWidth() : body.getRegionWidth()/scalingFactor);
     }
 
     public int getTurretHeight() {
@@ -49,6 +54,10 @@ public abstract class Tank {
 
     public int getTurretWidth() {
         return turret.getRegionWidth() / scalingFactor;
+    }
+
+    public int getMaxHealth() {
+        return this.maxHealth;
     }
 
     public void setBody(TextureRegion body) {
@@ -73,6 +82,10 @@ public abstract class Tank {
         return ((int) ground.getHeight(x + getWidth() / 2));
     }
 
+    public void setGround(Ground ground) {
+        this.ground = ground;
+    }
+
     public void move() throws TankOutOfScreenException {
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
@@ -87,7 +100,7 @@ public abstract class Tank {
     }
 
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     public void setHealth(int health) throws InvalidHealthException {
@@ -117,7 +130,7 @@ public abstract class Tank {
     }
 
     public int getFuel() {
-        return fuel;
+        return this.fuel;
     }
 
     public void setFuel(int fuel) throws InvalidFuelException {
@@ -143,7 +156,7 @@ public abstract class Tank {
     }
 
     public int getAttackPower() {
-        return attackPower;
+        return this.attackPower;
     }
 
     public void resetFuel(int fuel) {

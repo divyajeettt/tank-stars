@@ -3,9 +3,9 @@ package com.dragonjeet.tankstars.tank;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.dragonjeet.tankstars.misc.Ground;
 import com.dragonjeet.tankstars.attack.AttackType;
 import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
-import com.dragonjeet.tankstars.misc.Ground;
 
 public class Tank2 extends Tank {
     int maxHealth;
@@ -14,9 +14,11 @@ public class Tank2 extends Tank {
     protected int maxFuel;
 
     public Tank2(int x, Ground ground, boolean flipped) {
-        super(x, ground, flipped);
+        super(x, ground, flipped, 100, 100, 100);
         setBody(new TextureRegion(new Texture("tanks/tank-2/body.png")));
         setTurret(new TextureRegion(new Texture("tanks/tank-2/turret.png")));
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
     }
 
     @Override
