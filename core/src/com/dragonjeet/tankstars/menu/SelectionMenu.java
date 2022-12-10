@@ -19,7 +19,7 @@ import com.dragonjeet.tankstars.tank.Tank2;
 import com.dragonjeet.tankstars.tank.Tank3;
 
 public class SelectionMenu extends Menu {
-    private int player;        // player=1 => Player-1's turn, player=0 => Player-2's turn; player ^= 1 after every iteration
+    private int player;                 // player=1 => Player-1's turn, player=0 => Player-2's turn; player ^= 1 after every iteration
     private TextureRegion playerText;
     private TextureRegion selectedTankImage;
     private TextureRegion selectedTankName;
@@ -37,7 +37,6 @@ public class SelectionMenu extends Menu {
 
         setTable();
         selectTank(1);  // default selected tank
-
         setActionButton();
         setTankButtons();
         placeObjects();
