@@ -180,11 +180,20 @@ public class BattleScreen implements Screen {
 
         game.batch.end();
 
-        renderer.setColor(0.8f, 0f, 0f, 1f);
+        renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
+
+        renderer.setColor(0.4f, 0.06f, 0.06f, 1f);
         renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         game.getGround().draw(renderer);
         renderer.end();
+
+        renderer.setColor(0.69f, 0.1f, 0.1f, 1f);
+        renderer.setProjectionMatrix(stage.getViewport().getCamera().combined);
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        game.getGround().drawBoundary(renderer);
+        renderer.end();
+
 
         stage.act();
         stage.draw();
