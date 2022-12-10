@@ -35,6 +35,16 @@ public class Tank {
         this.health = 100;
     }
 
+    public int getHeight() {
+        if (body == null) return image.getRegionHeight();
+        return body.getRegionHeight();
+    }
+
+    public int getWidth() {
+        if (body == null) return image.getRegionWidth();
+        return body.getRegionWidth();
+    }
+
     public void setImage(TextureRegion image) {
         // for the time being, the only diff between tanks is their image
         // this will be extended to inheritance into 3 children, each of which should have
@@ -54,7 +64,7 @@ public class Tank {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(image, x, getY(), width/2f, height/2f, width, height, 1, 1, getAngle());
+        batch.draw(image, x, getY(), getWidth()/2f, getHeight()/2f, getWidth(), getHeight(), 1, 1, getAngle());
     }
 
     public int getX() {
@@ -102,7 +112,7 @@ public class Tank {
     }
 
     public float getAngle() {
-        return ((float) Math.atan((ground.getHeight(x+width) - ground.getHeight(x))/width) * 180 / (float) Math.PI);
+        return ((float) Math.atan((ground.getHeight(x+getWidth()) - ground.getHeight(x))/getWidth()) * 180 / (float) Math.PI);
     }
 
     public int getFuel() {
@@ -117,10 +127,6 @@ public class Tank {
         } else {
             throw new InvalidFuelException("Fuel cannot be set to a negative value");
         }
-    }
-
-    public Rectangle getHitbox() {
-        return hitbox;
     }
 
     public void setAttackAngle(float attackAngle) {

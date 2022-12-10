@@ -10,6 +10,6 @@ public class Tank2 extends Tank {
     protected int maxFuel;
 
     public Tank2(int x, int y, int height, int width, Ground ground, boolean flipped) {
-        super(x, y, height, width, ground, flipped);
+        super(x, ground, flipped);
     }
 }

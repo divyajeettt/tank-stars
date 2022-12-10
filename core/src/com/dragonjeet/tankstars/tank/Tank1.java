@@ -12,16 +12,16 @@ public class Tank1 extends Tank {
     protected int maxAttackPower;
     protected int maxFuel;
 
-    public Tank1(int x, int y, int height, int width, Ground ground, boolean flipped) {
-        super(x, y, height, width, ground, flipped);
+    public Tank1(int x, Ground ground, boolean flipped) {
+        super(x, ground, flipped);
         body = new TextureRegion(new Texture("tanks/tank-1/body.png"));
         turret = new TextureRegion(new Texture("tanks/tank-1/turret.png"));
     }
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(body, x, getY(), width/2f, height/2f, width, height, 1, 1, getAngle());
-        batch.draw(turret, x, getY()+body.getRegionHeight(), width/2f, height/2f, width, height, 1, 1, getAngle());
+        batch.draw(body, x, getY(), getWidth()/2f, getHeight()/2f, getWidth(), getHeight(), 1, 1, getAngle());
+        batch.draw(turret, x+getWidth()/2, getY()+getHeight(), 0, 0, turret.getRegionWidth(), turret.getRegionHeight(), 1, 1, getAngle()+attackAngle);
     }
 
 }
