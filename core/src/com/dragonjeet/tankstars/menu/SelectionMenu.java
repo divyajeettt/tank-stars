@@ -19,7 +19,8 @@ import com.dragonjeet.tankstars.tank.Tank2;
 import com.dragonjeet.tankstars.tank.Tank3;
 
 public class SelectionMenu extends Menu {
-    private int player = 1;        // player=1 => Player-1's turn, player=0 => Player-2's turn; player ^= 1 after every iteration
+    private int player;        // player=1 => Player-1's turn, player=0 => Player-2's turn; player ^= 1 after every iteration
+    private TextureRegion playerText;
     private TextureRegion selectedTankImage;
     private TextureRegion selectedTankName;
     private Table table;
@@ -29,9 +30,12 @@ public class SelectionMenu extends Menu {
 
     public SelectionMenu(final TankStars game) {
         super(game);
-        setTable();
 
         background = new Texture(Gdx.files.internal("backgrounds/selectionMenu.png"));
+        player = 1;
+        playerText = new TextureRegion(new Texture(Gdx.files.internal("text/player-1.png")));
+
+        setTable();
         selectTank(1);  // default selected tank
 
         setActionButton();
@@ -55,6 +59,12 @@ public class SelectionMenu extends Menu {
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         drawSelectedTank(game.batch, selectedTankImage, selectedTankName);
+
+        game.batch.draw(
+            playerText, 1370, 790, 0, 0,
+            playerText.getRegionWidth(), playerText.getRegionHeight(), 1.4f, 1.4f, 0
+        );
+
         game.batch.end();
         stage.act(d);
         stage.draw();
@@ -126,8 +136,10 @@ public class SelectionMenu extends Menu {
             public void changed(ChangeEvent event, Actor actor) {
                 if (player == 1) {
                     player ^= 1;
+                    playerText = new TextureRegion(new Texture(Gdx.files.internal("text/player-2.png")));
                     actionButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/play.png"))));
                     actionButton.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/play.png"))));
+                    selectTank(1);
                     setTankButtons();
                 } else {
                     BattleScreen battleScreen = new BattleScreen(game);

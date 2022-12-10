@@ -23,8 +23,10 @@ public abstract class Tank {
 
     public abstract void draw(SpriteBatch batch) throws TankOutOfScreenException;
 
-
     public Tank(int x, Ground ground, boolean flipped) {
+        // for the time being, the only diff between tanks is their image
+        // this will be extended to inheritance into 3 children, each of which should have
+        // different images, moving speeds, healths, fuelTanks, and attackDamages
         this.x = x;
         this.ground = ground;
         this.flipped = flipped;
@@ -38,33 +40,25 @@ public abstract class Tank {
 
     public int getWidth() {
         if (body == null) return image.getRegionWidth();
-        return body.getRegionWidth()/scalingFactor;
+        return body.getRegionWidth() / scalingFactor;
     }
 
     public int getTurretHeight() {
-        return turret.getRegionHeight()/scalingFactor;
+        return turret.getRegionHeight() / scalingFactor;
     }
 
     public int getTurretWidth() {
-        return turret.getRegionWidth()/scalingFactor;
-    }
-
-    public void setImage(TextureRegion image) {
-        // for the time being, the only diff between tanks is their image
-        // this will be extended to inheritance into 3 children, each of which should have
-        // different images, moving speeds, healths, fuelTanks, and attackDamages
-        this.image = image;
-        this.image.flip(this.flipped, false);
+        return turret.getRegionWidth() / scalingFactor;
     }
 
     public void setBody(TextureRegion body) {
         this.body = body;
-        this.body.flip(this.flipped, false);
+        this.body.flip(false, this.flipped);
     }
 
     public void setTurret(TextureRegion turret) {
         this.turret = turret;
-        this.turret.flip(this.flipped, false);
+        this.turret.flip(false, this.flipped);
     }
 
     public void setX(int x) {
