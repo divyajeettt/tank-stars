@@ -9,13 +9,16 @@ import com.badlogic.gdx.Gdx;
 
 public class Ground {
     private ArrayList<Double> heights;
+    private ArrayList<Double> boundary;
     private final int width;
 
     public Ground(int width) {
         this.width = width;
         heights = new ArrayList<>();
+        boundary = new ArrayList<>();
         for(int i = 0; i < width; i++) {
             heights.add(0.0);
+            boundary.add(0.0);
         }
         randomize();
     }
@@ -33,14 +36,21 @@ public class Ground {
                 heights.set(j, heights.get(j) + amp*Math.sin(j*freq + shift) + mean);
             }
         }
-        for (int j=0; j < width; j++) {
-            heights.set(j, heights.get(j)/4);
+        for (int i=0; i < width; i++) {
+            heights.set(i, heights.get(i)/4);
+            boundary.set(i, heights.get(i) - 8f);
         }
     }
 
     public void draw(ShapeRenderer shapeRenderer) {
         for(int i = 0; i < width; i++) {
             shapeRenderer.rect(i, 0, 1, heights.get(i).floatValue());
+        }
+    }
+
+    public void drawBoundary(ShapeRenderer shapeRenderer) {
+        for(int i = 0; i < width; i++) {
+            shapeRenderer.rect(i, 0, 1, boundary.get(i).floatValue());
         }
     }
 
