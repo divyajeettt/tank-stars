@@ -13,31 +13,26 @@ import com.dragonjeet.tankstars.misc.Ground;
 import java.lang.Math;
 
 public class Tank {
-    private int x, y;
-    private final boolean flipped;
-    private final int height, width;
-    private final Rectangle hitbox;
-    private final Ground ground;
-    private int attackAngle;                     // angle of muzzle
-    private int attackPower;                     // power of attack
-    private int fuel;                            // will reset to 'maxFuel' full every turn
-    private int health;
+    protected int x, y;
+    protected final boolean flipped;
+    protected int height, width;
+    protected final Ground ground;
+    protected float attackAngle;                     // angle of muzzle
+    protected int attackPower;                     // power of attack
+    protected int fuel;                            // will reset to 'maxFuel' full every turn
+    protected int health;
     protected int maxHealth;
     protected int xVelocity, yVelocity;
     protected AttackType defaultAttack;
-    protected TextureRegion image;
+    protected TextureRegion image, body, turret;
     protected int maxAttackPower;
     protected int maxFuel;
 
-    public Tank(int x, int y,int height, int width, Ground ground, boolean flipped) {
+    public Tank(int x , Ground ground, boolean flipped) {
         this.x = x;
-        this.y = y;
-        this.height = height;
-        this.width = width;
         this.ground = ground;
         this.flipped = flipped;
         this.health = 100;
-        hitbox = new Rectangle(x, y, width, height);
     }
 
     public void setImage(TextureRegion image) {
@@ -46,6 +41,16 @@ public class Tank {
         // different images, moving speeds, healths, fuelTanks, and attackDamages
         this.image = image;
         this.image.flip(this.flipped, false);
+    }
+
+    public void setBody(TextureRegion body) {
+        this.body = body;
+        this.body.flip(this.flipped, false);
+    }
+
+    public void setTurret(TextureRegion turret) {
+        this.turret = turret;
+        this.turret.flip(this.flipped, false);
     }
 
     public void draw(SpriteBatch batch) {
@@ -118,11 +123,11 @@ public class Tank {
         return hitbox;
     }
 
-    public void setAttackAngle(int attackAngle) {
+    public void setAttackAngle(float attackAngle) {
         this.attackAngle = attackAngle;
     }
 
-    public int getAttackAngle() {
+    public float getAttackAngle() {
         return attackAngle;
     }
 

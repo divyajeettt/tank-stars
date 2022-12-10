@@ -144,13 +144,7 @@ public class BattleScreen implements Screen {
         touchpad.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (touchpad.getKnobPercentX() > 0) {
-                    game.getTank2().setXVelocity(1);
-                } else if (touchpad.getKnobPercentX() < 0) {
-                    game.getTank2().setXVelocity(-1);
-                } else {
-                    game.getTank2().setXVelocity(0);
-                }
+                game.getTank1().setAttackAngle((float) Math.atan2(touchpad.getKnobPercentY(), touchpad.getKnobPercentX()));
             }
         });
 
