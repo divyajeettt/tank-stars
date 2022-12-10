@@ -7,26 +7,19 @@ import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.dragonjeet.tankstars.misc.Ground;
 
 import java.lang.Math;
 
 public class Tank {
-    protected int x, y;
+    protected int x;
     protected final boolean flipped;
-    protected int height, width;
     protected final Ground ground;
     protected float attackAngle;                   // angle of muzzle
-    protected int attackPower;                     // power of attack
-    protected int fuel;                            // will reset to 'maxFuel' full every turn
-    protected int health;
-    protected int maxHealth;
-    protected int xVelocity, yVelocity;
     protected AttackType defaultAttack;
     protected TextureRegion image, body, turret;
-    protected int maxAttackPower;
-    protected int maxFuel;
+    protected int maxAttackPower, maxFuel, xVelocity, yVelocity, maxHealth, health, fuel, attackPower;
+    protected static int scalingFactor = 4; //Bigger scalingFactor -> smaller tank
 
     public Tank(int x , Ground ground, boolean flipped) {
         this.x = x;
@@ -37,12 +30,20 @@ public class Tank {
 
     public int getHeight() {
         if (body == null) return image.getRegionHeight();
-        return body.getRegionHeight();
+        return body.getRegionHeight()/scalingFactor;
     }
 
     public int getWidth() {
         if (body == null) return image.getRegionWidth();
-        return body.getRegionWidth();
+        return body.getRegionWidth()/scalingFactor;
+    }
+
+    public int getTurretHeight() {
+        return turret.getRegionHeight()/scalingFactor;
+    }
+
+    public int getTurretWidth() {
+        return turret.getRegionWidth()/scalingFactor;
     }
 
     public void setImage(TextureRegion image) {
@@ -64,8 +65,8 @@ public class Tank {
     }
 
     public void draw(SpriteBatch batch) throws TankOutOfScreenException {
+        batch.draw(turret, x+getWidth()/2f, getY()+getHeight()-getTurretHeight(), 0, 0, getTurretWidth(), getTurretHeight(), 1, 1, getAngle()+attackAngle);
         batch.draw(body, x, getY(), getWidth()/2f, getHeight()/2f, getWidth(), getHeight(), 1, 1, getAngle());
-        batch.draw(turret, x+getWidth()/2f, getY()+getHeight(), 0, 0, turret.getRegionWidth(), turret.getRegionHeight(), 1, 1, getAngle()+attackAngle);
     }
 
     public void setX(int x) {
@@ -77,11 +78,11 @@ public class Tank {
     }
 
     public int getY() throws TankOutOfScreenException {
-        return ((int) ground.getHeight(x + width / 2));
+        return ((int) ground.getHeight(x + getWidth() / 2));
     }
 
     public void move() throws TankOutOfScreenException {
-        if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-width-1) {
+        if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
         } else {
             throw new TankOutOfScreenException("Tank is out of screen");
