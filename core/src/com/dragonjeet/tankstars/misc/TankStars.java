@@ -26,12 +26,14 @@ public class TankStars extends Game {
 		return tank2;
 	}
 
-	public void setTank1(Tank tank1) {
-		this.tank1 = tank1;
-	}
-
-	public void setTank2(Tank tank2) {
-		this.tank2 = tank2;
+	public void setTank(Tank tank, int player) {
+		if (player == 1) {
+			tank.setX(100);
+			this.tank1 = tank;
+		} else {
+			tank.setX(600);
+			this.tank2 = tank;
+		}
 	}
 
 	public Ground getGround() {

@@ -19,6 +19,7 @@ import com.dragonjeet.tankstars.tank.Tank2;
 import com.dragonjeet.tankstars.tank.Tank3;
 
 public class SelectionMenu extends Menu {
+    private int player = 1;        // player=1 => Player-1's turn, player=0 => Player-2's turn; player ^= 1 after every iteration
     private TextureRegion selectedTankImage;
     private TextureRegion selectedTankName;
 
@@ -29,8 +30,7 @@ public class SelectionMenu extends Menu {
         selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/full.png")));
         selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/name.png")));
 
-        game.setTank1(new Tank1(100, game.getGround(), false));
-        game.setTank2(new Tank1(600, game.getGround(), true));
+        game.setTank(new Tank1(0, game.getGround(), (player != 1)), player);
 
         Table table = new Table();
         table.setFillParent(true);
@@ -65,8 +65,7 @@ public class SelectionMenu extends Menu {
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tanks/tank-1/full.png"));
                 selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-1/name.png")));
-                game.setTank1(new Tank1(100, game.getGround(), false));
-                game.setTank2(new Tank1(100, game.getGround(), true));
+                game.setTank(new Tank1(0, game.getGround(), (player != 1)), player);
             }
         });
 
@@ -77,8 +76,7 @@ public class SelectionMenu extends Menu {
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tanks/tank-2/full.png"));
                 selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-2/name.png")));
-                game.setTank1(new Tank2(100, game.getGround(), false));
-                game.setTank2(new Tank2(100, game.getGround(), true));
+                game.setTank(new Tank2(0, game.getGround(), (player != 1)), player);
             }
         });
 
@@ -89,8 +87,7 @@ public class SelectionMenu extends Menu {
             public void changed(ChangeEvent event, Actor actor) {
                 selectedTankImage = new TextureRegion(new Texture("tanks/tank-3/full.png"));
                 selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-3/name.png")));
-                game.setTank1(new Tank3(100, game.getGround(), false));
-                game.setTank2(new Tank3(100, game.getGround(), true));
+                game.setTank(new Tank3(0, game.getGround(), (player != 1)), player);
             }
         });
 

@@ -68,6 +68,10 @@ public class Tank {
         batch.draw(turret, x+getWidth()/2f, getY()+getHeight(), 0, 0, turret.getRegionWidth(), turret.getRegionHeight(), 1, 1, getAngle()+attackAngle);
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getX() {
         return x;
     }
