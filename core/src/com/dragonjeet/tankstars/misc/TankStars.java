@@ -5,17 +5,40 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.menu.MainMenu;
 import com.dragonjeet.tankstars.tank.Tank;
+import com.dragonjeet.tankstars.attack.Bullet;
 
 
 public class TankStars extends Game {
 	public SpriteBatch batch;
 	private Tank tank1, tank2;
 	private Ground ground;
+	private boolean canMove;
+	private Bullet bullet;
+	private int turn;
 
 	public void create() {
 		batch = new SpriteBatch();
 		ground = new Ground(Gdx.graphics.getWidth());
 		this.setScreen(new MainMenu(this));
+		canMove = true;
+		this.bullet = null;
+		turn = 0;
+	}
+
+	public Tank getCurrentTank() {
+		return (turn==0) ? tank1 : tank2;
+	}
+
+	public void nextTurn() {
+		turn = (turn==0) ? 1 : 0;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+
+	public boolean getCanMove() {
+		return canMove;
 	}
 
 	public Tank getTank1() {
@@ -38,6 +61,14 @@ public class TankStars extends Game {
 
 	public Ground getGround() {
 		return ground;
+	}
+
+	public Bullet getBullet() {
+		return bullet;
+	}
+
+	public void setBullet(Bullet bullet) {
+		this.bullet = bullet;
 	}
 
 	public void render() {

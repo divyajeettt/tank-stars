@@ -113,6 +113,17 @@ public class BattleScreen implements Screen {
             new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/fire.png"))))
         );
 
+        fireButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (game.getCanMove()) {
+                    game.setCanMove(false);
+                    game.setBullet(game.getCurrentTank().shoot());
+                    game.nextTurn();
+                }
+            }
+        });
+
         root.add(fireButton).padLeft(5).padTop(80).width(Value.percentWidth(2f, pauseButton)).height(Value.percentHeight(1.5f, pauseButton)).expandY().padLeft(5).align(Align.left);
         root.add().expandX().width(Value.percentWidth(1f, fuelBar)).expandY();
 
@@ -126,11 +137,11 @@ public class BattleScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (moveButton.getKnobPercentX() > 0) {
-                    game.getTank1().setXVelocity(1);
+                    game.getCurrentTank().setXVelocity(1);
                 } else if (moveButton.getKnobPercentX() < 0) {
-                    game.getTank1().setXVelocity(-1);
+                    game.getCurrentTank().setXVelocity(-1);
                 } else {
-                    game.getTank1().setXVelocity(0);
+                    game.getCurrentTank().setXVelocity(0);
                 }
             }
         });
@@ -145,7 +156,7 @@ public class BattleScreen implements Screen {
         touchpad.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.getTank1().setAttackAngle((float) Math.atan2(touchpad.getKnobPercentY(), touchpad.getKnobPercentX())*180/(float)Math.PI);
+                game.getCurrentTank().setAttackAngle((float) Math.atan2(touchpad.getKnobPercentY(), touchpad.getKnobPercentX())*180/(float)Math.PI);
             }
         });
 
@@ -161,23 +172,19 @@ public class BattleScreen implements Screen {
         viewport.update(width, height);
         game.batch.setProjectionMatrix(stage.getViewport().getCamera().combined);
         game.batch.begin();
+
         game.batch.draw(background, 0, 0, width, height);
 
-        try {
-            game.getTank1().draw(game.batch);
+        if (game.getCanMove()) {
             game.getTank1().move();
-        }
-        catch (TankOutOfScreenException ex) {
-            game.getTank1().setXVelocity(0);
-        }
-
-        try {
-            game.getTank2().draw(game.batch);
             game.getTank2().move();
         }
-        catch (TankOutOfScreenException ex) {
-            game.getTank2().setXVelocity(0);
+        else {
+            game.getBullet().draw(game.batch);
+            game.setCanMove(game.getBullet().move(game.getGround()));
         }
+        game.getTank1().draw(game.batch);
+        game.getTank2().draw(game.batch);
 
         game.batch.end();
 

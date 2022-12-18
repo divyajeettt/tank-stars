@@ -1,10 +1,8 @@
 package com.dragonjeet.tankstars.tank;
 
-import com.dragonjeet.tankstars.attack.AttackType;
 import com.dragonjeet.tankstars.attack.Bullet;
 import com.dragonjeet.tankstars.exception.InvalidFuelException;
 import com.dragonjeet.tankstars.exception.InvalidHealthException;
-import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.misc.Ground;
@@ -16,7 +14,6 @@ public abstract class Tank {
     protected int x;
     protected float attackAngle;                   // angle of muzzle
     protected Ground ground;
-    protected AttackType defaultAttack;
     protected TextureRegion image, body, turret;
     protected int xVelocity, yVelocity, health, fuel, attackPower;
     protected final int maxHealth;
@@ -24,7 +21,7 @@ public abstract class Tank {
     protected final int maxFuel;
     protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
-    public abstract void draw(SpriteBatch batch) throws TankOutOfScreenException;
+    public abstract void draw(SpriteBatch batch);
 
     public Tank(int x, Ground ground, boolean flipped, int maxHealth, int maxAttackPower, int maxFuel) {
         // for the time being, the only diff between tanks is their image
@@ -36,6 +33,7 @@ public abstract class Tank {
         // go into Tank1,2,3 and change according to the tanks' stats in the game
         this.maxHealth = maxHealth;
         this.maxAttackPower = maxAttackPower;
+        this.attackPower = 3;
         this.maxFuel = maxFuel;
         this.health = this.maxHealth;
     }
@@ -78,7 +76,7 @@ public abstract class Tank {
         return x;
     }
 
-    public int getY() throws TankOutOfScreenException {
+    public int getY(){
         return ((int) ground.getHeight(x + getWidth() / 2));
     }
 
@@ -86,13 +84,10 @@ public abstract class Tank {
         this.ground = ground;
     }
 
-    public void move() throws TankOutOfScreenException {
+    public void move() {
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
-        } else {
-            throw new TankOutOfScreenException("Tank is out of screen");
         }
-        x += xVelocity;
     }
 
     public void setXVelocity(int xVelocity) {
@@ -122,7 +117,15 @@ public abstract class Tank {
         // set damage of the next attack
     }
 
-    public float getAngle() throws TankOutOfScreenException {
+    protected int getTurretBaseX() {
+        return x+getWidth()/2;
+    }
+    
+    protected int getTurretBaseY(){
+        return getY() + getHeight();
+    }
+
+    public float getAngle(){
         return (
             (float) Math.atan((ground.getHeight(x+getWidth()) - ground.getHeight(x))/getWidth()) * 180 /
             (float) Math.PI) + 180f*(flipped ? 1 : 0)
@@ -167,7 +170,9 @@ public abstract class Tank {
         this.fuel -= fuel;
     }
 
-    public void shoot(Bullet bullet) {}
+    public Bullet shoot() {
+        return new Bullet(getTurretBaseX(),getTurretBaseY(),getAttackPower(),getAttackAngle(),100);
+    }
 
     public void decreaseHealth(int damage) {
         this.health -= damage;

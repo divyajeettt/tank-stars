@@ -4,12 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dragonjeet.tankstars.misc.Ground;
-import com.dragonjeet.tankstars.attack.AttackType;
-import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 
 public class Tank3 extends Tank {
     int maxHealth;
-    protected AttackType defaultAttack;
     protected int maxAttackPower;
     protected int maxFuel;
 
@@ -22,7 +19,7 @@ public class Tank3 extends Tank {
     }
 
     @Override
-    public void draw(SpriteBatch batch) throws TankOutOfScreenException {
+    public void draw(SpriteBatch batch) {
         batch.draw(turret, x+getWidth()/2f, getY()+getHeight()-getTurretHeight(), 0, 0, getTurretWidth(), getTurretHeight(), 1, 1, getAngle()+attackAngle);
         batch.draw(body, x, getY(), getWidth()/2f, getHeight()/2f, getWidth(), getHeight(), 1, 1, getAngle());
     }

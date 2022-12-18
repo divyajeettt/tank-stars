@@ -5,7 +5,6 @@ import java.lang.Math;
 import java.util.Random;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.Gdx;
-import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 
 
 public class Ground {
@@ -59,11 +58,7 @@ public class Ground {
         return width;
     }
 
-    public double getHeight(int x) throws TankOutOfScreenException {
-        try {
-            return heights.get(x);
-        } catch (IndexOutOfBoundsException e) {
-            throw new TankOutOfScreenException("Tank is out of screen");
-        }
+    public double getHeight(int x) {
+        return heights.get(x);
     }
 }
