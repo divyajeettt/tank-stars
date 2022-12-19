@@ -156,7 +156,7 @@ public class BattleScreen implements Screen {
         touchpad.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.getCurrentTank().setAttackAngle((float) Math.atan2(touchpad.getKnobPercentY(), touchpad.getKnobPercentX())*180/(float)Math.PI);
+                game.getCurrentTank().aimAt(touchpad.getKnobPercentX(), touchpad.getKnobPercentY());
             }
         });
 

@@ -4,6 +4,7 @@ import com.dragonjeet.tankstars.attack.Bullet;
 import com.dragonjeet.tankstars.exception.InvalidFuelException;
 import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.misc.Ground;
 
@@ -12,12 +13,12 @@ import java.lang.Math;
 public abstract class Tank {
     protected final boolean flipped;
     protected int x;
-    protected float attackAngle;                   // angle of muzzle
+    protected Vector2 aim;                   // angle of muzzle
     protected Ground ground;
     protected TextureRegion image, body, turret;
-    protected int xVelocity, yVelocity, health, fuel, attackPower;
+    protected int xVelocity, yVelocity, health, fuel;
     protected final int maxHealth;
-    protected final int maxAttackPower;
+    protected final int maxAttackPower=4;
     protected final int maxFuel;
     protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
@@ -30,10 +31,9 @@ public abstract class Tank {
         this.x = x;
         this.ground = ground;
         this.flipped = flipped;
+        this.aim = new Vector2();
         // go into Tank1,2,3 and change according to the tanks' stats in the game
         this.maxHealth = maxHealth;
-        this.maxAttackPower = maxAttackPower;
-        this.attackPower = 3;
         this.maxFuel = maxFuel;
         this.health = this.maxHealth;
     }
@@ -146,20 +146,22 @@ public abstract class Tank {
         }
     }
 
-    public void setAttackAngle(float attackAngle) {
-        this.attackAngle = attackAngle;
+    public void aimAt(float percentX, float percentY) {
+        if (flipped) {
+            percentX *= -1;
+            percentY *= -1;
+        }
+        Vector2 target = new Vector2(percentX, percentY);
+        target.scl(this.maxAttackPower);
+        aim.add(target.sub(aim).scl(0.1f));
     }
 
     public float getAttackAngle() {
-        return attackAngle;
+        return aim.angleRad();
     }
 
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
-    public int getAttackPower() {
-        return this.attackPower;
+    public float getAttackPower() {
+        return aim.len();
     }
 
     public void resetFuel(int fuel) {
@@ -171,7 +173,7 @@ public abstract class Tank {
     }
 
     public Bullet shoot() {
-        return new Bullet(getTurretBaseX(),getTurretBaseY(),getAttackPower(),getAttackAngle(),100);
+        return new Bullet(getTurretBaseX(),getTurretBaseY(),getAttackPower(),getAttackAngle()+Math.PI*(flipped ? 1:0),100);
     }
 
     public void decreaseHealth(int damage) {
