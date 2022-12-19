@@ -1,7 +1,6 @@
 package com.dragonjeet.tankstars.tank;
 
 import com.dragonjeet.tankstars.attack.Bullet;
-import com.dragonjeet.tankstars.exception.InvalidFuelException;
 import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -35,6 +34,7 @@ public abstract class Tank {
         // go into Tank1,2,3 and change according to the tanks' stats in the game
         this.maxHealth = maxHealth;
         this.maxFuel = maxFuel;
+        this.fuel = this.maxFuel;
         this.health = this.maxHealth;
     }
 
@@ -85,8 +85,10 @@ public abstract class Tank {
     }
 
     public void move() {
+        if (fuel <= 0) return;
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
+            if (xVelocity != 0) fuel -= 1;
         }
     }
 
@@ -136,13 +138,11 @@ public abstract class Tank {
         return this.fuel;
     }
 
-    public void setFuel(int fuel) throws InvalidFuelException {
+    public void setFuel(int fuel) {
         if (fuel < this.maxFuel) {
             this.fuel = fuel;
-        } else if (fuel > maxFuel) {
+        } else if (fuel >= maxFuel) {
             this.fuel = maxFuel;
-        } else {
-            throw new InvalidFuelException("Fuel cannot be set to a negative value");
         }
     }
 

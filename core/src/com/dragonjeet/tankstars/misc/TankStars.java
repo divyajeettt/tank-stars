@@ -31,6 +31,8 @@ public class TankStars extends Game {
 
 	public void nextTurn() {
 		turn = (turn==0) ? 1 : 0;
+		tank1.setFuel(100);
+		tank2.setFuel(100);
 	}
 
 	public void setCanMove(boolean canMove) {

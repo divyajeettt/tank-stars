@@ -8,6 +8,8 @@ public class HealthBar extends ProgressBar {
 
     public HealthBar(float min, float max, float stepSize, boolean vertical, Skin skin) {
         super(min, max, stepSize, vertical, skin);
+        setWidth(100);
+        setHeight(50);
     }
 
     public void setCustomWidth(float width) {
@@ -16,15 +18,5 @@ public class HealthBar extends ProgressBar {
 
     public void setCustomHeight(float height) {
         this.height = height;
-    }
-
-    @Override
-    public float getPrefWidth() {
-        return width;
-    }
-
-    @Override
-    public float getPrefHeight() {
-        return height;
     }
 }

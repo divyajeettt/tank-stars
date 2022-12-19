@@ -18,6 +18,7 @@ public class Bullet {
         this.yVelocity = speed * Math.sin(initialAngle);
         this.fullDamage = fullDamage;
         texture = new TextureRegion(new Texture("bullets/default.png"));
+
     }
 
     public int getBulletHeight() {

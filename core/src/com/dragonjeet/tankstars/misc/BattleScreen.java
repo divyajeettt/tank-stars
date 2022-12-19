@@ -29,6 +29,7 @@ public class BattleScreen implements Screen {
     private final ShapeRenderer renderer;
     public final TankStars game;
     public int numAirDrops;
+    protected ProgressBar healthBar1, healthBar2,fuelBar;
 
     public BattleScreen(final TankStars game) {
         width = Gdx.graphics.getWidth();
@@ -71,10 +72,10 @@ public class BattleScreen implements Screen {
 
         table.add(pauseButton).align(Align.top | Align.left).padTop(10).expandX().width(buttonWidth).height(buttonHeight).padLeft(10);
 
-        HealthBar healthBar1 = new HealthBar(0, 100, 1, false, skin);
-        healthBar1.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
+        healthBar1 = new HealthBar(0, 100, 1, false, skin);
+       // healthBar1.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
 //        healthBar1.setCustomHeight((Value.percentHeight(1f, pauseButton)).get());
-        healthBar1.setCustomHeight(50);
+      //  healthBar1.setCustomHeight(50);
         table.add(healthBar1).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
         healthBar1.setValue(100);
 
@@ -87,9 +88,9 @@ public class BattleScreen implements Screen {
         vs.setStyle(vsStyle);
         table.add(vs).align(Align.top).pad(10).width(Value.percentWidth(1f, pauseButton)).height(buttonHeight);
 
-        HealthBar healthBar2 = new HealthBar(0, 100, 1, false, skin);
-        healthBar2.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
-        healthBar2.setCustomHeight((Value.percentHeight(2f, pauseButton)).get());
+        healthBar2 = new HealthBar(0, 100, 1, false, skin);
+      //  healthBar2.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
+       // healthBar2.setCustomHeight((Value.percentHeight(2f, pauseButton)).get());
         table.add(healthBar2).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
         healthBar2.setValue(100);
 
@@ -99,7 +100,7 @@ public class BattleScreen implements Screen {
 
         root.row();
 
-        Button fuelBar = new TextButton("Fuel", skin);
+        fuelBar = new ProgressBar(0, 100, 1, false, skin);
         root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f, pauseButton)).expandY();
 
         Button selector = new Button(
@@ -165,7 +166,10 @@ public class BattleScreen implements Screen {
 
     @Override
     public void render(float d) {
-        //Log screen width and height
+        healthBar1.setValue(game.getTank1().getHealth());
+        healthBar2.setValue(game.getTank2().getHealth());
+        fuelBar.setValue(game.getCurrentTank().getFuel());
+
         Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
