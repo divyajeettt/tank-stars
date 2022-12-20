@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -29,6 +31,7 @@ public class BattleScreen implements Screen {
     private final ShapeRenderer renderer;
     public final TankStars game;
     public int numAirDrops;
+    public boolean drawAimLine = false;
     protected ProgressBar healthBar1, healthBar2,fuelBar;
 
     public BattleScreen(final TankStars game) {
@@ -121,6 +124,7 @@ public class BattleScreen implements Screen {
                     game.setCanMove(false);
                     game.setBullet(game.getCurrentTank().shoot());
                     game.nextTurn();
+                    drawAimLine = false;
                 }
             }
         });
@@ -161,6 +165,19 @@ public class BattleScreen implements Screen {
             }
         });
 
+        touchpad.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                drawAimLine = true;
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                drawAimLine = false;
+            }
+        });
+
         root.add(touchpad).expandX().colspan(4);
     }
 
@@ -182,6 +199,7 @@ public class BattleScreen implements Screen {
         if (game.getCanMove()) {
             game.getTank1().move();
             game.getTank2().move();
+            if (drawAimLine) game.getCurrentTank().drawAim(game.batch);
         }
         else {
             game.getBullet().draw(game.batch);

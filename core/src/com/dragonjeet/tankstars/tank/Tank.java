@@ -1,5 +1,6 @@
 package com.dragonjeet.tankstars.tank;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.dragonjeet.tankstars.attack.Bullet;
 import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,7 +18,7 @@ public abstract class Tank {
     protected TextureRegion image, body, turret;
     protected int xVelocity, yVelocity, health, fuel;
     protected final int maxHealth;
-    protected final int maxAttackPower=4;
+    protected final int maxAttackPower = 5;
     protected final int maxFuel;
     protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
@@ -151,13 +152,14 @@ public abstract class Tank {
             percentX *= -1;
             percentY *= -1;
         }
+        if (percentX == 0 && percentY == 0) return;
         Vector2 target = new Vector2(percentX, percentY);
         target.scl(this.maxAttackPower);
         aim.add(target.sub(aim).scl(0.1f));
     }
 
     public float getAttackAngle() {
-        return aim.angleRad();
+        return aim.angleRad() + (float) Math.PI*(flipped ? 1:0);
     }
 
     public float getAttackPower() {
@@ -172,8 +174,24 @@ public abstract class Tank {
         this.fuel -= fuel;
     }
 
+    public void drawAim(SpriteBatch batch) {
+        double xProjectile = getTurretBaseX();
+        double yProjectile = getTurretBaseY();
+        double xVelocityProjectile = getAttackPower() * Math.cos(getAttackAngle());
+        double yVelocityProjectile = getAttackPower() * Math.sin(getAttackAngle());
+        Texture texture = new Texture("bullets/dot.png");
+        int i = 0;
+        do {
+            if (i % 10 == 0) batch.draw(texture, (float) xProjectile, (float) yProjectile);
+            i++;
+            xProjectile += xVelocityProjectile;
+            yProjectile += yVelocityProjectile;
+            yVelocityProjectile -= 0.02;
+        } while (i <= 170 && xProjectile >= 0 && xProjectile <= ground.getWidth() && yProjectile > ground.getHeight((int) xProjectile));
+    }
+
     public Bullet shoot() {
-        return new Bullet(getTurretBaseX(),getTurretBaseY(),getAttackPower(),getAttackAngle()+Math.PI*(flipped ? 1:0),100);
+        return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), 100);
     }
 
     public void decreaseHealth(int damage) {

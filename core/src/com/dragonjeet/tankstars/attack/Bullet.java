@@ -7,15 +7,15 @@ import com.dragonjeet.tankstars.misc.Ground;
 import com.dragonjeet.tankstars.tank.Tank;
 
 public class Bullet {
-    private double x,y,xVelocity, yVelocity;
+    private double x, y, xVelocity, yVelocity;
     private final int fullDamage;
     private final TextureRegion texture;
 
-    public Bullet(double x, double y, double speed, double initialAngle, int fullDamage) {
+    public Bullet(double x, double y, double power, double initialAngle, int fullDamage) {
         this.x = x;
         this.y = y;
-        this.xVelocity = speed * Math.cos(initialAngle);
-        this.yVelocity = speed * Math.sin(initialAngle);
+        this.xVelocity = power * Math.cos(initialAngle);
+        this.yVelocity = power * Math.sin(initialAngle);
         this.fullDamage = fullDamage;
         texture = new TextureRegion(new Texture("bullets/default.png"));
 
@@ -37,12 +37,11 @@ public class Bullet {
         // move bullet
         x += xVelocity;
         y += yVelocity;
+        yVelocity -= 0.02;     // gravity
         if (x < 0 || x > ground.getWidth()) {
             // hit wall
             return true;
         }
-         //gravity
-        yVelocity -= 0.02;
         if (y <= ground.getHeight((int) x)) {
             // hit ground
             return true;
