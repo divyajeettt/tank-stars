@@ -6,6 +6,7 @@ import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.dragonjeet.tankstars.misc.Ground;
 
 import java.lang.Math;
@@ -55,10 +56,6 @@ public abstract class Tank {
         return turret.getRegionWidth() / scalingFactor;
     }
 
-    public int getMaxHealth() {
-        return this.maxHealth;
-    }
-
     public void setBody(TextureRegion body) {
         this.body = body;
         this.body.flip(false, this.flipped);
@@ -89,7 +86,7 @@ public abstract class Tank {
         if (fuel <= 0) return;
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
-            if (xVelocity != 0) fuel -= 1;
+            if (xVelocity != 0) consumeFuel(1);
         }
     }
 
@@ -194,7 +191,10 @@ public abstract class Tank {
         return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), 33);
     }
 
-    public void decreaseHealth(int damage) {
+    public void decreaseHealth(int damage) throws TankDeadException {
         this.health -= damage;
+        if (this.health <= 0) {
+            throw new TankDeadException("Tank is dead");
+        }
     }
 }

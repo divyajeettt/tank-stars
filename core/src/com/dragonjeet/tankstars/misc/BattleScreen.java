@@ -18,8 +18,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.PauseMenu;
+import com.dragonjeet.tankstars.menu.VictoryMenu;
 
 public class BattleScreen implements Screen {
     private int width, height;
@@ -203,7 +205,16 @@ public class BattleScreen implements Screen {
         }
         else {
             game.getBullet().draw(game.batch);
-            game.setCanMove(game.getBullet().move(game.getGround(), game.getCurrentTank()));
+            try {
+                game.setCanMove(game.getBullet().move(game.getGround(), game.getCurrentTank()));
+            }
+            catch (TankDeadException e) {
+                // other tank wins
+                game.batch.end();
+                game.setScreen(new VictoryMenu(game));
+                return;
+            }
+            catch (Exception e) {}
         }
         game.getTank1().draw(game.batch);
         game.getTank2().draw(game.batch);

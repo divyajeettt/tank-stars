@@ -3,6 +3,7 @@ package com.dragonjeet.tankstars.attack;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
+import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.dragonjeet.tankstars.misc.Ground;
 import com.dragonjeet.tankstars.tank.Tank;
 
@@ -18,7 +19,6 @@ public class Bullet {
         this.yVelocity = power * Math.sin(initialAngle);
         this.fullDamage = fullDamage;
         texture = new TextureRegion(new Texture("bullets/default.png"));
-
     }
 
     public int getBulletHeight() {
@@ -33,7 +33,7 @@ public class Bullet {
         return Math.atan2(yVelocity, xVelocity)*180/Math.PI;
     }
 
-    public boolean move(Ground ground, Tank tank) {
+    public boolean move(Ground ground, Tank tank) throws TankDeadException {
         // move bullet
         x += xVelocity;
         y += yVelocity;
@@ -57,11 +57,7 @@ public class Bullet {
         batch.draw(texture, (float) x, (float) y, getBulletWidth()/2f, getBulletHeight()/2f, getBulletWidth(), getBulletHeight(), 1, 1, (float) getAngle());
     }
 
-    public boolean isSpecial() {
-        return false;
-    }
-
-    private void dealDamageTo(Tank tank) {
+    private void dealDamageTo(Tank tank) throws TankDeadException {
         // scale the damage based on the distance from the center of the tank
         tank.decreaseHealth((int) (fullDamage * (1 - Math.abs(tank.getX() + tank.getWidth()/2d - x) / (tank.getWidth()/2f))));
     }
