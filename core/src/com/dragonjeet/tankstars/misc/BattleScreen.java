@@ -224,7 +224,6 @@ public class BattleScreen implements Screen {
         game.getGround().drawBoundary(renderer);
         renderer.end();
 
-
         stage.act();
         stage.draw();
     }

@@ -44,6 +44,7 @@ public class Bullet {
         }
         if (y <= ground.getHeight((int) x)) {
             // hit ground
+            ground.mutilate((int) x, fullDamage);
             return true;
         }
         return false;

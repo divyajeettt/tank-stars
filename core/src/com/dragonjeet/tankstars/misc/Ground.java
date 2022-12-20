@@ -38,8 +38,8 @@ public class Ground {
         }
         for (int i=0; i < width; i++) {
             heights.set(i, heights.get(i)/4);
-            boundary.set(i, heights.get(i) - 8f);
         }
+        updateBoundary();
     }
 
     public void draw(ShapeRenderer shapeRenderer) {
@@ -54,11 +54,32 @@ public class Ground {
         }
     }
 
+    private void updateBoundary() {
+        for (int i=0; i < width; i++) {
+            boundary.set(i, heights.get(i) - 8f);
+        }
+    }
+
     public int getWidth() {
         return width;
     }
 
     public double getHeight(int x) {
         return heights.get(x);
+    }
+
+    public void mutilate(int x, int damage) {
+        for (int i = x - damage; i < x + damage; i++) {
+            if (i >= 0 && i < width) {
+                double distance = Math.abs(i - x);
+                double height = heights.get(i);
+                double newHeight = height - (damage - distance);
+                if (newHeight < 0) {
+                    newHeight = 0;
+                }
+                heights.set(i, newHeight);
+            }
+        }
+        updateBoundary();
     }
 }
