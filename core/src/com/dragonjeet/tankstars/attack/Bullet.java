@@ -33,23 +33,25 @@ public class Bullet {
         return Math.atan2(yVelocity, xVelocity)*180/Math.PI;
     }
 
-    public boolean move(Ground ground) {
+    public boolean move(Ground ground, Tank tank) {
         // move bullet
         x += xVelocity;
         y += yVelocity;
         yVelocity -= 0.02;     // gravity
-        if (x < 0 || x > ground.getWidth()) {
-            // hit wall
-            return true;
-        }
+
+        if (x < 0 || x > ground.getWidth()) return true; // wall hit
+
         if (y <= ground.getHeight((int) x)) {
-            // hit ground
-            ground.mutilate((int) x, fullDamage);
+            ground.mutilate((int) x, fullDamage);   // ground hit
+            if (tank.getX() < x && tank.getX() + tank.getWidth() > x) {
+                // tank hit
+                dealDamageTo(tank);
+            }
             return true;
         }
+
         return false;
     }
-
 
     public void draw(SpriteBatch batch) {
         batch.draw(texture, (float) x, (float) y, getBulletWidth()/2f, getBulletHeight()/2f, getBulletWidth(), getBulletHeight(), 1, 1, (float) getAngle());
@@ -59,12 +61,8 @@ public class Bullet {
         return false;
     }
 
-    public void attack(Tank tank) {
-        // attack tank
-        // calculate distance from tank and pass to dealDamageTo()
-    }
-
-    public void dealDamageTo(Tank tank, int distanceFromTank) {
-        // deal damage to tank
+    private void dealDamageTo(Tank tank) {
+        // scale the damage based on the distance from the center of the tank
+        tank.decreaseHealth((int) (fullDamage * (1 - Math.abs(tank.getX() + tank.getWidth()/2d - x) / (tank.getWidth()/2f))));
     }
 }

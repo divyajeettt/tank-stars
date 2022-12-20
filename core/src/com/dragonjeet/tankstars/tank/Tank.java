@@ -191,7 +191,7 @@ public abstract class Tank {
     }
 
     public Bullet shoot() {
-        return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), 100);
+        return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), 33);
     }
 
     public void decreaseHealth(int damage) {

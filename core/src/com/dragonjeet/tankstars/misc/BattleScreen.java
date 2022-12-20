@@ -203,7 +203,7 @@ public class BattleScreen implements Screen {
         }
         else {
             game.getBullet().draw(game.batch);
-            game.setCanMove(game.getBullet().move(game.getGround()));
+            game.setCanMove(game.getBullet().move(game.getGround(), game.getCurrentTank()));
         }
         game.getTank1().draw(game.batch);
         game.getTank2().draw(game.batch);
