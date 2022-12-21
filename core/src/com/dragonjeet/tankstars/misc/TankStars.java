@@ -18,7 +18,6 @@ public class TankStars extends Game implements Serializable {
 
 	public void create() {
 		batch = new SpriteBatch();
-		ground = new Ground(Gdx.graphics.getWidth());
 		this.setScreen(new MainMenu(this));
 		canMove = true;
 		this.bullet = null;
@@ -71,6 +70,10 @@ public class TankStars extends Game implements Serializable {
 
 	public void setBullet(Bullet bullet) {
 		this.bullet = bullet;
+	}
+
+	public void setNewGround() {
+		this.ground = new Ground(Gdx.graphics.getWidth());
 	}
 
 	public void render() {

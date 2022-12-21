@@ -38,6 +38,7 @@ public class MainMenu extends Menu {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                game.setNewGround();
                 game.setScreen(new SelectionMenu(game));
                 dispose();
             }

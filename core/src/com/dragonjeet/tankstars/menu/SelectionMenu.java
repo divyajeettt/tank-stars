@@ -142,8 +142,7 @@ public class SelectionMenu extends Menu {
                     selectTank(1);
                     setTankButtons();
                 } else {
-                    BattleScreen battleScreen = new BattleScreen(game);
-                    game.setScreen(battleScreen);
+                    game.setScreen(new BattleScreen(game));
                     dispose();
                 }
             }
