@@ -8,6 +8,9 @@ import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.MainMenu;
 import com.dragonjeet.tankstars.tank.Tank;
 import com.dragonjeet.tankstars.attack.Bullet;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class TankStars extends Game implements Serializable {
@@ -24,6 +27,10 @@ public class TankStars extends Game implements Serializable {
 		canMove = true;
 		this.bullet = null;
 		turn = 0;
+	}
+
+	public int getTurn() {
+		return turn;
 	}
 
 	public Tank getCurrentTank() {
@@ -88,5 +95,17 @@ public class TankStars extends Game implements Serializable {
 
 	public void render() {
 		super.render();
+	}
+
+	public void setGround(Ground ground) {
+		this.ground = ground;
+	}
+
+	public void setGame(GameState newGame) {
+		this.setTank(newGame.getTank1(), 1);
+		this.setTank(newGame.getTank2(), 2);
+		this.setGround(newGame.getGround());
+		this.setCanMove(newGame.getCanMove());
+		this.setBullet(newGame.getBullet());
 	}
 }

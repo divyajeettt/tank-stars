@@ -51,6 +51,10 @@ public abstract class Tank implements Serializable {
         }
     }
 
+    public boolean getFlipped() {
+        return flipped;
+    }
+
     public int getTurretHeight() {
         return turret.getRegionHeight() / scalingFactor;
     }
@@ -205,5 +209,9 @@ public abstract class Tank implements Serializable {
         if (this.health <= 0) {
             throw new TankDeadException("Tank is dead");
         }
+    }
+
+    public int getXVelocity() {
+        return xVelocity;
     }
 }

@@ -22,6 +22,26 @@ public class Bullet implements Serializable {
         texture = new TextureRegion(new Texture("bullets/default.png"));
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getxVelocity() {
+        return xVelocity;
+    }
+
+    public double getyVelocity() {
+        return yVelocity;
+    }
+
+    public int getFullDamage() {
+        return fullDamage;
+    }
+
     public int getBulletHeight() {
         return texture.getRegionHeight();
     }
