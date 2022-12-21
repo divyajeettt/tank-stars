@@ -22,13 +22,13 @@ public abstract class Tank implements Serializable {
     protected TextureRegion image, body, turret;
     protected int xVelocity, yVelocity, health, fuel;
     protected final int maxHealth;
-    protected final int maxAttackPower = 5;
+    protected final float maxAttackPower;
     protected final int maxFuel;
     protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
     public abstract void draw(SpriteBatch batch);
 
-    public Tank(int x, Ground ground, boolean flipped, int maxHealth, int maxAttackPower, int maxFuel) {
+    public Tank(int x, Ground ground, boolean flipped, int maxHealth, float maxAttackPower, int maxFuel) {
         // for the time being, the only diff between tanks is their image
         // this will be extended to inheritance into 3 children, each of which should have
         // different images, moving speeds, healths, fuelTanks, and attackDamages
@@ -37,6 +37,7 @@ public abstract class Tank implements Serializable {
         this.flipped = flipped;
         this.aim = new Vector2();
         // go into Tank1,2,3 and change according to the tanks' stats in the game
+        this.maxAttackPower = maxAttackPower;
         this.maxHealth = maxHealth;
         this.maxFuel = maxFuel;
         this.fuel = this.maxFuel;
@@ -85,7 +86,8 @@ public abstract class Tank implements Serializable {
         if (fuel <= 0) return;
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
-            if (x < 0 || x > ground.getWidth()-getWidth()) throw new TankOutOfScreenException("Tank out of screen");
+            if (x < 0 || x > ground.getWidth()-getWidth())
+                throw new TankOutOfScreenException("Tank out of screen");
             if (xVelocity != 0) consumeFuel(1);
         }
     }
@@ -164,7 +166,7 @@ public abstract class Tank implements Serializable {
     }
 
     public float getAttackPower() {
-        return aim.len();
+        return aim.len() * maxAttackPower;
     }
 
     public void consumeFuel(int fuel) throws FuelExhaustedException {

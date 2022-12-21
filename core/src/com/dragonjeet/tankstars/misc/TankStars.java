@@ -53,10 +53,10 @@ public class TankStars extends Game implements Serializable {
 
 	public void setTank(Tank tank, int player) {
 		if (player == 1) {
-			tank.setX(100);
+			tank.setX(200);
 			this.tank1 = tank;
 		} else {
-			tank.setX(600);
+			tank.setX(ground.getWidth() - tank.getWidth() - 200);
 			this.tank2 = tank;
 		}
 	}

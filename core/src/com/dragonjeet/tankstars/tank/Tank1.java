@@ -6,15 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dragonjeet.tankstars.misc.Ground;
 
 public class Tank1 extends Tank {
-    int maxHealth;
-    protected int maxAttackPower;
-    protected int maxFuel;
-
     public Tank1(int x, Ground ground, boolean flipped) {
-        super(x, ground, flipped, 100, 100, 100);
+        super(x, ground, flipped, 100, 2.5f, 100);
         setBody(new TextureRegion(new Texture("tanks/tank-1/body.png")));
         setTurret(new TextureRegion(new Texture("tanks/tank-1/turret.png")));
-        this.maxHealth = 100;
         this.health = this.maxHealth;
     }
 

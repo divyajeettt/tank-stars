@@ -64,6 +64,7 @@ public class SelectionMenu extends Menu {
             playerText.getRegionWidth(), playerText.getRegionHeight(), 1.4f, 1.4f, 0
         );
 
+
         game.batch.end();
         stage.act(d);
         stage.draw();

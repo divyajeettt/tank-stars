@@ -101,7 +101,7 @@ public class BattleScreen implements Screen, Serializable {
         root.row();
 
         fuelBar = new ProgressBar(0, 100, 1, false, skin);
-        root.add(fuelBar).align(Align.left).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f, pauseButton)).expandY();
+        root.add(fuelBar).align(Align.center).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f, pauseButton)).expandY();
 
         Button selector = new Button(
                 new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/selector.png")))),
@@ -147,7 +147,7 @@ public class BattleScreen implements Screen, Serializable {
                 }
             }
         });
-        root.add(moveTouchpad).align(Align.left).expandY();
+        root.add(moveTouchpad).align(Align.center).expandY();
         root.add().expandX().width(Value.percentWidth(1f, pauseButton)).expandY();
 
         Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle();
