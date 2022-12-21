@@ -78,8 +78,12 @@ public class SelectionMenu extends Menu {
         stage.addActor(table);
         table.add().grow();
         table.add().grow();
+        table.add().grow();
+        table.row();
+        table.add().grow();
+        table.add().grow();
         this.childTable = new Table();
-        table.add(childTable).expandY();
+        table.add(childTable).expandY().align(Align.right);
     }
 
     private void selectTank(int num) {
