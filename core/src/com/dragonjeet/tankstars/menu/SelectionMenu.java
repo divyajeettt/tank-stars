@@ -76,6 +76,7 @@ public class SelectionMenu extends Menu {
         this.table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
+
         table.add().grow();
         table.add().grow();
         table.add().grow();
@@ -134,8 +135,8 @@ public class SelectionMenu extends Menu {
 
     private void setActionButton() {
         this.actionButton = new ImageButton(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/next.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/next.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/next.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/next.png"))))
         );
 
         actionButton.addListener(new ChangeListener() {
@@ -161,13 +162,13 @@ public class SelectionMenu extends Menu {
         table.columnDefaults(0).width(Gdx.graphics.getWidth() / 3f);
 
         childTable.add().expandX();
-        childTable.add(tank1).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom|Align.right).padRight(20).padLeft(80);
+        childTable.add(tank1).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom|Align.right).padRight(20).padLeft(850).padTop(120);
         childTable.add(tank2).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom|Align.right);
         childTable.add(tank3).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom|Align.right).padLeft(20);
 
         childTable.row();
         childTable.add();
-        childTable.add(actionButton).expand().align(Align.bottom).colspan(3).padTop(300);
+        childTable.add(actionButton).expand().align(Align.bottom).colspan(3).padBottom(300).padTop(50).padLeft(850);
 
         setUi(table);
     }
