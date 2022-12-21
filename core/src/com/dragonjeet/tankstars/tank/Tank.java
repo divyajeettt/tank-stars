@@ -20,7 +20,7 @@ public abstract class Tank implements Serializable {
     protected Vector2 aim;                   // angle of muzzle
     protected Ground ground;
     protected TextureRegion image, body, turret;
-    protected int xVelocity, yVelocity, health, fuel;
+    protected int xVelocity, health, fuel;
     protected final int maxHealth;
     protected final float maxAttackPower;
     protected final int maxFuel;
@@ -112,6 +112,14 @@ public abstract class Tank implements Serializable {
         } else {
             throw new InvalidHealthException("Health cannot be set to a negative value");
         }
+    }
+
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    public int getMaxFuel() {
+        return this.maxFuel;
     }
 
     public int getDamage() {

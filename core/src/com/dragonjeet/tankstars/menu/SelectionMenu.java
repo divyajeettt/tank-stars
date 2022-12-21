@@ -21,8 +21,7 @@ import com.dragonjeet.tankstars.tank.Tank3;
 public class SelectionMenu extends Menu {
     private int player;                 // player=1 => Player-1's turn, player=0 => Player-2's turn; player ^= 1 after every iteration
     private TextureRegion playerText;
-    private TextureRegion selectedTankImage;
-    private TextureRegion selectedTankName;
+    private TextureRegion selectedTankImage, selectedTankName, selectedTankStats;
     private Table table;
     private Table childTable;
     private Button tank1, tank2, tank3;
@@ -42,14 +41,18 @@ public class SelectionMenu extends Menu {
         placeObjects();
     }
 
-    public void drawSelectedTank(SpriteBatch batch, TextureRegion tankImage, TextureRegion tankName) {
+    public void drawSelectedTank(SpriteBatch batch) {
         batch.draw(
-            tankImage, 150, 180, 0, 0,
-            tankImage.getRegionWidth(), tankImage.getRegionHeight(), 2, 2, 0
+            selectedTankImage, 150, 180, 0, 0,
+            selectedTankImage.getRegionWidth(), selectedTankImage.getRegionHeight(), 2, 2, 0
         );
         batch.draw(
-            tankName, 250, 700, 0, 0,
-            tankName.getRegionWidth(), tankName.getRegionHeight(), 1.4f, 1.4f, 0
+            selectedTankName, 250, 700, 0, 0,
+            selectedTankName.getRegionWidth(), selectedTankName.getRegionHeight(), 1.4f, 1.4f, 0
+        );
+        batch.draw(
+            selectedTankStats, 1100, 150, 0, 0,
+            selectedTankName.getRegionWidth(), selectedTankName.getRegionHeight(), 1.5f, 2.5f, 0
         );
     }
 
@@ -57,13 +60,12 @@ public class SelectionMenu extends Menu {
     public void render(float d) {
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        drawSelectedTank(game.batch, selectedTankImage, selectedTankName);
+        drawSelectedTank(game.batch);
 
         game.batch.draw(
             playerText, 1370, 790, 0, 0,
             playerText.getRegionWidth(), playerText.getRegionHeight(), 1.4f, 1.4f, 0
         );
-
 
         game.batch.end();
         stage.act(d);
@@ -83,6 +85,7 @@ public class SelectionMenu extends Menu {
     private void selectTank(int num) {
         selectedTankImage = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-"+num+"/full.png")));
         selectedTankName = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-"+num+"/name.png")));
+        selectedTankStats = new TextureRegion(new Texture(Gdx.files.internal("tanks/tank-"+num+"/stats.png")));
         if (num == 1) {
             game.setTank(new Tank1(0, game.getGround(), (player != 1)), player);
         } else if (num == 2) {
