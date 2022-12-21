@@ -90,6 +90,10 @@ public abstract class Tank implements Serializable {
         }
     }
 
+    public void recoil(double xVelocity) {
+        x += 2*xVelocity;
+    }
+
     public void setXVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
     }
@@ -186,6 +190,7 @@ public abstract class Tank implements Serializable {
     }
 
     public Bullet shoot() {
+        recoil(-getAttackPower() * Math.cos(getAttackAngle()));
         return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), 33);
     }
 

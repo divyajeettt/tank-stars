@@ -47,6 +47,7 @@ public class Bullet implements Serializable {
             if (tank.getX() < x && tank.getX() + tank.getWidth() > x) {
                 // tank hit
                 dealDamageTo(tank);
+                tank.recoil(xVelocity);
             }
             return true;
         }
