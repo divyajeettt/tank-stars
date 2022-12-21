@@ -13,6 +13,12 @@ public class Tank1 extends Tank {
         this.health = this.maxHealth;
     }
 
+    public Tank1(int x, Ground ground) {
+        // for Testing purposes
+        super(x, ground, false, 100, 2.5f, 80);
+        this.health = this.maxHealth;
+    }
+
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(turret, x+getWidth()/2f + 10*(flipped ? -2 : 1), getY()+getHeight()-getTurretHeight(), 5*(flipped ? 1 : -1), 0, getTurretWidth(), getTurretHeight(), 1, 1, getAngle()+aim.angleDeg());

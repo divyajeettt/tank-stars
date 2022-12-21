@@ -21,13 +21,14 @@ public class Ground implements Serializable {
             heights.add(0.0);
             boundary.add(0.0);
         }
-        randomize();
+        if (width != 1000)
+            randomize(((double) Gdx.graphics.getHeight()) / 768f);
+        else
+            randomize(1);
     }
 
-    public void randomize() {
+    public void randomize(double scalingFactor) {
         Random rng = new Random();
-        double scalingFactor = ((double) Gdx.graphics.getHeight()) / 768f;
-
         for (int i=0; i < 4; i++) {
             double mean = 400f*scalingFactor - rng.nextInt(300);
             double freq = 1f / (200 - rng.nextInt(100));

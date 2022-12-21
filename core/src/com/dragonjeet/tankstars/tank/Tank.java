@@ -44,7 +44,11 @@ public abstract class Tank implements Serializable {
     }
 
     public int getWidth() {
-        return ((body == null) ? image.getRegionWidth() : body.getRegionWidth()/scalingFactor);
+        try {
+            return ((body == null) ? image.getRegionWidth() : body.getRegionWidth() / scalingFactor);
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 
     public int getTurretHeight() {
@@ -101,12 +105,11 @@ public abstract class Tank implements Serializable {
     }
 
     public void setHealth(int health) throws TankDeadException {
+        if (health < 0) throw new TankDeadException("Tank is Dead");
         if (health < this.maxHealth) {
             this.health = health;
         } else if (health > maxHealth) {
             this.health = maxHealth;
-        } else {
-            throw new TankDeadException("Tank is Dead");
         }
     }
 
