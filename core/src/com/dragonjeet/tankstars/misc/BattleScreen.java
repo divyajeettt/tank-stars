@@ -212,7 +212,7 @@ public class BattleScreen implements Screen, Serializable {
     }
 
     private void makeFuelBar() {
-        fuelBar = new ProgressBar(0, game.getCurrentTank().getMaxFuel(), 1, false, skin);
+        fuelBar = new ProgressBar(0, 100, 1, false, skin);
         fuelBar.setValue(game.getCurrentTank().getFuel());
     }
 

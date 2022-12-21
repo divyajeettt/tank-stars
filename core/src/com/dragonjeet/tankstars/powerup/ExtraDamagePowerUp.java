@@ -4,11 +4,11 @@ import com.dragonjeet.tankstars.misc.Ground;
 import com.dragonjeet.tankstars.tank.Tank;
 
 public class ExtraDamagePowerUp extends PowerUp {
-    private final int damageBonus;
+    private final float damageBonus;
 
     public ExtraDamagePowerUp(int x, Ground ground) {
         super(x,ground);
-        damageBonus = 10;
+        damageBonus = 0.3f;
     }
 
     @Override
