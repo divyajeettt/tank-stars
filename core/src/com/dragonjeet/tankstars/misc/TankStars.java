@@ -8,8 +8,8 @@ import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.MainMenu;
 import com.dragonjeet.tankstars.powerup.ExtraDamagePowerUp;
 import com.dragonjeet.tankstars.powerup.ExtraFuelPowerUp;
+import com.dragonjeet.tankstars.powerup.ExtraHealthPowerUp;
 import com.dragonjeet.tankstars.powerup.PowerUp;
-import com.dragonjeet.tankstars.powerup.ShieldPowerUp;
 import com.dragonjeet.tankstars.tank.Tank;
 import com.dragonjeet.tankstars.attack.Bullet;
 import java.io.Serializable;
@@ -42,9 +42,9 @@ public class TankStars extends Game implements Serializable {
 		turn = 1 - turn;
 		if (powerUp == null) {
 			int dice = random.nextInt(100);
-			if (dice < 5) powerUp = new ExtraDamagePowerUp(10);
-			else if (dice < 10) powerUp = new ShieldPowerUp(10);
-			else if (dice < 15) powerUp = new ExtraFuelPowerUp(10);
+			if (dice < 5) powerUp = new ExtraDamagePowerUp(random.nextInt(Gdx.graphics.getWidth()),ground);
+			else if (dice < 10) powerUp = new ExtraHealthPowerUp(random.nextInt(Gdx.graphics.getWidth()),ground);
+			else if (dice < 15) powerUp = new ExtraFuelPowerUp(random.nextInt(Gdx.graphics.getWidth()),ground);
 		}
 		try {
 			tank1.setFuel(tank1.getMaxFuel());
@@ -56,6 +56,10 @@ public class TankStars extends Game implements Serializable {
 
 	public PowerUp getPowerUp() {
 		return powerUp;
+	}
+
+	public void setPowerUp(PowerUp powerUp) {
+		this.powerUp = powerUp;
 	}
 
 	public void setCanMove(boolean canMove) {

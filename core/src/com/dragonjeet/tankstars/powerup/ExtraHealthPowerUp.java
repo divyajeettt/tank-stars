@@ -1,35 +1,26 @@
 package com.dragonjeet.tankstars.powerup;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.dragonjeet.tankstars.exception.TankDeadException;
+import com.dragonjeet.tankstars.misc.Ground;
 import com.dragonjeet.tankstars.tank.Tank;
 
-public class ExtraHealthPowerUp extends Tank implements PowerUp {
+public class ExtraHealthPowerUp extends PowerUp {
     private final int healthBonus;
-    private TextureRegion image;
-
-    public ExtraHealthPowerUp(int healthBonus) {
-//        this.image = new TextureRegion(new Texture("powerup/extra_health.png"));
-        this.healthBonus = healthBonus;
+ 
+    public ExtraHealthPowerUp(int x, Ground ground) {
+        super(x, ground);
+        this.healthBonus = 10;
     }
 
-    public int getHealthBonus() {
-        return healthBonus;
-    }
-
-    @Override
-    public TextureRegion getImage() {
-        return this.image;
+    private int min (int a, int b) {
+        return a < b ? a : b;
     }
 
     @Override
     public void applyPowerUpTo(Tank tank) {
-//        try {
-//            tank.setHealth(tank.getHealth() + this.healthBonus);
-//        }
-//        catch (InvalidHealthException ignored) {
-//            // Log error
-//        }
+        try {
+            tank.setHealth(min(tank.getHealth() + this.healthBonus, tank.getMaxHealth()));
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 }

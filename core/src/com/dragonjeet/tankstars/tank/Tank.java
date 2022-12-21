@@ -20,14 +20,14 @@ public abstract class Tank implements Serializable {
     protected Ground ground;
     protected TextureRegion image, body, turret;
     protected int xVelocity, health, fuel;
-    protected final int maxHealth;
-    protected final float maxAttackPower;
-    protected final int maxFuel;
+    protected int maxHealth;
+    protected int maxAttackPower;
+    protected int maxFuel;
     protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
     public abstract void draw(SpriteBatch batch);
 
-    public Tank(int x, Ground ground, boolean flipped, int maxHealth, float maxAttackPower, int maxFuel) {
+    public Tank(int x, Ground ground, boolean flipped, int maxHealth, int maxAttackPower, int maxFuel) {
         this.x = x;
         this.ground = ground;
         this.flipped = flipped;
@@ -37,6 +37,7 @@ public abstract class Tank implements Serializable {
         this.maxFuel = maxFuel;
         this.fuel = this.maxFuel;
         this.health = this.maxHealth;
+        this.maxAttackPower = 33;
     }
 
     public int getHeight() {
@@ -121,6 +122,18 @@ public abstract class Tank implements Serializable {
         return this.maxFuel;
     }
 
+    public void setMaxFuel(int newMax) {
+        this.maxFuel = newMax;
+    }
+
+    public int getMaxAttackPower() {
+        return this.maxAttackPower;
+    }
+
+    public void setMaxAttackPower(int newMax) {
+        this.maxAttackPower = newMax;
+    }
+
     public int getDamage() {
         // return damage of default attack
         return 1;
@@ -197,8 +210,9 @@ public abstract class Tank implements Serializable {
 
     public Bullet shoot() {
         recoil(-getAttackPower() * Math.cos(getAttackAngle()));
-        return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), 33);
+        return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), (int) this.maxAttackPower);
     }
+
 
     public void decreaseHealth(int damage) throws TankDeadException {
         this.health -= damage;
