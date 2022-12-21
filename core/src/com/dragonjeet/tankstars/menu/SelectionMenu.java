@@ -156,11 +156,13 @@ public class SelectionMenu extends Menu {
         table.add(actionButton).expand().align(Align.bottom).padBottom(50);
         table.columnDefaults(0).width(Gdx.graphics.getWidth() / 3f);
 
-        childTable.add(tank1).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom).padRight(20);
-        childTable.add(tank2).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom);
-        childTable.add(tank3).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom).padLeft(20);
+        childTable.add().expandX();
+        childTable.add(tank1).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom|Align.right).padRight(20);
+        childTable.add(tank2).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom|Align.right);
+        childTable.add(tank3).width(Value.percentWidth(1f, actionButton)).height(Value.percentHeight(1f, actionButton)).expandY().align(Align.bottom|Align.right).padLeft(20);
 
         childTable.row();
+        childTable.add();
         childTable.add(actionButton).expand().align(Align.bottom).colspan(3).padTop(160);
 
         setUi(table);
