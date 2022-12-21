@@ -158,7 +158,7 @@ public class BattleScreen implements Screen, Serializable {
             }
             catch (TankDeadException e) {
                 // other tank wins
-                game.batch.end();
+               // game.batch.end();
                 game.setScreen(new VictoryMenu(game));
                 return;
             }
