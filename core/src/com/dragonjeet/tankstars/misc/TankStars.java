@@ -37,10 +37,6 @@ public class TankStars extends Game implements Serializable {
 		this.powerUp = null;
 	}
 
-	public int getTurn() {
-		return turn;
-	}
-
 	public Tank getCurrentTank() {
 		return (turn==0) ? tank1 : tank2;
 	}

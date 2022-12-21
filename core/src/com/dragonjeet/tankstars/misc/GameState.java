@@ -10,30 +10,26 @@ import com.dragonjeet.tankstars.tank.Tank3;
 import java.io.Serializable;
 
 public class GameState implements Serializable {
-    private Ground ground;
-    private boolean canMove;
-    private int turn;
+    private final Ground ground;
+    private final boolean canMove;
 
-    private boolean tank1flipped, tank2flipped;
-    private int tank1x, tank2x, tank1fuel, tank2fuel, tank1health, tank2health, tank1xVelocity, tank2xVelocity;
-    private int tank1type, tank2type;
-    private float tank1attackPower, tank2attackPower;
+    private final boolean tank1flipped, tank2flipped;
+    private final int tank1x, tank2x, tank1fuel, tank2fuel, tank1health, tank2health, tank1xVelocity, tank2xVelocity;
+    private final int tank1type, tank2type;
 
-    private double bulletX, bulletY, bulletXVelocity, bulletYVelocity;
-    private int bulletFullDamage;
+    private final double bulletX, bulletY, bulletXVelocity, bulletYVelocity;
+    private final int bulletFullDamage;
 
     public GameState(TankStars game) {
         Tank tank1 = game.getTank1();
         Tank tank2 = game.getTank2();
         this.ground = game.getGround();
         this.canMove = game.getCanMove();
-        this.turn = game.getTurn();
 
         tank1flipped = tank1.getFlipped();
         tank1x = tank1.getX();
         tank1health = tank1.getHealth();
         tank1fuel = tank1.getFuel();
-        tank1attackPower = tank1.getAttackPower();
         tank1xVelocity = tank1.getXVelocity();
 
         if (tank1.getMaxHealth() == 100) {
@@ -44,14 +40,10 @@ public class GameState implements Serializable {
             tank1type = 3;
         }
 
-        // make new Vector2aim
-        // make scalingFactor = 4
-
         tank2flipped = tank2.getFlipped();
         tank2x = tank2.getX();
         tank2health = tank2.getHealth();
         tank2fuel = tank2.getFuel();
-        tank2attackPower = tank2.getAttackPower();
         tank2xVelocity = tank2.getXVelocity();
 
         if (tank2.getMaxHealth() == 100) {
