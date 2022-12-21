@@ -153,9 +153,6 @@ public class SelectionMenu extends Menu {
     }
 
     private void placeObjects() {
-        // Do something to fix the positioning of the tank buttons
-        // I have added them to a table like before
-
         table.add(actionButton).expand().align(Align.bottom).padBottom(50);
         table.columnDefaults(0).width(Gdx.graphics.getWidth() / 3f);
 

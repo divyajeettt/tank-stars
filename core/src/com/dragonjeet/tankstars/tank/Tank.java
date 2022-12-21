@@ -2,13 +2,12 @@ package com.dragonjeet.tankstars.tank;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.dragonjeet.tankstars.attack.Bullet;
+import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.exception.FuelExhaustedException;
-import com.dragonjeet.tankstars.exception.InvalidHealthException;
+import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dragonjeet.tankstars.exception.TankDeadException;
-import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.misc.Ground;
 
 import java.io.Serializable;
@@ -29,14 +28,10 @@ public abstract class Tank implements Serializable {
     public abstract void draw(SpriteBatch batch);
 
     public Tank(int x, Ground ground, boolean flipped, int maxHealth, float maxAttackPower, int maxFuel) {
-        // for the time being, the only diff between tanks is their image
-        // this will be extended to inheritance into 3 children, each of which should have
-        // different images, moving speeds, healths, fuelTanks, and attackDamages
         this.x = x;
         this.ground = ground;
         this.flipped = flipped;
         this.aim = new Vector2();
-        // go into Tank1,2,3 and change according to the tanks' stats in the game
         this.maxAttackPower = maxAttackPower;
         this.maxHealth = maxHealth;
         this.maxFuel = maxFuel;
@@ -70,8 +65,11 @@ public abstract class Tank implements Serializable {
         this.turret.flip(false, this.flipped);
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setX(int x) throws TankOutOfScreenException {
+        this.x += x;
+        if (x < 0 || x > ground.getWidth()-getWidth()) {
+            throw new TankOutOfScreenException("Tank out of screen");
+        }
     }
 
     public int getX() {
@@ -85,9 +83,7 @@ public abstract class Tank implements Serializable {
     public void move() throws FuelExhaustedException, TankOutOfScreenException {
         if (fuel <= 0) return;
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
-            x += xVelocity;
-            if (x < 0 || x > ground.getWidth()-getWidth())
-                throw new TankOutOfScreenException("Tank out of screen");
+            setX(x + xVelocity);
             if (xVelocity != 0) consumeFuel(1);
         }
     }
@@ -104,13 +100,13 @@ public abstract class Tank implements Serializable {
         return this.health;
     }
 
-    public void setHealth(int health) throws InvalidHealthException {
+    public void setHealth(int health) throws TankDeadException {
         if (health < this.maxHealth) {
             this.health = health;
         } else if (health > maxHealth) {
             this.health = maxHealth;
         } else {
-            throw new InvalidHealthException("Health cannot be set to a negative value");
+            throw new TankDeadException("Tank is Dead");
         }
     }
 
@@ -150,12 +146,9 @@ public abstract class Tank implements Serializable {
         return this.fuel;
     }
 
-    public void setFuel(int fuel) {
-        if (fuel < this.maxFuel) {
-            this.fuel = fuel;
-        } else if (fuel >= maxFuel) {
-            this.fuel = maxFuel;
-        }
+    public void setFuel(int fuel) throws FuelExhaustedException {
+        if (fuel == 0) throw new FuelExhaustedException("Fuel Exhausted");
+        this.fuel = fuel;
     }
 
     public void aimAt(float percentX, float percentY) {

@@ -3,6 +3,8 @@ package com.dragonjeet.tankstars.misc;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dragonjeet.tankstars.exception.FuelExhaustedException;
+import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.MainMenu;
 import com.dragonjeet.tankstars.tank.Tank;
 import com.dragonjeet.tankstars.attack.Bullet;
@@ -29,9 +31,13 @@ public class TankStars extends Game implements Serializable {
 	}
 
 	public void nextTurn() {
-		turn = (turn==0) ? 1 : 0;
-		tank1.setFuel(100);
-		tank2.setFuel(100);
+		turn = 1 - turn;
+		try {
+			tank1.setFuel(tank1.getMaxFuel());
+			tank2.setFuel(tank2.getMaxFuel());
+		} catch (FuelExhaustedException e) {
+			Gdx.app.log("TankStars", e.getMessage());
+		}
 	}
 
 	public void setCanMove(boolean canMove) {
@@ -51,12 +57,16 @@ public class TankStars extends Game implements Serializable {
 	}
 
 	public void setTank(Tank tank, int player) {
-		if (player == 1) {
-			tank.setX(200);
-			this.tank1 = tank;
-		} else {
-			tank.setX(ground.getWidth() - tank.getWidth() - 200);
-			this.tank2 = tank;
+		try {
+			if (player == 1) {
+				tank.setX(200);
+				this.tank1 = tank;
+			} else {
+				tank.setX(ground.getWidth() - tank.getWidth() - 200);
+				this.tank2 = tank;
+			}
+		} catch (TankOutOfScreenException e) {
+			Gdx.app.log("TankStars", e.getMessage());
 		}
 	}
 

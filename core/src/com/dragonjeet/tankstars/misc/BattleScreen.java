@@ -136,11 +136,8 @@ public class BattleScreen implements Screen, Serializable {
                 game.getTank1().move();
                 game.getTank2().move();
             }
-            catch (FuelExhaustedException ignored) {
-                // log error
-            }
-            catch (TankOutOfScreenException ignored) {
-                // log error
+            catch (FuelExhaustedException | TankOutOfScreenException e) {
+                Gdx.app.log("TankStars", e.getMessage());
             }
             if (drawAimLine) game.getCurrentTank().drawAim(game.batch);
         }

@@ -22,6 +22,6 @@ public class ExtraFuelPowerUp implements PowerUp {
 
     @Override
     public void applyPowerUpTo(Tank tank) {
-        tank.setFuel(tank.getFuel() + fuelBonus);
+//        tank.setFuel(tank.getFuel() + fuelBonus);
     }
 }
