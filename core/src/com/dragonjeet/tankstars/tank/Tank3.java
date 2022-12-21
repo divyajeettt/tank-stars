@@ -7,7 +7,7 @@ import com.dragonjeet.tankstars.misc.Ground;
 
 public class Tank3 extends Tank {
     public Tank3(int x, Ground ground, boolean flipped) {
-        super(x, ground, flipped, 80, 2.75f, 90);
+        super(x, ground, flipped, 80, 2.7f, 110);
         setBody(new TextureRegion(new Texture("tanks/tank-3/body.png")));
         setTurret(new TextureRegion(new Texture("tanks/tank-3/turret.png")));
         this.health = this.maxHealth;

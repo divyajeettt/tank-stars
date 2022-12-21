@@ -7,6 +7,7 @@ import com.dragonjeet.tankstars.exception.FuelExhaustedException;
 import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.misc.Ground;
 
@@ -20,9 +21,9 @@ public abstract class Tank implements Serializable {
     protected Ground ground;
     protected TextureRegion image, body, turret;
     protected int xVelocity, health, fuel;
-    protected final int maxHealth;
-    protected final float maxAttackPower;
-    protected final int maxFuel;
+    protected int maxHealth;
+    protected float maxAttackPower;
+    protected int maxFuel;
     protected static int scalingFactor = 4;        //Bigger scalingFactor -> smaller tank
 
     public abstract void draw(SpriteBatch batch);
@@ -31,7 +32,7 @@ public abstract class Tank implements Serializable {
         this.x = x;
         this.ground = ground;
         this.flipped = flipped;
-        this.aim = new Vector2();
+        this.aim = new Vector2(maxAttackPower,0);
         this.maxAttackPower = maxAttackPower;
         this.maxHealth = maxHealth;
         this.maxFuel = maxFuel;
@@ -125,6 +126,18 @@ public abstract class Tank implements Serializable {
         return this.maxFuel;
     }
 
+    public void setMaxFuel(int newMax) {
+        this.maxFuel = newMax;
+    }
+
+    public float getMaxAttackPower() {
+        return this.maxAttackPower;
+    }
+
+    public void setMaxAttackPower(float newMax) {
+        this.maxAttackPower = newMax;
+    }
+
     public int getDamage() {
         // return damage of default attack
         return 1;
@@ -166,7 +179,7 @@ public abstract class Tank implements Serializable {
         if (percentX == 0 && percentY == 0) return;
         Vector2 target = new Vector2(percentX, percentY);
         target.scl(this.maxAttackPower);
-        aim.add(target.sub(aim).scl(0.1f));
+        aim.add(target.sub(aim));
     }
 
     public float getAttackAngle() {
@@ -201,8 +214,9 @@ public abstract class Tank implements Serializable {
 
     public Bullet shoot() {
         recoil(-getAttackPower() * Math.cos(getAttackAngle()));
-        return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), 33);
+        return new Bullet(getTurretBaseX(), getTurretBaseY(), getAttackPower(), getAttackAngle(), (int) this.maxAttackPower*10);
     }
+
 
     public void decreaseHealth(int damage) throws TankDeadException {
         this.health -= damage;

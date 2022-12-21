@@ -1,27 +1,18 @@
 package com.dragonjeet.tankstars.powerup;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.dragonjeet.tankstars.misc.Ground;
 import com.dragonjeet.tankstars.tank.Tank;
 
-public class ExtraDamagePowerUp implements PowerUp {
-    private final int damageBonus;
-    private TextureRegion image;
+public class ExtraDamagePowerUp extends PowerUp {
+    private final float damageBonus;
 
-    public ExtraDamagePowerUp(int damageBonus) {
-        this.damageBonus = damageBonus;
-    }
-
-    public int getDamageBonus() {
-        return damageBonus;
-    }
-
-    @Override
-    public TextureRegion getImage() {
-        return image;
+    public ExtraDamagePowerUp(int x, Ground ground) {
+        super(x,ground);
+        damageBonus = 0.3f;
     }
 
     @Override
     public void applyPowerUpTo(Tank tank) {
-        tank.setDamage(tank.getDamage() + damageBonus);
+        tank.setMaxAttackPower(tank.getMaxAttackPower() + damageBonus);
     }
 }

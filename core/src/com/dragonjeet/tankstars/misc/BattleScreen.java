@@ -131,6 +131,16 @@ public class BattleScreen implements Screen, Serializable {
     }
 
     private void renderMovement() {
+        if (game.getPowerUp() != null) {
+            game.getPowerUp().draw(game.batch);
+            if (
+                (game.getPowerUp().getX() < game.getCurrentTank().getX() && game.getPowerUp().getX() + game.getPowerUp().getWidth() > game.getCurrentTank().getX()) ||
+                (game.getPowerUp().getX() > game.getCurrentTank().getX() && game.getPowerUp().getX() < game.getCurrentTank().getX() + game.getCurrentTank().getWidth())
+            ) {
+                game.getPowerUp().applyPowerUpTo(game.getCurrentTank());
+                game.setPowerUp(null);
+            }
+        }
         if (game.getCanMove()) {
             try {
                 game.getTank1().move();
@@ -148,7 +158,7 @@ public class BattleScreen implements Screen, Serializable {
             }
             catch (TankDeadException e) {
                 // other tank wins
-                game.batch.end();
+               // game.batch.end();
                 game.setScreen(new VictoryMenu(game));
                 return;
             }
@@ -202,7 +212,7 @@ public class BattleScreen implements Screen, Serializable {
     }
 
     private void makeFuelBar() {
-        fuelBar = new ProgressBar(0, game.getCurrentTank().getMaxFuel(), 1, false, skin);
+        fuelBar = new ProgressBar(0, 100, 1, false, skin);
         fuelBar.setValue(game.getCurrentTank().getFuel());
     }
 
