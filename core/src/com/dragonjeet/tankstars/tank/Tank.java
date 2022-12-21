@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.exception.TankDeadException;
+import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.misc.Ground;
 
 import java.io.Serializable;
@@ -80,10 +81,11 @@ public abstract class Tank implements Serializable {
         return ((int) ground.getHeight(x + getWidth() / 2));
     }
 
-    public void move() throws FuelExhaustedException{
+    public void move() throws FuelExhaustedException, TankOutOfScreenException {
         if (fuel <= 0) return;
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
+            if (x < 0 || x > ground.getWidth()-getWidth()) throw new TankOutOfScreenException("Tank out of screen");
             if (xVelocity != 0) consumeFuel(1);
         }
     }

@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dragonjeet.tankstars.exception.FuelExhaustedException;
 import com.dragonjeet.tankstars.exception.TankDeadException;
+import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.PauseMenu;
 import com.dragonjeet.tankstars.menu.VictoryMenu;
 import java.io.Serializable;
@@ -33,7 +34,6 @@ public class BattleScreen implements Screen, Serializable {
     private final Viewport viewport;
     private final ShapeRenderer renderer;
     public final TankStars game;
-    public int numAirDrops;
     public boolean drawAimLine = false;
     protected ProgressBar healthBar1, healthBar2,fuelBar;
 
@@ -86,8 +86,7 @@ public class BattleScreen implements Screen, Serializable {
 
         Drawable vsDraw = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/vs.png"))));
         Button.ButtonStyle vsStyle = new Button.ButtonStyle();
-        vsStyle.down = vsDraw;
-        vsStyle.up = vsDraw;
+        vsStyle.down = vsStyle.up = vsDraw;
         vs.setStyle(vsStyle);
         table.add(vs).align(Align.top).pad(10).width(Value.percentWidth(1f, pauseButton)).height(buttonHeight);
 
@@ -135,35 +134,34 @@ public class BattleScreen implements Screen, Serializable {
         Touchpad.TouchpadStyle moveStyle = new Touchpad.TouchpadStyle();
         moveStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/aim.png"))));
         moveStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/transparent.png"))));
-        final Touchpad moveButton = new Touchpad(0, moveStyle);
-        moveButton.addListener(new ChangeListener() {
+        final Touchpad moveTouchpad = new Touchpad(0, moveStyle);
+        moveTouchpad.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (moveButton.getKnobPercentX() > 0) {
+                if (moveTouchpad.getKnobPercentX() > 0) {
                     game.getCurrentTank().setXVelocity(1);
-                } else if (moveButton.getKnobPercentX() < 0) {
+                } else if (moveTouchpad.getKnobPercentX() < 0) {
                     game.getCurrentTank().setXVelocity(-1);
                 } else {
                     game.getCurrentTank().setXVelocity(0);
                 }
             }
         });
-        root.add(moveButton).align(Align.left).expandY();
+        root.add(moveTouchpad).align(Align.left).expandY();
         root.add().expandX().width(Value.percentWidth(1f, pauseButton)).expandY();
 
-        // this touchpad will be converted to aim-angle-change touchpad
         Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle();
         touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/aim.png"))));
         touchpadStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("misc/transparent.png"))));
-        final Touchpad touchpad = new Touchpad(0, touchpadStyle);
-        touchpad.addListener(new ChangeListener() {
+        final Touchpad aimTouchpad = new Touchpad(0, touchpadStyle);
+        aimTouchpad.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.getCurrentTank().aimAt(touchpad.getKnobPercentX(), touchpad.getKnobPercentY());
+                game.getCurrentTank().aimAt(aimTouchpad.getKnobPercentX(), aimTouchpad.getKnobPercentY());
             }
         });
 
-        touchpad.addListener(new InputListener() {
+        aimTouchpad.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 drawAimLine = true;
@@ -176,7 +174,7 @@ public class BattleScreen implements Screen, Serializable {
             }
         });
 
-        root.add(touchpad).expandX().colspan(4);
+        root.add(aimTouchpad).expandX().colspan(4);
     }
 
     @Override
@@ -200,6 +198,9 @@ public class BattleScreen implements Screen, Serializable {
                 game.getTank2().move();
             }
             catch (FuelExhaustedException ignored) {
+                // log error
+            }
+            catch (TankOutOfScreenException ignored) {
                 // log error
             }
             if (drawAimLine) game.getCurrentTank().drawAim(game.batch);

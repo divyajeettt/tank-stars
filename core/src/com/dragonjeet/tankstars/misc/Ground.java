@@ -34,7 +34,7 @@ public class Ground implements Serializable {
             double amp = 100f*scalingFactor - rng.nextInt(90);
             double shift = 10*rng.nextDouble();
             for (int j=0; j < width; j++) {
-                heights.set(j, heights.get(j) + amp*Math.sin(j*freq + shift) + mean);
+                heights.set(j, getHeight(j) + amp*Math.sin(j*freq + shift) + mean);
             }
         }
         for (int i=0; i < width; i++) {
@@ -57,7 +57,7 @@ public class Ground implements Serializable {
 
     private void updateBoundary() {
         for (int i=0; i < width; i++) {
-            boundary.set(i, heights.get(i) - 8f);
+            boundary.set(i, getHeight(i) - 8f);
         }
     }
 
@@ -73,12 +73,17 @@ public class Ground implements Serializable {
         for (int i = x - damage; i < x + damage; i++) {
             if (i >= 0 && i < width) {
                 double distance = Math.abs(i - x);
-                double height = heights.get(i);
-                double newHeight = height - (damage - distance);
-                if (newHeight < 0) {
-                    newHeight = 0;
-                }
+                double newHeight = getHeight(i) - (damage - distance);
+                if (newHeight < 0) newHeight = 0;
                 heights.set(i, newHeight);
+            }
+        }
+
+        for (int i = 0; i < width; i++) {
+            int distance = Math.abs(x - i);
+            if (distance <= damage) {
+                heights.set(i, getHeight(i) - damage * (damage - distance) / damage);
+                if (getHeight(i) < 0) heights.set(i, 0.0);
             }
         }
         updateBoundary();

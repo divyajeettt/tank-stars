@@ -32,7 +32,7 @@ public class VictoryMenu extends Menu {
         playAgain.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new SelectionMenu(game));
                 dispose();
             }
         });
