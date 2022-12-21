@@ -83,8 +83,8 @@ public class BattleScreen implements Screen, Serializable {
         root.add(fuelBar).align(Align.center).padLeft(30).padTop(80).expandX().width(Value.percentWidth(4f, pauseButton)).height(Value.percentHeight(0.5f, pauseButton)).expandY();
 
         Button selector = new Button(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/selector.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/selector.png"))))
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/selector.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/selector.png"))))
         );
         root.add(selector).width(Value.percentWidth(2f, pauseButton)).height(Value.percentHeight(1.5f, pauseButton)).padTop(80).expandY().align(Align.right);
 
@@ -208,8 +208,8 @@ public class BattleScreen implements Screen, Serializable {
 
     private void makeFireButton() {
         fireButton = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/fire.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/fire.png"))))
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/fire.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/fire.png"))))
         );
 
         fireButton.addListener(new ChangeListener() {

@@ -2,7 +2,6 @@ package com.dragonjeet.tankstars.powerup;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.dragonjeet.tankstars.tank.Tank;
 
@@ -26,11 +25,11 @@ public class ExtraHealthPowerUp implements PowerUp {
 
     @Override
     public void applyPowerUpTo(Tank tank) {
-        try {
-            tank.setHealth(tank.getHealth() + this.healthBonus);
-        }
-        catch (TankDeadException ignored) {
-            // Log error
-        }
+//        try {
+//            tank.setHealth(tank.getHealth() + this.healthBonus);
+//        }
+//        catch (InvalidHealthException ignored) {
+//            // Log error
+//        }
     }
 }

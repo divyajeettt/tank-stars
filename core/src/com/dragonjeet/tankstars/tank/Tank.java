@@ -66,10 +66,10 @@ public abstract class Tank implements Serializable {
     }
 
     public void setX(int x) throws TankOutOfScreenException {
-        this.x += x;
         if (x < 0 || x > ground.getWidth()-getWidth()) {
             throw new TankOutOfScreenException("Tank out of screen");
         }
+        this.x = x;
     }
 
     public int getX() {
@@ -130,7 +130,7 @@ public abstract class Tank implements Serializable {
     protected int getTurretBaseX() {
         return x+getWidth()/2;
     }
-    
+
     protected int getTurretBaseY(){
         return getY() + getHeight();
     }

@@ -38,8 +38,8 @@ public class VictoryMenu extends Menu {
         });
 
         ImageButton returnHome = new ImageButton(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/returnHome.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/returnHome.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/returnHome.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/returnHome.png"))))
         );
 
         returnHome.addListener(new ChangeListener() {
@@ -51,8 +51,8 @@ public class VictoryMenu extends Menu {
         });
 
         ImageButton exitGame = new ImageButton(
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/exit.png")))),
-                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/exit.png"))))
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/exit.png")))),
+            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/exit.png"))))
         );
 
         exitGame.addListener(new ChangeListener() {

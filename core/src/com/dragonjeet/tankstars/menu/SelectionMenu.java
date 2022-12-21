@@ -43,16 +43,16 @@ public class SelectionMenu extends Menu {
 
     public void drawSelectedTank(SpriteBatch batch) {
         batch.draw(
-            selectedTankImage, 150, 180, 0, 0,
-            selectedTankImage.getRegionWidth(), selectedTankImage.getRegionHeight(), 2, 2, 0
+                selectedTankImage, 150, 180, 0, 0,
+                selectedTankImage.getRegionWidth(), selectedTankImage.getRegionHeight(), 2, 2, 0
         );
         batch.draw(
-            selectedTankName, 250, 700, 0, 0,
-            selectedTankName.getRegionWidth(), selectedTankName.getRegionHeight(), 1.4f, 1.4f, 0
+                selectedTankName, 250, 700, 0, 0,
+                selectedTankName.getRegionWidth(), selectedTankName.getRegionHeight(), 1.4f, 1.4f, 0
         );
         batch.draw(
-            selectedTankStats, 1100, 150, 0, 0,
-            selectedTankName.getRegionWidth(), selectedTankName.getRegionHeight(), 1.5f, 2.5f, 0
+                selectedTankStats, 1100, 150, 0, 0,
+                selectedTankName.getRegionWidth(), selectedTankName.getRegionHeight(), 1.5f, 2.5f, 0
         );
     }
 
@@ -63,8 +63,8 @@ public class SelectionMenu extends Menu {
         drawSelectedTank(game.batch);
 
         game.batch.draw(
-            playerText, 1370, 790, 0, 0,
-            playerText.getRegionWidth(), playerText.getRegionHeight(), 1.4f, 1.4f, 0
+                playerText, 1370, 790, 0, 0,
+                playerText.getRegionWidth(), playerText.getRegionHeight(), 1.4f, 1.4f, 0
         );
 
         game.batch.end();
@@ -130,8 +130,8 @@ public class SelectionMenu extends Menu {
 
     private void setActionButton() {
         this.actionButton = new ImageButton(
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/next.png")))),
-            new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/next.png"))))
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/up/next.png")))),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("buttons/down/next.png"))))
         );
 
         actionButton.addListener(new ChangeListener() {
