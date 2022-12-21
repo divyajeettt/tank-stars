@@ -1,7 +1,6 @@
 package com.dragonjeet.tankstars.powerup;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.dragonjeet.tankstars.exception.InvalidFuelException;
 import com.dragonjeet.tankstars.tank.Tank;
 
 public class ExtraFuelPowerUp implements PowerUp {

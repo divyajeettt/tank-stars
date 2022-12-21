@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.dragonjeet.tankstars.misc.Ground;
 import com.dragonjeet.tankstars.tank.Tank;
+import java.io.Serializable;
 
-public class Bullet {
+public class Bullet implements Serializable {
     private double x, y, xVelocity, yVelocity;
     private final int fullDamage;
     private final TextureRegion texture;
@@ -49,7 +50,6 @@ public class Bullet {
             }
             return true;
         }
-
         return false;
     }
 

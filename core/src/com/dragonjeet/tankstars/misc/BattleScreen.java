@@ -18,12 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.dragonjeet.tankstars.exception.FuelExhaustedException;
 import com.dragonjeet.tankstars.exception.TankDeadException;
-import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.PauseMenu;
 import com.dragonjeet.tankstars.menu.VictoryMenu;
+import java.io.Serializable;
 
-public class BattleScreen implements Screen {
+public class BattleScreen implements Screen, Serializable {
     private int width, height;
     private final Stage stage;
     private final Skin skin;
@@ -78,9 +79,6 @@ public class BattleScreen implements Screen {
         table.add(pauseButton).align(Align.top | Align.left).padTop(10).expandX().width(buttonWidth).height(buttonHeight).padLeft(10);
 
         healthBar1 = new HealthBar(0, 100, 1, false, skin);
-       // healthBar1.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
-//        healthBar1.setCustomHeight((Value.percentHeight(1f, pauseButton)).get());
-      //  healthBar1.setCustomHeight(50);
         table.add(healthBar1).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
         healthBar1.setValue(100);
 
@@ -94,8 +92,6 @@ public class BattleScreen implements Screen {
         table.add(vs).align(Align.top).pad(10).width(Value.percentWidth(1f, pauseButton)).height(buttonHeight);
 
         healthBar2 = new HealthBar(0, 100, 1, false, skin);
-      //  healthBar2.setCustomWidth((Value.percentWidth(7f, pauseButton)).get());
-       // healthBar2.setCustomHeight((Value.percentHeight(2f, pauseButton)).get());
         table.add(healthBar2).align(Align.top).padTop(10).width(Value.percentWidth(7f, pauseButton)).height(Value.percentHeight(1f, pauseButton));
         healthBar2.setValue(100);
 
@@ -199,8 +195,13 @@ public class BattleScreen implements Screen {
         game.batch.draw(background, 0, 0, width, height);
 
         if (game.getCanMove()) {
-            game.getTank1().move();
-            game.getTank2().move();
+            try {
+                game.getTank1().move();
+                game.getTank2().move();
+            }
+            catch (FuelExhaustedException ignored) {
+                // log error
+            }
             if (drawAimLine) game.getCurrentTank().drawAim(game.batch);
         }
         else {
@@ -214,7 +215,6 @@ public class BattleScreen implements Screen {
                 game.setScreen(new VictoryMenu(game));
                 return;
             }
-            catch (Exception e) {}
         }
         game.getTank1().draw(game.batch);
         game.getTank2().draw(game.batch);

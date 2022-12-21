@@ -2,6 +2,7 @@ package com.dragonjeet.tankstars.tank;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.dragonjeet.tankstars.attack.Bullet;
+import com.dragonjeet.tankstars.exception.FuelExhaustedException;
 import com.dragonjeet.tankstars.exception.InvalidHealthException;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -9,9 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.dragonjeet.tankstars.misc.Ground;
 
+import java.io.Serializable;
 import java.lang.Math;
 
-public abstract class Tank {
+public abstract class Tank implements Serializable {
     protected final boolean flipped;
     protected int x;
     protected Vector2 aim;                   // angle of muzzle
@@ -78,11 +80,7 @@ public abstract class Tank {
         return ((int) ground.getHeight(x + getWidth() / 2));
     }
 
-    public void setGround(Ground ground) {
-        this.ground = ground;
-    }
-
-    public void move() {
+    public void move() throws FuelExhaustedException{
         if (fuel <= 0) return;
         if (x+xVelocity > 1 && x+xVelocity < ground.getWidth()-getWidth()-1) {
             x += xVelocity;
@@ -163,12 +161,10 @@ public abstract class Tank {
         return aim.len();
     }
 
-    public void resetFuel(int fuel) {
-        this.fuel = this.maxFuel;
-    }
-
-    public void consumeFuel(int fuel) {
+    public void consumeFuel(int fuel) throws FuelExhaustedException {
         this.fuel -= fuel;
+        if (this.fuel < 0)
+            throw new FuelExhaustedException("Fuel tank is empty");
     }
 
     public void drawAim(SpriteBatch batch) {

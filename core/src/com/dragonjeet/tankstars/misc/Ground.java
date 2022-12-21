@@ -1,5 +1,6 @@
 package com.dragonjeet.tankstars.misc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Random;
@@ -7,7 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.Gdx;
 
 
-public class Ground {
+public class Ground implements Serializable {
     private ArrayList<Double> heights;
     private ArrayList<Double> boundary;
     private final int width;

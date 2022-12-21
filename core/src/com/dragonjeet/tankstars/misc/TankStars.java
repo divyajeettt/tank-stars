@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.menu.MainMenu;
 import com.dragonjeet.tankstars.tank.Tank;
 import com.dragonjeet.tankstars.attack.Bullet;
+import java.io.Serializable;
 
-
-public class TankStars extends Game {
+public class TankStars extends Game implements Serializable {
 	public SpriteBatch batch;
 	private Tank tank1, tank2;
 	private Ground ground;

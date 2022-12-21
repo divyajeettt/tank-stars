@@ -2,8 +2,9 @@ package com.dragonjeet.tankstars.misc;
 
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import java.io.Serializable;
 
-public class HealthBar extends ProgressBar {
+public class HealthBar extends ProgressBar implements Serializable {
     private float height, width;
 
     public HealthBar(float min, float max, float stepSize, boolean vertical, Skin skin) {
