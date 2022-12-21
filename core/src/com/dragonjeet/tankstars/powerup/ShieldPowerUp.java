@@ -3,7 +3,7 @@ package com.dragonjeet.tankstars.powerup;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dragonjeet.tankstars.tank.Tank;
 
-public class ShieldPowerUp implements PowerUp {
+public class ShieldPowerUp extends Tank implements PowerUp {
     private final int shieldBonus;
     private TextureRegion image;
 

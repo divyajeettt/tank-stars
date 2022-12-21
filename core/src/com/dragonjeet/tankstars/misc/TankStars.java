@@ -6,9 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonjeet.tankstars.exception.FuelExhaustedException;
 import com.dragonjeet.tankstars.exception.TankOutOfScreenException;
 import com.dragonjeet.tankstars.menu.MainMenu;
+import com.dragonjeet.tankstars.powerup.ExtraDamagePowerUp;
+import com.dragonjeet.tankstars.powerup.ExtraFuelPowerUp;
+import com.dragonjeet.tankstars.powerup.PowerUp;
+import com.dragonjeet.tankstars.powerup.ShieldPowerUp;
 import com.dragonjeet.tankstars.tank.Tank;
 import com.dragonjeet.tankstars.attack.Bullet;
 import java.io.Serializable;
+import java.util.Random;
 
 public class TankStars extends Game implements Serializable {
 	public SpriteBatch batch;
@@ -17,6 +22,8 @@ public class TankStars extends Game implements Serializable {
 	private boolean canMove;
 	private Bullet bullet;
 	private int turn;
+	private PowerUp powerUp;
+	private static Random random = new Random();
 
 	public void create() {
 		batch = new SpriteBatch();
@@ -24,6 +31,7 @@ public class TankStars extends Game implements Serializable {
 		canMove = true;
 		this.bullet = null;
 		turn = 0;
+		this.powerUp = null;
 	}
 
 	public Tank getCurrentTank() {
@@ -32,12 +40,22 @@ public class TankStars extends Game implements Serializable {
 
 	public void nextTurn() {
 		turn = 1 - turn;
+		if (powerUp == null) {
+			int dice = random.nextInt(100);
+			if (dice < 5) powerUp = new ExtraDamagePowerUp(10);
+			else if (dice < 10) powerUp = new ShieldPowerUp(10);
+			else if (dice < 15) powerUp = new ExtraFuelPowerUp(10);
+		}
 		try {
 			tank1.setFuel(tank1.getMaxFuel());
 			tank2.setFuel(tank2.getMaxFuel());
 		} catch (FuelExhaustedException e) {
 			Gdx.app.log("TankStars", e.getMessage());
 		}
+	}
+
+	public PowerUp getPowerUp() {
+		return powerUp;
 	}
 
 	public void setCanMove(boolean canMove) {

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dragonjeet.tankstars.exception.TankDeadException;
 import com.dragonjeet.tankstars.tank.Tank;
 
-public class ExtraHealthPowerUp implements PowerUp {
+public class ExtraHealthPowerUp extends Tank implements PowerUp {
     private final int healthBonus;
     private TextureRegion image;
 
